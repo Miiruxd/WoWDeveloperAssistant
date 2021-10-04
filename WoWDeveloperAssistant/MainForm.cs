@@ -9,6 +9,7 @@ using WoWDeveloperAssistant.Waypoints_Creator;
 using WoWDeveloperAssistant.Achievements;
 using WoWDeveloperAssistant.Creature_Scripts_Creator;
 using WoWDeveloperAssistant.Conditions_Creator;
+using WoWDeveloperAssistant.Phasing;
 
 namespace WoWDeveloperAssistant
 {
@@ -21,6 +22,7 @@ namespace WoWDeveloperAssistant
         private readonly CoreScriptTemplates coreScriptTemplate;
         private static Dictionary<uint, string> creatureNamesDict;
         private readonly ConditionsCreator conditionsCreator;
+        private readonly PhasingHandler phasingHandler;
 
         public MainForm()
         {
@@ -30,6 +32,7 @@ namespace WoWDeveloperAssistant
             waypointsCreator = new WaypointsCreator(this);
             coreScriptTemplate = new CoreScriptTemplates(this);
             conditionsCreator = new ConditionsCreator(this);
+            phasingHandler = new PhasingHandler(this);
 
             creatureNamesDict = new Dictionary<uint, string>();
 
@@ -118,7 +121,7 @@ namespace WoWDeveloperAssistant
         {
             if (e.KeyCode == Keys.Enter)
             {
-                CreatureFlagsAdvisor.GetCreatureFlags(textBox_DatabaseAdvisor_CreatureFlags.Text);
+                textBox_DatabaseAdvisor_Output.Text = CreatureFlagsAdvisor.GetCreatureFlags(textBox_DatabaseAdvisor_CreatureFlags.Text);
             }
         }
 
@@ -527,6 +530,46 @@ namespace WoWDeveloperAssistant
             creatureScriptsCreator.CreateCoreScript();
         }
 
+        private void comboBox_Phasing_EntryOrLinkedId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            phasingHandler.GenerateSql();
+        }
+
+        private void textBox_Phasing_SqlText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_Phasing_PhaseMask_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_Phasing_PhaseID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_Phasing_EntryOrLinkedId_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView_CreatureScriptsCreator_Spells_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox_DatabaseAdvisor_Output_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void textBox_ModifierTrees_ModifierTreeId_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter)
@@ -542,6 +585,11 @@ namespace WoWDeveloperAssistant
         private void createLegionCombatAISqlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             creatureScriptsCreator.GenerateCombatAISQL();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

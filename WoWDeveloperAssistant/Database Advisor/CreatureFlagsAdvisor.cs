@@ -133,51 +133,51 @@ namespace WoWDeveloperAssistant.Database_Advisor
 
         enum UnitFlags3 : long
         {
-            UNIT_FLAG3_UNK1                         = 0x00000001,
-            UNIT_FLAG3_UNK2                         = 0x00000002,
-            UNIT_FLAG3_CAN_FIGHT_WITHOUT_DISMOUNT   = 0x00000004,
-            UNIT_FLAG3_UNK4                         = 0x00000008,
-            UNIT_FLAG3_UNK5                         = 0x00000010,
-            UNIT_FLAG3_UNK6                         = 0x00000020,
-            UNIT_FLAG3_UNK7                         = 0x00000040,
-            UNIT_FLAG3_UNK8                         = 0x00000080,
-            UNIT_FLAG3_UNK9                         = 0x00000100,
-            UNIT_FLAG3_UNK10                        = 0x00000200,
-            UNIT_FLAG3_UNK11                        = 0x00000400,
-            UNIT_FLAG3_UNK12                        = 0x00000800,
-            UNIT_FLAG3_UNK13                        = 0x00001000,
-            UNIT_FLAG3_UNK14                        = 0x00002000,
-            UNIT_FLAG3_UNK15                        = 0x00004000,
-            UNIT_FLAG3_UNK16                        = 0x00008000,
-            UNIT_FLAG3_UNK17                        = 0x00010000,
-            UNIT_FLAG3_UNK18                        = 0x00020000,
-            UNIT_FLAG3_UNK19                        = 0x00040000,
-            UNIT_FLAG3_UNK20                        = 0x00080000,
-            UNIT_FLAG3_UNK21                        = 0x00100000,
-            UNIT_FLAG3_UNK22                        = 0x00200000,
-            UNIT_FLAG3_UNK23                        = 0x00400000,
-            UNIT_FLAG3_UNK24                        = 0x00800000,
-            UNIT_FLAG3_UNK25                        = 0x01000000,
-            UNIT_FLAG3_UNK26                        = 0x02000000,
-            UNIT_FLAG3_UNK27                        = 0x04000000,
-            UNIT_FLAG3_UNK28                        = 0x08000000,
-            UNIT_FLAG3_UNK29                        = 0x10000000,
-            UNIT_FLAG3_UNK30                        = 0x20000000,
-            UNIT_FLAG3_UNK31                        = 0x40000000,
-            UNIT_FLAG3_UNK32                        = 0x80000000
+            UNIT_FLAG3_PASSIVE_AI = 0x00000001,
+            UNIT_FLAG3_UNK2 = 0x00000002,
+            UNIT_FLAG3_CAN_FIGHT_WITHOUT_DISMOUNT = 0x00000004,
+            UNIT_FLAG3_UNK4 = 0x00000008,
+            UNIT_FLAG3_UNK5 = 0x00000010,
+            UNIT_FLAG3_UNK6 = 0x00000020,
+            UNIT_FLAG3_UNK7 = 0x00000040,
+            UNIT_FLAG3_UNK8 = 0x00000080,
+            UNIT_FLAG3_UNK9 = 0x00000100,
+            UNIT_FLAG3_UNK10 = 0x00000200,
+            UNIT_FLAG3_UNK11 = 0x00000400,
+            UNIT_FLAG3_UNK12 = 0x00000800,
+            UNIT_FLAG3_UNK13 = 0x00001000,
+            UNIT_FLAG3_DISPLAY_AS_CORPSE = 0x00002000,
+            UNIT_FLAG3_UNK15 = 0x00004000,
+            UNIT_FLAG3_UNK16 = 0x00008000,
+            UNIT_FLAG3_UNK17 = 0x00010000,
+            UNIT_FLAG3_ALREADY_MINED_OR_SKINNED = 0x00020000,
+            UNIT_FLAG3_UNK19 = 0x00040000,
+            UNIT_FLAG3_UNK20 = 0x00080000,
+            UNIT_FLAG3_UNK21 = 0x00100000,
+            UNIT_FLAG3_UNK22 = 0x00200000,
+            UNIT_FLAG3_UNK23 = 0x00400000,
+            UNIT_FLAG3_UNK24 = 0x00800000,
+            UNIT_FLAG3_UNK25 = 0x01000000,
+            UNIT_FLAG3_UNK26 = 0x02000000,
+            UNIT_FLAG3_UNK27 = 0x04000000,
+            UNIT_FLAG3_UNK28 = 0x08000000,
+            UNIT_FLAG3_UNK29 = 0x10000000,
+            UNIT_FLAG3_UNK30 = 0x20000000,
+            UNIT_FLAG3_UNK31 = 0x40000000,
+            UNIT_FLAG3_UNK32 = 0x80000000
         };
 
         enum DynamicFlags : long
         {
-            UNIT_DYNFLAG_NONE                       = 0x0000,
-            UNIT_DYNFLAG_UNK_1                      = 0x0001,
-            UNIT_DYNFLAG_HIDE_MODEL                 = 0x0002,
-            UNIT_DYNFLAG_LOOTABLE                   = 0x0004,
-            UNIT_DYNFLAG_TRACK_UNIT                 = 0x0008,
-            UNIT_DYNFLAG_TAPPED                     = 0x0010,
-            UNIT_DYNFLAG_SPECIALINFO                = 0x0020,
-            UNIT_DYNFLAG_DEAD                       = 0x0040,
-            UNIT_DYNFLAG_REFER_A_FRIEND             = 0x0080
+            UNIT_DYNFLAG_NONE                   = 0x0000,
+            UNIT_DYNFLAG_HIDE_MODEL             = 0x0001, ///< Object model is not shown with this flag
+            UNIT_DYNFLAG_NO_INTERACT            = 0x0002,
+            UNIT_DYNFLAG_LOOTABLE               = 0x0004,
+            UNIT_DYNFLAG_TRACK_UNIT             = 0x0008,
+            UNIT_DYNFLAG_TAPPED                 = 0x0010, ///< Lua_UnitIsTapped
+            UNIT_DYNFLAG_SPECIALINFO            = 0x0020,
+            UNIT_DYNFLAG_DEAD                   = 0x0040,
+            UNIT_DYNFLAG_LOCK_SPELLCLICK        = 0x0080
         };
 
         enum FlagsExtra : long
@@ -259,7 +259,7 @@ namespace WoWDeveloperAssistant.Database_Advisor
             CREATURE_TYPEFLAGS_2_UNK13          = 0x00001000
         };
 
-        public static void GetCreatureFlags(string creatureEntry)
+        public static string GetCreatureFlags(string creatureEntry)
         {
             DataSet unitFlagsDs = new DataSet();
             DataSet typeFlagsDs = new DataSet();
@@ -268,12 +268,12 @@ namespace WoWDeveloperAssistant.Database_Advisor
             unitFlagsDs = SQLModule.DatabaseSelectQuery(unitFlagsSqlQuery);
             typeFlagsDs = SQLModule.DatabaseSelectQuery(typeFlagsSqlQuery);
             if (unitFlagsDs == null || typeFlagsDs == null)
-                return;
+                return "";
 
             if (unitFlagsDs.Tables["table"].Rows.Count == 0 || typeFlagsDs.Tables["table"].Rows.Count == 0)
             {
                 MessageBox.Show("Creature doesn't exists in your database!");
-                return;
+                return "";
             }
 
             long npcFlags = Convert.ToInt64(unitFlagsDs.Tables["table"].Rows[0][0].ToString());
@@ -524,7 +524,8 @@ namespace WoWDeveloperAssistant.Database_Advisor
             else
                 outputText += "Creature doesn't have any TypeFlags2!\r\n";
 
-            MessageBox.Show(outputText);
+            return outputText;
+            //MessageBox.Show(outputText);
         }
     }
 }

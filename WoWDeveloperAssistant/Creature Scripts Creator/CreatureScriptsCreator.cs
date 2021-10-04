@@ -524,7 +524,7 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
 
             string scriptBody = "";
             string defaultName = "";
-            string scriptName = "";
+            //string scriptName = "";
 
             string creatureNameQuery = $"SELECT `Name1` FROM `creature_template_wdb` WHERE `entry` = {creature.entry};";
             var creatureNameDs = Properties.Settings.Default.UsingDB ? SQLModule.DatabaseSelectQuery(creatureNameQuery) : null;
@@ -540,15 +540,17 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
             if (defaultName == "")
                 return;
 
-            scriptName = $"npc_{CreatureScriptTemplate.NormilizeScriptName(defaultName)}_{creature.entry}";
-            scriptBody = $"/// {defaultName} - {creature.entry}" + "\r\n";
-            scriptBody += $"struct {scriptName} : public ScriptedAI" + "\r\n";
-            scriptBody += "{" + "\r\n";
-            scriptBody += $"{AddSpacesCount(4)}explicit {scriptName}(Creature* p_Creature) : ScriptedAI(p_Creature) {{ }}";
+            //scriptName = $"npc_{CreatureScriptTemplate.NormilizeScriptName(defaultName)}_{creature.entry}";
+            scriptBody = $"// {defaultName}\r\n";
             scriptBody += GetEnumsBody();
-            scriptBody += GetHooksBody(creature);
-            scriptBody += "\r\n" + "};" + "\r\n";
+            //scriptBody += $"// <{defaultName}> : {creature.entry}" + "\r\n";
+            //scriptBody += $"struct {scriptName} : public ScriptedAI" + "\r\n";
+            //scriptBody += "{" + "\r\n";
+            //scriptBody += $"{AddSpacesCount(4)}explicit {scriptName}(Creature* p_Creature) : ScriptedAI(p_Creature) {{ }}";
+            //scriptBody += GetHooksBody(creature);
+            //scriptBody += "\r\n" + "};" + "\r\n";
 
+            mainForm.textBox_SqlOutput.Text = scriptBody;
             Clipboard.SetText(scriptBody);
         }
 
@@ -556,23 +558,18 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
         {
             string body = "";
 
-            body += $"\r\n\r\n{AddSpacesCount(4)}enum eSpells\r\n{AddSpacesCount(4)}{{";
+            //body += $"\r\n\r\n{AddSpacesCount(4)}enum eSpells\r\n{AddSpacesCount(4)}{{";
+            //body += $"\r\n\r\n";
 
             for (int l = 0; l < mainForm.dataGridView_CreatureScriptsCreator_Spells.RowCount; l++)
             {
                 Spell spell = (Spell)mainForm.dataGridView_CreatureScriptsCreator_Spells[8, l].Value;
-
-                if (l == 0)
-                {
-                    body += $"\r\n{AddSpacesCount(8)}{NormilizeName(spell.name)} = {spell.spellId}";
-                }
-                else
-                {
-                    body += $",\r\n{AddSpacesCount(8)}{NormilizeName(spell.name)} = {spell.spellId}";
-                }
+                if (l != 0)
+                    body += $"\r\n";
+                body += $"Spell{NormilizeName(spell.name)} = {spell.spellId},";
             }
 
-            body += $"\r\n{AddSpacesCount(4)}}};";
+            //body += $"\r\n{AddSpacesCount(4)}}};";
 
             bool hasCombatSpells = false;
 
@@ -586,23 +583,18 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
 
             if (hasCombatSpells)
             {
-                body += $"\r\n\r\n{AddSpacesCount(4)}enum eEvents\r\n{AddSpacesCount(4)}{{";
+                //body += $"\r\n\r\n{AddSpacesCount(4)}enum eEvents\r\n{AddSpacesCount(4)}{{";
+                body += $"\r\n";
 
                 for (int l = 0; l < mainForm.dataGridView_CreatureScriptsCreator_Spells.RowCount; l++)
                 {
                     Spell spell = (Spell)mainForm.dataGridView_CreatureScriptsCreator_Spells[8, l].Value;
 
-                    if (!spell.isDeathSpell && l == 0)
-                    {
-                        body += $"\r\n{AddSpacesCount(8)}Cast{NormilizeName(spell.name)} = {l + 1}";
-                    }
-                    else if (!spell.isDeathSpell && l > 0)
-                    {
-                        body += $",\r\n{AddSpacesCount(8)}Cast{NormilizeName(spell.name)} = {l + 1}";
-                    }
+                    if (!spell.isDeathSpell)
+                        body += $"\r\nEventCast{NormilizeName(spell.name)},";
                 }
 
-                body += $"\r\n{AddSpacesCount(4)}}};";
+                body += $"\r\n\r\n";
             }
 
             return body;
@@ -703,8 +695,8 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
                     }
 
                     body += $"\r\n{AddSpacesCount(16)}break;";
-                    body += $"\r\n{AddSpacesCount(12)}}}";
-                    body += $"\r\n{AddSpacesCount(12)}default:\r\n{AddSpacesCount(16)}break;";
+                    //body += $"\r\n{AddSpacesCount(12)}}}";
+                    //body += $"\r\n{AddSpacesCount(12)}default:\r\n{AddSpacesCount(16)}break;";
                 }
             }
 

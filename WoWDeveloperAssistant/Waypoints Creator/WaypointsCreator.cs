@@ -989,7 +989,7 @@ namespace WoWDeveloperAssistant.Waypoints_Creator
                     }
                 }
 
-                output += "UPDATE `creature_template` SET `InhabitType` = " + dbInhabitType + ", " + dbSpeed + " WHERE `entry` = " + entry + ";" + " -- Creature Name: " + MainForm.GetCreatureNameByEntry(entry) + ", Possible speeds was: " + possibleSpeeds + "\r\n";
+                output += "UPDATE `creature_template` SET " + dbSpeed + " WHERE `entry` = " + entry + ";" + " -- " + MainForm.GetCreatureNameByEntry(entry) + "\r\n";
             }
 
             mainForm.textBox_SqlOutput.Text = output;
@@ -1209,7 +1209,7 @@ namespace WoWDeveloperAssistant.Waypoints_Creator
             {
                 SQLtext += "\r\n";
                 SQLtext += "-- Vector3 for movement in core for " + creature.name + " Entry: " + creature.entry + "\r\n";
-                SQLtext = SQLtext + "std::vector<G3D::Vector3> const g_Path" + creature.name + " =" + "\r\n";
+                SQLtext = SQLtext + "std::vector<G3D::Vector3> const g_" + String.Concat(creature.name.Where(c => !Char.IsWhiteSpace(c))) + "Path =" + "\r\n";
                 SQLtext = SQLtext + "{" + "\r\n";
 
                 for (int i = 0; i < waypoints.Count; i++)
@@ -1218,11 +1218,11 @@ namespace WoWDeveloperAssistant.Waypoints_Creator
 
                     if (i < (waypoints.Count - 1))
                     {
-                        SQLtext = SQLtext + "{ " + waypoint.movePosition.x.GetValueWithoutComma() + "f, " + waypoint.movePosition.y.GetValueWithoutComma() + "f, " + waypoint.movePosition.z.GetValueWithoutComma() + "f },\r\n";
+                        SQLtext = SQLtext + "    { " + waypoint.movePosition.x.GetValueWithoutComma() + "f, " + waypoint.movePosition.y.GetValueWithoutComma() + "f, " + waypoint.movePosition.z.GetValueWithoutComma() + "f },\r\n";
                     }
                     else
                     {
-                        SQLtext = SQLtext + "{ " + waypoint.movePosition.x.GetValueWithoutComma() + "f, " + waypoint.movePosition.y.GetValueWithoutComma() + "f, " + waypoint.movePosition.z.GetValueWithoutComma() + "f }\r\n";
+                        SQLtext = SQLtext + "    { " + waypoint.movePosition.x.GetValueWithoutComma() + "f, " + waypoint.movePosition.y.GetValueWithoutComma() + "f, " + waypoint.movePosition.z.GetValueWithoutComma() + "f }\r\n";
                     }
                 }
 
