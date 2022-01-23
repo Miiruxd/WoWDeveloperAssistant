@@ -416,7 +416,8 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
             Creature creature = creaturesDict[mainForm.listBox_CreatureScriptCreator_CreatureGuids.SelectedItem.ToString()];
             int i = 0;
 
-            var SQLtext = "UPDATE `creature_template` SET `AIName` = 'LegionCombatAI' WHERE `entry` = " + creature.entry + ";\r\n";
+            var SQLtext = "-- " + creature.name + "\r\n";
+            SQLtext += "UPDATE `creature_template` SET `AIName` = 'LegionCombatAI' WHERE `entry` = " + creature.entry + ";\r\n";
             SQLtext += "DELETE FROM `combat_ai_events` WHERE `entry` = " + creature.entry + ";\r\n";
             SQLtext += "INSERT INTO `combat_ai_events` (`entry`, `id`, `start_min`, `start_max`, `repeat_min`, `repeat_max`, `repeat_fail`, `spell_id`, `event_check`, `event_flags`, `attack_dist`, `difficulty_mask`, `comment`) VALUES\r\n";
 
