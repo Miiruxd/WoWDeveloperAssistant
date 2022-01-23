@@ -368,7 +368,7 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
                 }
                 else
                 {
-                    using (FileStream fileStream = new FileStream("multi_selected_script_packets.dat", FileMode.OpenOrCreate))
+                    using (FileStream fileStream = new FileStream(fileName.Replace("_parsed.txt", "multi_selected_script_packets.dat"), FileMode.OpenOrCreate))
                     {
                         Dictionary<uint, object> dictToSerialize = new Dictionary<uint, object>
                         {
@@ -397,15 +397,18 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
                 dictFromSerialize = (Dictionary<uint, object>)binaryFormatter.Deserialize(fileStream);
             }
 
+            Dictionary<string, Creature> creatureDictFromSerialize = (Dictionary<string, Creature>)dictFromSerialize[0];
+            Dictionary<uint, List<CreatureText>> creatureTextsDictFromSerialize = (Dictionary<uint, List<CreatureText>>)dictFromSerialize[1];
+
             if (multiSelect)
             {
-                creaturesDict.Union((Dictionary<string, Creature>)dictFromSerialize[0]);
-                creatureTextsDict.Union((Dictionary<uint, List<CreatureText>>)dictFromSerialize[1]);
+                creaturesDict = creaturesDict.Concat(creatureDictFromSerialize.Where(x => !creaturesDict.ContainsKey(x.Key))).ToDictionary(x => x.Key, x => x.Value);
+                creatureTextsDict = creatureTextsDict.Concat(creatureTextsDictFromSerialize.Where(x => !creatureTextsDict.ContainsKey(x.Key))).ToDictionary(x => x.Key, x => x.Value);
             }
             else
             {
-                creaturesDict = (Dictionary<string, Creature>)dictFromSerialize[0];
-                creatureTextsDict = (Dictionary<uint, List<CreatureText>>)dictFromSerialize[1];
+                creaturesDict = creatureDictFromSerialize;
+                creatureTextsDict = creatureTextsDictFromSerialize;
             }
 
             return true;
@@ -621,21 +624,23 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
             for (int l = 0; l < mainForm.dataGridView_CreatureScriptsCreator_Spells.RowCount; l++)
             {
                 Spell spell = (Spell)mainForm.dataGridView_CreatureScriptsCreator_Spells[8, l].Value;
+                double minCastTime = Math.Floor(spell.combatCastTimings.minCastTime.TotalSeconds) * 1000;
+                double maxCastTime = Math.Floor(spell.combatCastTimings.maxCastTime.TotalSeconds) * 1000;
 
                 if (!spell.isDeathSpell && l == 0)
                 {
                     if (IsCreatureHasAggroText(creature.entry))
                     {
-                        body += $"\r\n\r\n{AddSpacesCount(8)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, urand({Math.Floor(spell.combatCastTimings.minCastTime.TotalSeconds) * 1000}, {Math.Floor(spell.combatCastTimings.maxCastTime.TotalSeconds) * 1000}));";
+                        body += $"\r\n\r\n{AddSpacesCount(8)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, " + (minCastTime != maxCastTime ? $"urand({minCastTime}, {maxCastTime})" : $"{minCastTime}")  + ");";
                     }
                     else
                     {
-                        body += $"\r\n{AddSpacesCount(8)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, urand({Math.Floor(spell.combatCastTimings.minCastTime.TotalSeconds) * 1000}, {Math.Floor(spell.combatCastTimings.maxCastTime.TotalSeconds) * 1000}));";
+                        body += $"\r\n{AddSpacesCount(8)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, " + (minCastTime != maxCastTime ? $"urand({minCastTime}, {maxCastTime})" : $"{minCastTime}") + ");";
                     }
                 }
                 else if (!spell.isDeathSpell && l > 0)
                 {
-                    body += $"\r\n{AddSpacesCount(8)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, urand({Math.Floor(spell.combatCastTimings.minCastTime.TotalSeconds) * 1000}, {Math.Floor(spell.combatCastTimings.maxCastTime.TotalSeconds) * 1000}));";
+                    body += $"\r\n{AddSpacesCount(8)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, " + (minCastTime != maxCastTime ? $"urand({minCastTime}, {maxCastTime})" : $"{minCastTime}") + ");";
                 }
             }
 
@@ -657,22 +662,24 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
             for (int l = 0; l < mainForm.dataGridView_CreatureScriptsCreator_Spells.RowCount; l++)
             {
                 Spell spell = (Spell)mainForm.dataGridView_CreatureScriptsCreator_Spells[8, l].Value;
+                double minRepeatTime = Math.Floor(spell.combatCastTimings.minRepeatTime.TotalSeconds) * 1000;
+                double maxRepeatTime = Math.Floor(spell.combatCastTimings.maxRepeatTime.TotalSeconds) * 1000;
 
                 if (!spell.isDeathSpell && l + 1 < mainForm.dataGridView_CreatureScriptsCreator_Spells.RowCount)
                 {
                     body += $"\r\n{AddSpacesCount(12)}case eEvents::Cast{NormilizeName(spell.name)}:\r\n{AddSpacesCount(12)}{{\r\n{AddSpacesCount(16)}" + (spell.GetTargetType() == 1 ? "DoCast" : "DoCastVictim") + $"(eSpells::{NormilizeName(spell.name)});";
 
-                    if (Math.Floor(spell.combatCastTimings.minRepeatTime.TotalSeconds) == Math.Floor(spell.combatCastTimings.maxRepeatTime.TotalSeconds))
+                    if (minRepeatTime == maxRepeatTime)
                     {
-                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, {Math.Floor(spell.combatCastTimings.minRepeatTime.TotalSeconds) * 1000});";
+                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, {minRepeatTime});";
                     }
-                    else if (Math.Floor(spell.combatCastTimings.minRepeatTime.TotalSeconds) == 0 && Math.Floor(spell.combatCastTimings.maxRepeatTime.TotalSeconds) == 0)
+                    else if (minRepeatTime == 0 && maxRepeatTime == 0)
                     {
-                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, 0);";
+                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, 1);";
                     }
                     else
                     {
-                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, urand({Math.Floor(spell.combatCastTimings.minRepeatTime.TotalSeconds) * 1000}, {Math.Floor(spell.combatCastTimings.maxRepeatTime.TotalSeconds) * 1000}));";
+                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, urand({minRepeatTime}, {maxRepeatTime}));";
                     }
 
                     body += $"\r\n{AddSpacesCount(16)}break;";
@@ -682,17 +689,17 @@ namespace WoWDeveloperAssistant.Creature_Scripts_Creator
                 {
                     body += $"\r\n{AddSpacesCount(12)}case eEvents::Cast{NormilizeName(spell.name)}:\r\n{AddSpacesCount(12)}{{\r\n{AddSpacesCount(16)}" + (spell.GetTargetType() == 1 ? "DoCast" : "DoCastVictim") + $"(eSpells::{NormilizeName(spell.name)});";
 
-                    if (Math.Floor(spell.combatCastTimings.minRepeatTime.TotalSeconds) == Math.Floor(spell.combatCastTimings.maxRepeatTime.TotalSeconds))
+                    if (minRepeatTime == maxRepeatTime)
                     {
-                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, {Math.Floor(spell.combatCastTimings.minRepeatTime.TotalSeconds) * 1000});";
+                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, {minRepeatTime});";
                     }
-                    else if (Math.Floor(spell.combatCastTimings.minRepeatTime.TotalSeconds) == 0 && Math.Floor(spell.combatCastTimings.maxRepeatTime.TotalSeconds) == 0)
+                    else if (minRepeatTime == 0 && maxRepeatTime == 0)
                     {
                         body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, 0);";
                     }
                     else
                     {
-                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, urand({Math.Floor(spell.combatCastTimings.minRepeatTime.TotalSeconds) * 1000}, {Math.Floor(spell.combatCastTimings.maxRepeatTime.TotalSeconds) * 1000}));";
+                        body += $"\r\n{AddSpacesCount(16)}events.ScheduleEvent(eEvents::Cast{NormilizeName(spell.name)}, urand({minRepeatTime}, {maxRepeatTime}));";
                     }
 
                     body += $"\r\n{AddSpacesCount(16)}break;";

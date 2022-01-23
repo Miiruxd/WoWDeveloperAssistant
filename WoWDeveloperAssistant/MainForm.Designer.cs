@@ -142,6 +142,7 @@
             this.label_DoubleSpawnsRemover_CreaturesRemoved = new System.Windows.Forms.Label();
             this.button_DoubleSpawnsRemover_ImportFile = new System.Windows.Forms.Button();
             this.tabPage_CoreScriptTemplates = new System.Windows.Forms.TabPage();
+            this.Core_script_creatore_preview = new System.Windows.Forms.RichTextBox();
             this.treeView_CoreScriptTemplates_HookBodies = new System.Windows.Forms.TreeView();
             this.label_CoreScriptTemplates_ScriptType = new System.Windows.Forms.Label();
             this.comboBox_CoreScriptTemplates_ScriptType = new System.Windows.Forms.ComboBox();
@@ -272,11 +273,11 @@
             this.tabPage_CreatureScriptsCreator.Controls.Add(this.dataGridView_CreatureScriptsCreator_Spells);
             this.tabPage_CreatureScriptsCreator.Controls.Add(this.listBox_CreatureScriptCreator_CreatureGuids);
             this.tabPage_CreatureScriptsCreator.Controls.Add(this.toolStrip_CreatureScriptsCreator);
-            this.tabPage_CreatureScriptsCreator.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_CreatureScriptsCreator.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_CreatureScriptsCreator.Location = new System.Drawing.Point(4, 29);
+            this.tabPage_CreatureScriptsCreator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_CreatureScriptsCreator.Name = "tabPage_CreatureScriptsCreator";
-            this.tabPage_CreatureScriptsCreator.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_CreatureScriptsCreator.Size = new System.Drawing.Size(1555, 848);
+            this.tabPage_CreatureScriptsCreator.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_CreatureScriptsCreator.Size = new System.Drawing.Size(2040, 955);
             this.tabPage_CreatureScriptsCreator.TabIndex = 0;
             this.tabPage_CreatureScriptsCreator.Text = "Creature Scripts Creator";
             this.tabPage_CreatureScriptsCreator.UseVisualStyleBackColor = true;
@@ -286,8 +287,8 @@
             this.checkBox_CreatureScriptsCreator_CreateDataFile.AutoSize = true;
             this.checkBox_CreatureScriptsCreator_CreateDataFile.BackColor = System.Drawing.Color.LightGray;
             this.checkBox_CreatureScriptsCreator_CreateDataFile.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox_CreatureScriptsCreator_CreateDataFile.Location = new System.Drawing.Point(823, 5);
-            this.checkBox_CreatureScriptsCreator_CreateDataFile.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox_CreatureScriptsCreator_CreateDataFile.Location = new System.Drawing.Point(1235, 8);
+            this.checkBox_CreatureScriptsCreator_CreateDataFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox_CreatureScriptsCreator_CreateDataFile.Name = "checkBox_CreatureScriptsCreator_CreateDataFile";
             this.checkBox_CreatureScriptsCreator_CreateDataFile.Size = new System.Drawing.Size(108, 19);
             this.checkBox_CreatureScriptsCreator_CreateDataFile.TabIndex = 5;
@@ -301,8 +302,8 @@
             this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.Checked = true;
             this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.Location = new System.Drawing.Point(935, 5);
-            this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.Location = new System.Drawing.Point(1402, 8);
+            this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.Name = "checkBox_CreatureScriptsCreator_OnlyCombatSpells";
             this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.Size = new System.Drawing.Size(162, 19);
             this.checkBox_CreatureScriptsCreator_OnlyCombatSpells.TabIndex = 4;
@@ -329,8 +330,9 @@
             this.CastsCount,
             this.SourceSpell});
             this.dataGridView_CreatureScriptsCreator_Spells.ContextMenuStrip = this.contextMenuStrip_CreatureScriptsCreator;
-            this.dataGridView_CreatureScriptsCreator_Spells.Location = new System.Drawing.Point(683, 32);
-            this.dataGridView_CreatureScriptsCreator_Spells.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridView_CreatureScriptsCreator_Spells.Enabled = false;
+            this.dataGridView_CreatureScriptsCreator_Spells.Location = new System.Drawing.Point(760, 49);
+            this.dataGridView_CreatureScriptsCreator_Spells.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView_CreatureScriptsCreator_Spells.Name = "dataGridView_CreatureScriptsCreator_Spells";
             this.dataGridView_CreatureScriptsCreator_Spells.RowHeadersWidth = 62;
             this.dataGridView_CreatureScriptsCreator_Spells.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
@@ -471,7 +473,7 @@
             // createLegionCombatAISqlToolStripMenuItem
             // 
             this.createLegionCombatAISqlToolStripMenuItem.Name = "createLegionCombatAISqlToolStripMenuItem";
-            this.createLegionCombatAISqlToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.createLegionCombatAISqlToolStripMenuItem.Size = new System.Drawing.Size(310, 32);
             this.createLegionCombatAISqlToolStripMenuItem.Text = "Create LegionCombatAI SQL";
             this.createLegionCombatAISqlToolStripMenuItem.Click += new System.EventHandler(this.createLegionCombatAISqlToolStripMenuItem_Click);
             // 
@@ -487,8 +489,9 @@
             this.listBox_CreatureScriptCreator_CreatureGuids.BackColor = System.Drawing.SystemColors.Control;
             this.listBox_CreatureScriptCreator_CreatureGuids.Enabled = false;
             this.listBox_CreatureScriptCreator_CreatureGuids.FormattingEnabled = true;
-            this.listBox_CreatureScriptCreator_CreatureGuids.Location = new System.Drawing.Point(5, 32);
-            this.listBox_CreatureScriptCreator_CreatureGuids.Margin = new System.Windows.Forms.Padding(2);
+            this.listBox_CreatureScriptCreator_CreatureGuids.ItemHeight = 20;
+            this.listBox_CreatureScriptCreator_CreatureGuids.Location = new System.Drawing.Point(8, 49);
+            this.listBox_CreatureScriptCreator_CreatureGuids.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox_CreatureScriptCreator_CreatureGuids.Name = "listBox_CreatureScriptCreator_CreatureGuids";
             this.listBox_CreatureScriptCreator_CreatureGuids.Size = new System.Drawing.Size(674, 810);
             this.listBox_CreatureScriptCreator_CreatureGuids.TabIndex = 2;
@@ -503,7 +506,7 @@
             this.toolStripTextBox_CreatureScriptsCreator_CreatureEntry,
             this.toolStripLabel_CreatureScriptsCreator_CreatureEntry,
             this.toolStripSeparator_CSC});
-            this.toolStrip_CreatureScriptsCreator.Location = new System.Drawing.Point(2, 2);
+            this.toolStrip_CreatureScriptsCreator.Location = new System.Drawing.Point(3, 2);
             this.toolStrip_CreatureScriptsCreator.Name = "toolStrip_CreatureScriptsCreator";
             this.toolStrip_CreatureScriptsCreator.Size = new System.Drawing.Size(1551, 25);
             this.toolStrip_CreatureScriptsCreator.TabIndex = 1;
@@ -560,11 +563,11 @@
             this.tabPage_WaypointsCreator.Controls.Add(this.listBox_WaypointsCreator_CreatureGuids);
             this.tabPage_WaypointsCreator.Controls.Add(this.chart_WaypointsCreator_Path);
             this.tabPage_WaypointsCreator.Controls.Add(this.toolStrip_WaypointsCreator);
-            this.tabPage_WaypointsCreator.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_WaypointsCreator.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_WaypointsCreator.Location = new System.Drawing.Point(4, 29);
+            this.tabPage_WaypointsCreator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_WaypointsCreator.Name = "tabPage_WaypointsCreator";
-            this.tabPage_WaypointsCreator.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_WaypointsCreator.Size = new System.Drawing.Size(1555, 848);
+            this.tabPage_WaypointsCreator.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_WaypointsCreator.Size = new System.Drawing.Size(2040, 955);
             this.tabPage_WaypointsCreator.TabIndex = 4;
             this.tabPage_WaypointsCreator.Text = "Waypoints Creator";
             this.tabPage_WaypointsCreator.UseVisualStyleBackColor = true;
@@ -574,8 +577,8 @@
             this.checkBox_WaypointsCreator_CreateDataFile.AutoSize = true;
             this.checkBox_WaypointsCreator_CreateDataFile.BackColor = System.Drawing.Color.LightGray;
             this.checkBox_WaypointsCreator_CreateDataFile.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox_WaypointsCreator_CreateDataFile.Location = new System.Drawing.Point(913, 5);
-            this.checkBox_WaypointsCreator_CreateDataFile.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox_WaypointsCreator_CreateDataFile.Location = new System.Drawing.Point(1369, 8);
+            this.checkBox_WaypointsCreator_CreateDataFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox_WaypointsCreator_CreateDataFile.Name = "checkBox_WaypointsCreator_CreateDataFile";
             this.checkBox_WaypointsCreator_CreateDataFile.Size = new System.Drawing.Size(108, 19);
             this.checkBox_WaypointsCreator_CreateDataFile.TabIndex = 29;
@@ -922,9 +925,9 @@
             this.toolStripSeparator1,
             this.toolStripButton_WaypointsCreator_Settings,
             this.toolStripButton_WaypointsCreator_LoadSniff});
-            this.toolStrip_WaypointsCreator.Location = new System.Drawing.Point(2, 2);
+            this.toolStrip_WaypointsCreator.Location = new System.Drawing.Point(3, 2);
             this.toolStrip_WaypointsCreator.Name = "toolStrip_WaypointsCreator";
-            this.toolStrip_WaypointsCreator.Size = new System.Drawing.Size(1551, 25);
+            this.toolStrip_WaypointsCreator.Size = new System.Drawing.Size(2034, 38);
             this.toolStrip_WaypointsCreator.TabIndex = 24;
             this.toolStrip_WaypointsCreator.Text = "toolStrip_WaypointsCreator";
             // 
@@ -935,7 +938,7 @@
             this.toolStripButton_WaypointsCreator_Search.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_WaypointsCreator_Search.Image")));
             this.toolStripButton_WaypointsCreator_Search.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_WaypointsCreator_Search.Name = "toolStripButton_WaypointsCreator_Search";
-            this.toolStripButton_WaypointsCreator_Search.Size = new System.Drawing.Size(62, 22);
+            this.toolStripButton_WaypointsCreator_Search.Size = new System.Drawing.Size(84, 33);
             this.toolStripButton_WaypointsCreator_Search.Text = "Search";
             this.toolStripButton_WaypointsCreator_Search.ToolTipText = "Fill listbox with guids of\r\nselected entry or all entries.";
             this.toolStripButton_WaypointsCreator_Search.Click += new System.EventHandler(this.toolStripButton_WCSearch_Click);
@@ -947,7 +950,7 @@
             this.toolStripTextBox_WaypointsCreator_Entry.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox_WaypointsCreator_Entry.MaxLength = 40;
             this.toolStripTextBox_WaypointsCreator_Entry.Name = "toolStripTextBox_WaypointsCreator_Entry";
-            this.toolStripTextBox_WaypointsCreator_Entry.Size = new System.Drawing.Size(70, 25);
+            this.toolStripTextBox_WaypointsCreator_Entry.Size = new System.Drawing.Size(103, 38);
             this.toolStripTextBox_WaypointsCreator_Entry.Tag = "";
             this.toolStripTextBox_WaypointsCreator_Entry.ToolTipText = "Input entry of creature or leave\r\nblank to fill listbox will all in sniff.";
             this.toolStripTextBox_WaypointsCreator_Entry.KeyUp += new System.Windows.Forms.KeyEventHandler(this.toolStripTextBox_WCSearch_Enter);
@@ -957,7 +960,7 @@
             this.toolStripLabel_WaypointsCreator_Entry.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabel_WaypointsCreator_Entry.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripLabel_WaypointsCreator_Entry.Name = "toolStripLabel_WaypointsCreator_Entry";
-            this.toolStripLabel_WaypointsCreator_Entry.Size = new System.Drawing.Size(123, 22);
+            this.toolStripLabel_WaypointsCreator_Entry.Size = new System.Drawing.Size(184, 33);
             this.toolStripLabel_WaypointsCreator_Entry.Text = "Creature EntryOrGuid:";
             this.toolStripLabel_WaypointsCreator_Entry.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -965,7 +968,7 @@
             // 
             this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
             // 
             // toolStripButton_WaypointsCreator_Settings
             // 
@@ -973,7 +976,7 @@
             this.toolStripButton_WaypointsCreator_Settings.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_WaypointsCreator_Settings.Image")));
             this.toolStripButton_WaypointsCreator_Settings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_WaypointsCreator_Settings.Name = "toolStripButton_WaypointsCreator_Settings";
-            this.toolStripButton_WaypointsCreator_Settings.Size = new System.Drawing.Size(69, 22);
+            this.toolStripButton_WaypointsCreator_Settings.Size = new System.Drawing.Size(96, 33);
             this.toolStripButton_WaypointsCreator_Settings.Text = "Settings";
             this.toolStripButton_WaypointsCreator_Settings.ToolTipText = "Setup chart and output SQL.";
             this.toolStripButton_WaypointsCreator_Settings.Click += new System.EventHandler(this.toolStripButton_WCSettings_Click);
@@ -983,7 +986,7 @@
             this.toolStripButton_WaypointsCreator_LoadSniff.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_WaypointsCreator_LoadSniff.Image")));
             this.toolStripButton_WaypointsCreator_LoadSniff.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_WaypointsCreator_LoadSniff.Name = "toolStripButton_WaypointsCreator_LoadSniff";
-            this.toolStripButton_WaypointsCreator_LoadSniff.Size = new System.Drawing.Size(90, 22);
+            this.toolStripButton_WaypointsCreator_LoadSniff.Size = new System.Drawing.Size(128, 33);
             this.toolStripButton_WaypointsCreator_LoadSniff.Text = "Import Sniff";
             this.toolStripButton_WaypointsCreator_LoadSniff.ToolTipText = "Import a parsed wpp sniff file.";
             this.toolStripButton_WaypointsCreator_LoadSniff.Click += new System.EventHandler(this.toolStripButton_WCLoadSniff_Click);
@@ -991,11 +994,11 @@
             // tabPage_SqlOutput
             // 
             this.tabPage_SqlOutput.Controls.Add(this.textBox_SqlOutput);
-            this.tabPage_SqlOutput.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_SqlOutput.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_SqlOutput.Location = new System.Drawing.Point(4, 29);
+            this.tabPage_SqlOutput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_SqlOutput.Name = "tabPage_SqlOutput";
-            this.tabPage_SqlOutput.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_SqlOutput.Size = new System.Drawing.Size(1555, 848);
+            this.tabPage_SqlOutput.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_SqlOutput.Size = new System.Drawing.Size(2040, 955);
             this.tabPage_SqlOutput.TabIndex = 1;
             this.tabPage_SqlOutput.Text = "Sql Output";
             this.tabPage_SqlOutput.UseVisualStyleBackColor = true;
@@ -1004,12 +1007,12 @@
             // 
             this.textBox_SqlOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_SqlOutput.Font = new System.Drawing.Font("Courier New", 9.75F);
-            this.textBox_SqlOutput.Location = new System.Drawing.Point(2, 2);
-            this.textBox_SqlOutput.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_SqlOutput.Location = new System.Drawing.Point(3, 2);
+            this.textBox_SqlOutput.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_SqlOutput.Multiline = true;
             this.textBox_SqlOutput.Name = "textBox_SqlOutput";
             this.textBox_SqlOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox_SqlOutput.Size = new System.Drawing.Size(1551, 844);
+            this.textBox_SqlOutput.Size = new System.Drawing.Size(2034, 951);
             this.textBox_SqlOutput.TabIndex = 0;
             this.textBox_SqlOutput.WordWrap = false;
             // 
@@ -1030,19 +1033,19 @@
             this.tabPage_DatabaseAdvisor.Controls.Add(this.label_DatabaseAdvisor_QuestFlags);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_CreatureFlags);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.label_DatabaseAdvisor_CreatureFlags);
-            this.tabPage_DatabaseAdvisor.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_DatabaseAdvisor.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_DatabaseAdvisor.Location = new System.Drawing.Point(4, 29);
+            this.tabPage_DatabaseAdvisor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_DatabaseAdvisor.Name = "tabPage_DatabaseAdvisor";
-            this.tabPage_DatabaseAdvisor.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_DatabaseAdvisor.Size = new System.Drawing.Size(1555, 848);
+            this.tabPage_DatabaseAdvisor.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_DatabaseAdvisor.Size = new System.Drawing.Size(2040, 955);
             this.tabPage_DatabaseAdvisor.TabIndex = 2;
             this.tabPage_DatabaseAdvisor.Text = "Database Advisor";
             this.tabPage_DatabaseAdvisor.UseVisualStyleBackColor = true;
             // 
             // textBox_DatabaseAdvisor_FindDoublePaths
             // 
-            this.textBox_DatabaseAdvisor_FindDoublePaths.Location = new System.Drawing.Point(14, 282);
-            this.textBox_DatabaseAdvisor_FindDoublePaths.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_DatabaseAdvisor_FindDoublePaths.Location = new System.Drawing.Point(8, 392);
+            this.textBox_DatabaseAdvisor_FindDoublePaths.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_DatabaseAdvisor_FindDoublePaths.Name = "textBox_DatabaseAdvisor_FindDoublePaths";
             this.textBox_DatabaseAdvisor_FindDoublePaths.Size = new System.Drawing.Size(94, 20);
             this.textBox_DatabaseAdvisor_FindDoublePaths.TabIndex = 14;
@@ -1060,8 +1063,8 @@
             // 
             // textBox_DatabaseAdvisor_PlayerCastedSpells
             // 
-            this.textBox_DatabaseAdvisor_PlayerCastedSpells.Location = new System.Drawing.Point(14, 238);
-            this.textBox_DatabaseAdvisor_PlayerCastedSpells.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_DatabaseAdvisor_PlayerCastedSpells.Location = new System.Drawing.Point(8, 324);
+            this.textBox_DatabaseAdvisor_PlayerCastedSpells.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_DatabaseAdvisor_PlayerCastedSpells.Name = "textBox_DatabaseAdvisor_PlayerCastedSpells";
             this.textBox_DatabaseAdvisor_PlayerCastedSpells.Size = new System.Drawing.Size(94, 20);
             this.textBox_DatabaseAdvisor_PlayerCastedSpells.TabIndex = 12;
@@ -1081,8 +1084,8 @@
             // 
             this.textBox_DatabaseAdvisor_Output.ContextMenuStrip = this.contextMenuStrip_DatabaseAdvisor;
             this.textBox_DatabaseAdvisor_Output.Font = new System.Drawing.Font("Courier New", 9.75F);
-            this.textBox_DatabaseAdvisor_Output.Location = new System.Drawing.Point(126, 2);
-            this.textBox_DatabaseAdvisor_Output.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_DatabaseAdvisor_Output.Location = new System.Drawing.Point(189, 2);
+            this.textBox_DatabaseAdvisor_Output.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_DatabaseAdvisor_Output.MaxLength = 1000000;
             this.textBox_DatabaseAdvisor_Output.Multiline = true;
             this.textBox_DatabaseAdvisor_Output.Name = "textBox_DatabaseAdvisor_Output";
@@ -1125,8 +1128,8 @@
             // 
             // textBox_DatabaseAdvisor_GossipMenuText
             // 
-            this.textBox_DatabaseAdvisor_GossipMenuText.Location = new System.Drawing.Point(14, 195);
-            this.textBox_DatabaseAdvisor_GossipMenuText.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_DatabaseAdvisor_GossipMenuText.Location = new System.Drawing.Point(7, 259);
+            this.textBox_DatabaseAdvisor_GossipMenuText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_DatabaseAdvisor_GossipMenuText.Name = "textBox_DatabaseAdvisor_GossipMenuText";
             this.textBox_DatabaseAdvisor_GossipMenuText.Size = new System.Drawing.Size(94, 20);
             this.textBox_DatabaseAdvisor_GossipMenuText.TabIndex = 9;
@@ -1135,8 +1138,7 @@
             // label_DatabaseAdvisor_GossipMenuText
             // 
             this.label_DatabaseAdvisor_GossipMenuText.AutoSize = true;
-            this.label_DatabaseAdvisor_GossipMenuText.Location = new System.Drawing.Point(12, 180);
-            this.label_DatabaseAdvisor_GossipMenuText.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_DatabaseAdvisor_GossipMenuText.Location = new System.Drawing.Point(4, 236);
             this.label_DatabaseAdvisor_GossipMenuText.Name = "label_DatabaseAdvisor_GossipMenuText";
             this.label_DatabaseAdvisor_GossipMenuText.Size = new System.Drawing.Size(93, 13);
             this.label_DatabaseAdvisor_GossipMenuText.TabIndex = 8;
@@ -1144,8 +1146,8 @@
             // 
             // textBox_DatabaseAdvisor_SpellDestinations
             // 
-            this.textBox_DatabaseAdvisor_SpellDestinations.Location = new System.Drawing.Point(14, 156);
-            this.textBox_DatabaseAdvisor_SpellDestinations.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_DatabaseAdvisor_SpellDestinations.Location = new System.Drawing.Point(8, 198);
+            this.textBox_DatabaseAdvisor_SpellDestinations.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_DatabaseAdvisor_SpellDestinations.Name = "textBox_DatabaseAdvisor_SpellDestinations";
             this.textBox_DatabaseAdvisor_SpellDestinations.Size = new System.Drawing.Size(94, 20);
             this.textBox_DatabaseAdvisor_SpellDestinations.TabIndex = 7;
@@ -1163,8 +1165,8 @@
             // 
             // textBox_DatabaseAdvisor_AreatriggerSplines
             // 
-            this.textBox_DatabaseAdvisor_AreatriggerSplines.Location = new System.Drawing.Point(14, 119);
-            this.textBox_DatabaseAdvisor_AreatriggerSplines.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_DatabaseAdvisor_AreatriggerSplines.Location = new System.Drawing.Point(8, 142);
+            this.textBox_DatabaseAdvisor_AreatriggerSplines.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_DatabaseAdvisor_AreatriggerSplines.Name = "textBox_DatabaseAdvisor_AreatriggerSplines";
             this.textBox_DatabaseAdvisor_AreatriggerSplines.Size = new System.Drawing.Size(94, 20);
             this.textBox_DatabaseAdvisor_AreatriggerSplines.TabIndex = 5;
@@ -1173,8 +1175,7 @@
             // label_DatabaseAdvisor_AreatriggerSplines
             // 
             this.label_DatabaseAdvisor_AreatriggerSplines.AutoSize = true;
-            this.label_DatabaseAdvisor_AreatriggerSplines.Location = new System.Drawing.Point(11, 103);
-            this.label_DatabaseAdvisor_AreatriggerSplines.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_DatabaseAdvisor_AreatriggerSplines.Location = new System.Drawing.Point(3, 118);
             this.label_DatabaseAdvisor_AreatriggerSplines.Name = "label_DatabaseAdvisor_AreatriggerSplines";
             this.label_DatabaseAdvisor_AreatriggerSplines.Size = new System.Drawing.Size(95, 13);
             this.label_DatabaseAdvisor_AreatriggerSplines.TabIndex = 4;
@@ -1182,8 +1183,8 @@
             // 
             // textBox_DatabaseAdvisor_QuestFlags
             // 
-            this.textBox_DatabaseAdvisor_QuestFlags.Location = new System.Drawing.Point(14, 82);
-            this.textBox_DatabaseAdvisor_QuestFlags.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_DatabaseAdvisor_QuestFlags.Location = new System.Drawing.Point(8, 85);
+            this.textBox_DatabaseAdvisor_QuestFlags.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_DatabaseAdvisor_QuestFlags.Name = "textBox_DatabaseAdvisor_QuestFlags";
             this.textBox_DatabaseAdvisor_QuestFlags.Size = new System.Drawing.Size(94, 20);
             this.textBox_DatabaseAdvisor_QuestFlags.TabIndex = 3;
@@ -1201,8 +1202,8 @@
             // 
             // textBox_DatabaseAdvisor_CreatureFlags
             // 
-            this.textBox_DatabaseAdvisor_CreatureFlags.Location = new System.Drawing.Point(14, 45);
-            this.textBox_DatabaseAdvisor_CreatureFlags.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_DatabaseAdvisor_CreatureFlags.Location = new System.Drawing.Point(8, 28);
+            this.textBox_DatabaseAdvisor_CreatureFlags.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_DatabaseAdvisor_CreatureFlags.Name = "textBox_DatabaseAdvisor_CreatureFlags";
             this.textBox_DatabaseAdvisor_CreatureFlags.Size = new System.Drawing.Size(95, 20);
             this.textBox_DatabaseAdvisor_CreatureFlags.TabIndex = 1;
@@ -1211,8 +1212,7 @@
             // label_DatabaseAdvisor_CreatureFlags
             // 
             this.label_DatabaseAdvisor_CreatureFlags.AutoSize = true;
-            this.label_DatabaseAdvisor_CreatureFlags.Location = new System.Drawing.Point(13, 30);
-            this.label_DatabaseAdvisor_CreatureFlags.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_DatabaseAdvisor_CreatureFlags.Location = new System.Drawing.Point(4, 2);
             this.label_DatabaseAdvisor_CreatureFlags.Name = "label_DatabaseAdvisor_CreatureFlags";
             this.label_DatabaseAdvisor_CreatureFlags.Size = new System.Drawing.Size(75, 13);
             this.label_DatabaseAdvisor_CreatureFlags.TabIndex = 0;
@@ -1225,11 +1225,11 @@
             this.tabPage_DoubleSpawnsRemover.Controls.Add(this.checkBox_DoubleSpawnsRemover_Creatures);
             this.tabPage_DoubleSpawnsRemover.Controls.Add(this.label_DoubleSpawnsRemover_CreaturesRemoved);
             this.tabPage_DoubleSpawnsRemover.Controls.Add(this.button_DoubleSpawnsRemover_ImportFile);
-            this.tabPage_DoubleSpawnsRemover.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_DoubleSpawnsRemover.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_DoubleSpawnsRemover.Location = new System.Drawing.Point(4, 29);
+            this.tabPage_DoubleSpawnsRemover.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_DoubleSpawnsRemover.Name = "tabPage_DoubleSpawnsRemover";
-            this.tabPage_DoubleSpawnsRemover.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_DoubleSpawnsRemover.Size = new System.Drawing.Size(1555, 848);
+            this.tabPage_DoubleSpawnsRemover.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_DoubleSpawnsRemover.Size = new System.Drawing.Size(2040, 955);
             this.tabPage_DoubleSpawnsRemover.TabIndex = 3;
             this.tabPage_DoubleSpawnsRemover.Text = "Double-Spawns Remover";
             this.tabPage_DoubleSpawnsRemover.UseVisualStyleBackColor = true;
@@ -1250,8 +1250,8 @@
             this.checkBox_DoubleSpawnsRemover_Gameobjects.AutoSize = true;
             this.checkBox_DoubleSpawnsRemover_Gameobjects.Checked = true;
             this.checkBox_DoubleSpawnsRemover_Gameobjects.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_DoubleSpawnsRemover_Gameobjects.Location = new System.Drawing.Point(692, 61);
-            this.checkBox_DoubleSpawnsRemover_Gameobjects.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox_DoubleSpawnsRemover_Gameobjects.Location = new System.Drawing.Point(802, 5);
+            this.checkBox_DoubleSpawnsRemover_Gameobjects.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox_DoubleSpawnsRemover_Gameobjects.Name = "checkBox_DoubleSpawnsRemover_Gameobjects";
             this.checkBox_DoubleSpawnsRemover_Gameobjects.Size = new System.Drawing.Size(88, 17);
             this.checkBox_DoubleSpawnsRemover_Gameobjects.TabIndex = 3;
@@ -1264,8 +1264,8 @@
             this.checkBox_DoubleSpawnsRemover_Creatures.AutoSize = true;
             this.checkBox_DoubleSpawnsRemover_Creatures.Checked = true;
             this.checkBox_DoubleSpawnsRemover_Creatures.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_DoubleSpawnsRemover_Creatures.Location = new System.Drawing.Point(624, 61);
-            this.checkBox_DoubleSpawnsRemover_Creatures.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBox_DoubleSpawnsRemover_Creatures.Location = new System.Drawing.Point(700, 5);
+            this.checkBox_DoubleSpawnsRemover_Creatures.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox_DoubleSpawnsRemover_Creatures.Name = "checkBox_DoubleSpawnsRemover_Creatures";
             this.checkBox_DoubleSpawnsRemover_Creatures.Size = new System.Drawing.Size(71, 17);
             this.checkBox_DoubleSpawnsRemover_Creatures.TabIndex = 2;
@@ -1291,8 +1291,8 @@
             this.button_DoubleSpawnsRemover_ImportFile.FlatAppearance.BorderColor = System.Drawing.Color.Black;
             this.button_DoubleSpawnsRemover_ImportFile.FlatAppearance.BorderSize = 5;
             this.button_DoubleSpawnsRemover_ImportFile.Font = new System.Drawing.Font("Sitka Small", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_DoubleSpawnsRemover_ImportFile.Location = new System.Drawing.Point(624, 77);
-            this.button_DoubleSpawnsRemover_ImportFile.Margin = new System.Windows.Forms.Padding(2);
+            this.button_DoubleSpawnsRemover_ImportFile.Location = new System.Drawing.Point(700, 29);
+            this.button_DoubleSpawnsRemover_ImportFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_DoubleSpawnsRemover_ImportFile.Name = "button_DoubleSpawnsRemover_ImportFile";
             this.button_DoubleSpawnsRemover_ImportFile.Size = new System.Drawing.Size(294, 27);
             this.button_DoubleSpawnsRemover_ImportFile.TabIndex = 0;
@@ -1302,29 +1302,41 @@
             // 
             // tabPage_CoreScriptTemplates
             // 
+            this.tabPage_CoreScriptTemplates.Controls.Add(this.Core_script_creatore_preview);
             this.tabPage_CoreScriptTemplates.Controls.Add(this.treeView_CoreScriptTemplates_HookBodies);
             this.tabPage_CoreScriptTemplates.Controls.Add(this.label_CoreScriptTemplates_ScriptType);
             this.tabPage_CoreScriptTemplates.Controls.Add(this.comboBox_CoreScriptTemplates_ScriptType);
             this.tabPage_CoreScriptTemplates.Controls.Add(this.label_CoreScriptTemplates_ObjectId);
             this.tabPage_CoreScriptTemplates.Controls.Add(this.textBox_CoreScriptTemplates_ObjectId);
             this.tabPage_CoreScriptTemplates.Controls.Add(this.listBox_CoreScriptTemplates_Hooks);
-            this.tabPage_CoreScriptTemplates.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_CoreScriptTemplates.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_CoreScriptTemplates.Location = new System.Drawing.Point(4, 29);
+            this.tabPage_CoreScriptTemplates.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_CoreScriptTemplates.Name = "tabPage_CoreScriptTemplates";
-            this.tabPage_CoreScriptTemplates.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_CoreScriptTemplates.Size = new System.Drawing.Size(1555, 848);
+            this.tabPage_CoreScriptTemplates.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_CoreScriptTemplates.Size = new System.Drawing.Size(2040, 955);
             this.tabPage_CoreScriptTemplates.TabIndex = 5;
             this.tabPage_CoreScriptTemplates.Text = "Core Script Templates";
             this.tabPage_CoreScriptTemplates.UseVisualStyleBackColor = true;
             // 
+            // Core_script_creatore_preview
+            // 
+            this.Core_script_creatore_preview.Location = new System.Drawing.Point(500, 49);
+            this.Core_script_creatore_preview.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Core_script_creatore_preview.Name = "Core_script_creatore_preview";
+            this.Core_script_creatore_preview.ReadOnly = true;
+            this.Core_script_creatore_preview.Size = new System.Drawing.Size(1532, 889);
+            this.Core_script_creatore_preview.TabIndex = 7;
+            this.Core_script_creatore_preview.Text = "";
+            // 
             // treeView_CoreScriptTemplates_HookBodies
             // 
             this.treeView_CoreScriptTemplates_HookBodies.CheckBoxes = true;
-            this.treeView_CoreScriptTemplates_HookBodies.Location = new System.Drawing.Point(161, 32);
-            this.treeView_CoreScriptTemplates_HookBodies.Margin = new System.Windows.Forms.Padding(2);
+            this.treeView_CoreScriptTemplates_HookBodies.Location = new System.Drawing.Point(242, 49);
+            this.treeView_CoreScriptTemplates_HookBodies.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeView_CoreScriptTemplates_HookBodies.Name = "treeView_CoreScriptTemplates_HookBodies";
             this.treeView_CoreScriptTemplates_HookBodies.Size = new System.Drawing.Size(168, 576);
             this.treeView_CoreScriptTemplates_HookBodies.TabIndex = 6;
+            this.treeView_CoreScriptTemplates_HookBodies.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView_CoreScriptTemplates_HookBodies_AfterCheck);
             // 
             // label_CoreScriptTemplates_ScriptType
             // 
@@ -1344,8 +1356,8 @@
             "AreaTrigger",
             "Spell",
             "PlayerScript"});
-            this.comboBox_CoreScriptTemplates_ScriptType.Location = new System.Drawing.Point(69, 6);
-            this.comboBox_CoreScriptTemplates_ScriptType.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox_CoreScriptTemplates_ScriptType.Location = new System.Drawing.Point(104, 9);
+            this.comboBox_CoreScriptTemplates_ScriptType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_CoreScriptTemplates_ScriptType.Name = "comboBox_CoreScriptTemplates_ScriptType";
             this.comboBox_CoreScriptTemplates_ScriptType.Size = new System.Drawing.Size(82, 21);
             this.comboBox_CoreScriptTemplates_ScriptType.TabIndex = 1;
@@ -1364,18 +1376,20 @@
             // textBox_CoreScriptTemplates_ObjectId
             // 
             this.textBox_CoreScriptTemplates_ObjectId.Enabled = false;
-            this.textBox_CoreScriptTemplates_ObjectId.Location = new System.Drawing.Point(259, 6);
-            this.textBox_CoreScriptTemplates_ObjectId.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_CoreScriptTemplates_ObjectId.Location = new System.Drawing.Point(388, 9);
+            this.textBox_CoreScriptTemplates_ObjectId.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_CoreScriptTemplates_ObjectId.MaxLength = 6;
             this.textBox_CoreScriptTemplates_ObjectId.Name = "textBox_CoreScriptTemplates_ObjectId";
             this.textBox_CoreScriptTemplates_ObjectId.Size = new System.Drawing.Size(48, 20);
             this.textBox_CoreScriptTemplates_ObjectId.TabIndex = 2;
+            this.textBox_CoreScriptTemplates_ObjectId.TextChanged += new System.EventHandler(this.textBox_CoreScriptTemplates_ObjectId_TextChanged);
             this.textBox_CoreScriptTemplates_ObjectId.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_CoreScriptTemplates_Enter);
             // 
             // listBox_CoreScriptTemplates_Hooks
             // 
-            this.listBox_CoreScriptTemplates_Hooks.Location = new System.Drawing.Point(5, 32);
-            this.listBox_CoreScriptTemplates_Hooks.Margin = new System.Windows.Forms.Padding(2);
+            this.listBox_CoreScriptTemplates_Hooks.ItemHeight = 20;
+            this.listBox_CoreScriptTemplates_Hooks.Location = new System.Drawing.Point(8, 49);
+            this.listBox_CoreScriptTemplates_Hooks.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox_CoreScriptTemplates_Hooks.Name = "listBox_CoreScriptTemplates_Hooks";
             this.listBox_CoreScriptTemplates_Hooks.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.listBox_CoreScriptTemplates_Hooks.Size = new System.Drawing.Size(146, 576);
@@ -1401,11 +1415,11 @@
             this.tabPage_Achievements.Controls.Add(this.label_Achievements_AchievementName);
             this.tabPage_Achievements.Controls.Add(this.textBox_Achievements_AchievementId);
             this.tabPage_Achievements.Controls.Add(this.label_Achievements_AchievementId);
-            this.tabPage_Achievements.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Achievements.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_Achievements.Location = new System.Drawing.Point(4, 29);
+            this.tabPage_Achievements.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_Achievements.Name = "tabPage_Achievements";
-            this.tabPage_Achievements.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_Achievements.Size = new System.Drawing.Size(1555, 848);
+            this.tabPage_Achievements.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_Achievements.Size = new System.Drawing.Size(2040, 955);
             this.tabPage_Achievements.TabIndex = 6;
             this.tabPage_Achievements.Text = "Achievements";
             this.tabPage_Achievements.UseVisualStyleBackColor = true;
@@ -1422,8 +1436,8 @@
             // 
             // treeView_Achievements_ModifierTreeChildNodes
             // 
-            this.treeView_Achievements_ModifierTreeChildNodes.Location = new System.Drawing.Point(1015, 163);
-            this.treeView_Achievements_ModifierTreeChildNodes.Margin = new System.Windows.Forms.Padding(2);
+            this.treeView_Achievements_ModifierTreeChildNodes.Location = new System.Drawing.Point(1522, 251);
+            this.treeView_Achievements_ModifierTreeChildNodes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeView_Achievements_ModifierTreeChildNodes.Name = "treeView_Achievements_ModifierTreeChildNodes";
             this.treeView_Achievements_ModifierTreeChildNodes.Size = new System.Drawing.Size(335, 443);
             this.treeView_Achievements_ModifierTreeChildNodes.TabIndex = 15;
@@ -1440,8 +1454,8 @@
             // 
             // treeView_Achievements_ModifierTrees
             // 
-            this.treeView_Achievements_ModifierTrees.Location = new System.Drawing.Point(678, 163);
-            this.treeView_Achievements_ModifierTrees.Margin = new System.Windows.Forms.Padding(2);
+            this.treeView_Achievements_ModifierTrees.Location = new System.Drawing.Point(1017, 251);
+            this.treeView_Achievements_ModifierTrees.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeView_Achievements_ModifierTrees.Name = "treeView_Achievements_ModifierTrees";
             this.treeView_Achievements_ModifierTrees.Size = new System.Drawing.Size(335, 443);
             this.treeView_Achievements_ModifierTrees.TabIndex = 13;
@@ -1460,8 +1474,8 @@
             // 
             // treeView_Achievements_Criterias
             // 
-            this.treeView_Achievements_Criterias.Location = new System.Drawing.Point(341, 163);
-            this.treeView_Achievements_Criterias.Margin = new System.Windows.Forms.Padding(2);
+            this.treeView_Achievements_Criterias.Location = new System.Drawing.Point(512, 251);
+            this.treeView_Achievements_Criterias.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeView_Achievements_Criterias.Name = "treeView_Achievements_Criterias";
             this.treeView_Achievements_Criterias.Size = new System.Drawing.Size(335, 443);
             this.treeView_Achievements_Criterias.TabIndex = 11;
@@ -1540,8 +1554,8 @@
             // 
             // treeView_Achievements_ChildNodes
             // 
-            this.treeView_Achievements_ChildNodes.Location = new System.Drawing.Point(3, 163);
-            this.treeView_Achievements_ChildNodes.Margin = new System.Windows.Forms.Padding(2);
+            this.treeView_Achievements_ChildNodes.Location = new System.Drawing.Point(4, 251);
+            this.treeView_Achievements_ChildNodes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeView_Achievements_ChildNodes.Name = "treeView_Achievements_ChildNodes";
             this.treeView_Achievements_ChildNodes.Size = new System.Drawing.Size(335, 443);
             this.treeView_Achievements_ChildNodes.TabIndex = 3;
@@ -1560,8 +1574,8 @@
             // 
             // textBox_Achievements_AchievementId
             // 
-            this.textBox_Achievements_AchievementId.Location = new System.Drawing.Point(87, 1);
-            this.textBox_Achievements_AchievementId.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_Achievements_AchievementId.Location = new System.Drawing.Point(130, 2);
+            this.textBox_Achievements_AchievementId.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_Achievements_AchievementId.Name = "textBox_Achievements_AchievementId";
             this.textBox_Achievements_AchievementId.Size = new System.Drawing.Size(68, 20);
             this.textBox_Achievements_AchievementId.TabIndex = 1;
@@ -1606,11 +1620,11 @@
             this.tabPage_ConditionsCreator.Controls.Add(this.label_ConditionsCreator_ConditionSourceGroup);
             this.tabPage_ConditionsCreator.Controls.Add(this.comboBox_ConditionsCreator_ConditionSourceType);
             this.tabPage_ConditionsCreator.Controls.Add(this.label_ConditionsCreator_ConditionSourceType);
-            this.tabPage_ConditionsCreator.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_ConditionsCreator.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_ConditionsCreator.Location = new System.Drawing.Point(4, 29);
+            this.tabPage_ConditionsCreator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_ConditionsCreator.Name = "tabPage_ConditionsCreator";
-            this.tabPage_ConditionsCreator.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_ConditionsCreator.Size = new System.Drawing.Size(1555, 848);
+            this.tabPage_ConditionsCreator.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_ConditionsCreator.Size = new System.Drawing.Size(2040, 955);
             this.tabPage_ConditionsCreator.TabIndex = 7;
             this.tabPage_ConditionsCreator.Text = "Conditions Creator";
             this.tabPage_ConditionsCreator.UseVisualStyleBackColor = true;
@@ -1618,8 +1632,8 @@
             // button_ConditionsCreator_ClearConditions
             // 
             this.button_ConditionsCreator_ClearConditions.Enabled = false;
-            this.button_ConditionsCreator_ClearConditions.Location = new System.Drawing.Point(229, 266);
-            this.button_ConditionsCreator_ClearConditions.Margin = new System.Windows.Forms.Padding(2);
+            this.button_ConditionsCreator_ClearConditions.Location = new System.Drawing.Point(344, 409);
+            this.button_ConditionsCreator_ClearConditions.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_ConditionsCreator_ClearConditions.Name = "button_ConditionsCreator_ClearConditions";
             this.button_ConditionsCreator_ClearConditions.Size = new System.Drawing.Size(92, 20);
             this.button_ConditionsCreator_ClearConditions.TabIndex = 26;
@@ -1630,8 +1644,8 @@
             // button_ConditionsCreator_AddCondition
             // 
             this.button_ConditionsCreator_AddCondition.Enabled = false;
-            this.button_ConditionsCreator_AddCondition.Location = new System.Drawing.Point(8, 266);
-            this.button_ConditionsCreator_AddCondition.Margin = new System.Windows.Forms.Padding(2);
+            this.button_ConditionsCreator_AddCondition.Location = new System.Drawing.Point(12, 409);
+            this.button_ConditionsCreator_AddCondition.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_ConditionsCreator_AddCondition.Name = "button_ConditionsCreator_AddCondition";
             this.button_ConditionsCreator_AddCondition.Size = new System.Drawing.Size(84, 20);
             this.button_ConditionsCreator_AddCondition.TabIndex = 25;
@@ -1642,8 +1656,8 @@
             // textBox_ConditionsCreator_Output
             // 
             this.textBox_ConditionsCreator_Output.Enabled = false;
-            this.textBox_ConditionsCreator_Output.Location = new System.Drawing.Point(651, 4);
-            this.textBox_ConditionsCreator_Output.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_Output.Location = new System.Drawing.Point(976, 6);
+            this.textBox_ConditionsCreator_Output.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_Output.Multiline = true;
             this.textBox_ConditionsCreator_Output.Name = "textBox_ConditionsCreator_Output";
             this.textBox_ConditionsCreator_Output.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -1703,8 +1717,8 @@
             // textBox_ConditionsCreator_ScriptName
             // 
             this.textBox_ConditionsCreator_ScriptName.Enabled = false;
-            this.textBox_ConditionsCreator_ScriptName.Location = new System.Drawing.Point(107, 236);
-            this.textBox_ConditionsCreator_ScriptName.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_ScriptName.Location = new System.Drawing.Point(160, 362);
+            this.textBox_ConditionsCreator_ScriptName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_ScriptName.MaxLength = 50;
             this.textBox_ConditionsCreator_ScriptName.Name = "textBox_ConditionsCreator_ScriptName";
             this.textBox_ConditionsCreator_ScriptName.Size = new System.Drawing.Size(215, 20);
@@ -1713,8 +1727,8 @@
             // textBox_ConditionsCreator_NegativeCondition
             // 
             this.textBox_ConditionsCreator_NegativeCondition.Enabled = false;
-            this.textBox_ConditionsCreator_NegativeCondition.Location = new System.Drawing.Point(107, 215);
-            this.textBox_ConditionsCreator_NegativeCondition.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_NegativeCondition.Location = new System.Drawing.Point(160, 331);
+            this.textBox_ConditionsCreator_NegativeCondition.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_NegativeCondition.MaxLength = 1;
             this.textBox_ConditionsCreator_NegativeCondition.Name = "textBox_ConditionsCreator_NegativeCondition";
             this.textBox_ConditionsCreator_NegativeCondition.Size = new System.Drawing.Size(21, 20);
@@ -1725,8 +1739,8 @@
             // textBox_ConditionsCreator_ConditionValue3
             // 
             this.textBox_ConditionsCreator_ConditionValue3.Enabled = false;
-            this.textBox_ConditionsCreator_ConditionValue3.Location = new System.Drawing.Point(107, 194);
-            this.textBox_ConditionsCreator_ConditionValue3.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_ConditionValue3.Location = new System.Drawing.Point(160, 298);
+            this.textBox_ConditionsCreator_ConditionValue3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_ConditionValue3.MaxLength = 6;
             this.textBox_ConditionsCreator_ConditionValue3.Name = "textBox_ConditionsCreator_ConditionValue3";
             this.textBox_ConditionsCreator_ConditionValue3.Size = new System.Drawing.Size(68, 20);
@@ -1735,8 +1749,8 @@
             // textBox_ConditionsCreator_ConditionValue2
             // 
             this.textBox_ConditionsCreator_ConditionValue2.Enabled = false;
-            this.textBox_ConditionsCreator_ConditionValue2.Location = new System.Drawing.Point(107, 174);
-            this.textBox_ConditionsCreator_ConditionValue2.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_ConditionValue2.Location = new System.Drawing.Point(160, 268);
+            this.textBox_ConditionsCreator_ConditionValue2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_ConditionValue2.MaxLength = 6;
             this.textBox_ConditionsCreator_ConditionValue2.Name = "textBox_ConditionsCreator_ConditionValue2";
             this.textBox_ConditionsCreator_ConditionValue2.Size = new System.Drawing.Size(68, 20);
@@ -1745,8 +1759,8 @@
             // textBox_ConditionsCreator_ConditionValue1
             // 
             this.textBox_ConditionsCreator_ConditionValue1.Enabled = false;
-            this.textBox_ConditionsCreator_ConditionValue1.Location = new System.Drawing.Point(107, 153);
-            this.textBox_ConditionsCreator_ConditionValue1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_ConditionValue1.Location = new System.Drawing.Point(160, 235);
+            this.textBox_ConditionsCreator_ConditionValue1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_ConditionValue1.MaxLength = 6;
             this.textBox_ConditionsCreator_ConditionValue1.Name = "textBox_ConditionsCreator_ConditionValue1";
             this.textBox_ConditionsCreator_ConditionValue1.Size = new System.Drawing.Size(68, 20);
@@ -1755,8 +1769,8 @@
             // textBox_ConditionsCreator_ConditionTarget
             // 
             this.textBox_ConditionsCreator_ConditionTarget.Enabled = false;
-            this.textBox_ConditionsCreator_ConditionTarget.Location = new System.Drawing.Point(107, 132);
-            this.textBox_ConditionsCreator_ConditionTarget.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_ConditionTarget.Location = new System.Drawing.Point(160, 202);
+            this.textBox_ConditionsCreator_ConditionTarget.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_ConditionTarget.MaxLength = 1;
             this.textBox_ConditionsCreator_ConditionTarget.Name = "textBox_ConditionsCreator_ConditionTarget";
             this.textBox_ConditionsCreator_ConditionTarget.Size = new System.Drawing.Size(21, 20);
@@ -1788,8 +1802,8 @@
             // 
             this.comboBox_ConditionsCreator_ConditionType.Enabled = false;
             this.comboBox_ConditionsCreator_ConditionType.FormattingEnabled = true;
-            this.comboBox_ConditionsCreator_ConditionType.Location = new System.Drawing.Point(107, 110);
-            this.comboBox_ConditionsCreator_ConditionType.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox_ConditionsCreator_ConditionType.Location = new System.Drawing.Point(160, 169);
+            this.comboBox_ConditionsCreator_ConditionType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_ConditionsCreator_ConditionType.Name = "comboBox_ConditionsCreator_ConditionType";
             this.comboBox_ConditionsCreator_ConditionType.Size = new System.Drawing.Size(215, 21);
             this.comboBox_ConditionsCreator_ConditionType.TabIndex = 10;
@@ -1799,8 +1813,8 @@
             // textBox_ConditionsCreator_ElseGroup
             // 
             this.textBox_ConditionsCreator_ElseGroup.Enabled = false;
-            this.textBox_ConditionsCreator_ElseGroup.Location = new System.Drawing.Point(107, 90);
-            this.textBox_ConditionsCreator_ElseGroup.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_ElseGroup.Location = new System.Drawing.Point(160, 138);
+            this.textBox_ConditionsCreator_ElseGroup.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_ElseGroup.MaxLength = 2;
             this.textBox_ConditionsCreator_ElseGroup.Name = "textBox_ConditionsCreator_ElseGroup";
             this.textBox_ConditionsCreator_ElseGroup.Size = new System.Drawing.Size(35, 20);
@@ -1821,8 +1835,8 @@
             // textBox_ConditionsCreator_SourceId
             // 
             this.textBox_ConditionsCreator_SourceId.Enabled = false;
-            this.textBox_ConditionsCreator_SourceId.Location = new System.Drawing.Point(107, 69);
-            this.textBox_ConditionsCreator_SourceId.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_SourceId.Location = new System.Drawing.Point(160, 106);
+            this.textBox_ConditionsCreator_SourceId.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_SourceId.MaxLength = 1;
             this.textBox_ConditionsCreator_SourceId.Name = "textBox_ConditionsCreator_SourceId";
             this.textBox_ConditionsCreator_SourceId.Size = new System.Drawing.Size(21, 20);
@@ -1843,8 +1857,8 @@
             // textBox_ConditionsCreator_SourceEntry
             // 
             this.textBox_ConditionsCreator_SourceEntry.Enabled = false;
-            this.textBox_ConditionsCreator_SourceEntry.Location = new System.Drawing.Point(107, 48);
-            this.textBox_ConditionsCreator_SourceEntry.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_SourceEntry.Location = new System.Drawing.Point(160, 74);
+            this.textBox_ConditionsCreator_SourceEntry.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_SourceEntry.MaxLength = 6;
             this.textBox_ConditionsCreator_SourceEntry.Name = "textBox_ConditionsCreator_SourceEntry";
             this.textBox_ConditionsCreator_SourceEntry.Size = new System.Drawing.Size(68, 20);
@@ -1853,8 +1867,7 @@
             // label_ConditionsCreator_SourceEntry
             // 
             this.label_ConditionsCreator_SourceEntry.AutoSize = true;
-            this.label_ConditionsCreator_SourceEntry.Location = new System.Drawing.Point(5, 50);
-            this.label_ConditionsCreator_SourceEntry.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_ConditionsCreator_SourceEntry.Location = new System.Drawing.Point(8, 78);
             this.label_ConditionsCreator_SourceEntry.Name = "label_ConditionsCreator_SourceEntry";
             this.label_ConditionsCreator_SourceEntry.Size = new System.Drawing.Size(71, 13);
             this.label_ConditionsCreator_SourceEntry.TabIndex = 4;
@@ -1863,8 +1876,8 @@
             // textBox_ConditionsCreator_SourceGroup
             // 
             this.textBox_ConditionsCreator_SourceGroup.Enabled = false;
-            this.textBox_ConditionsCreator_SourceGroup.Location = new System.Drawing.Point(107, 27);
-            this.textBox_ConditionsCreator_SourceGroup.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_ConditionsCreator_SourceGroup.Location = new System.Drawing.Point(160, 42);
+            this.textBox_ConditionsCreator_SourceGroup.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ConditionsCreator_SourceGroup.MaxLength = 6;
             this.textBox_ConditionsCreator_SourceGroup.Name = "textBox_ConditionsCreator_SourceGroup";
             this.textBox_ConditionsCreator_SourceGroup.Size = new System.Drawing.Size(68, 20);
@@ -1883,8 +1896,8 @@
             // comboBox_ConditionsCreator_ConditionSourceType
             // 
             this.comboBox_ConditionsCreator_ConditionSourceType.FormattingEnabled = true;
-            this.comboBox_ConditionsCreator_ConditionSourceType.Location = new System.Drawing.Point(107, 4);
-            this.comboBox_ConditionsCreator_ConditionSourceType.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox_ConditionsCreator_ConditionSourceType.Location = new System.Drawing.Point(160, 6);
+            this.comboBox_ConditionsCreator_ConditionSourceType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox_ConditionsCreator_ConditionSourceType.Name = "comboBox_ConditionsCreator_ConditionSourceType";
             this.comboBox_ConditionsCreator_ConditionSourceType.Size = new System.Drawing.Size(215, 21);
             this.comboBox_ConditionsCreator_ConditionSourceType.TabIndex = 1;
@@ -2050,10 +2063,11 @@
             this.tabPage_ModifierTrees.Controls.Add(this.label_ModifierTrees_ModifierTreeId);
             this.tabPage_ModifierTrees.Controls.Add(this.label_ModifierTrees_ModifierTrees);
             this.tabPage_ModifierTrees.Controls.Add(this.treeView_ModifierTrees_ModifierTrees);
-            this.tabPage_ModifierTrees.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_ModifierTrees.Location = new System.Drawing.Point(4, 29);
+            this.tabPage_ModifierTrees.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage_ModifierTrees.Name = "tabPage_ModifierTrees";
-            this.tabPage_ModifierTrees.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ModifierTrees.Size = new System.Drawing.Size(1555, 848);
+            this.tabPage_ModifierTrees.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage_ModifierTrees.Size = new System.Drawing.Size(2040, 955);
             this.tabPage_ModifierTrees.TabIndex = 8;
             this.tabPage_ModifierTrees.Text = "Modifier Trees";
             this.tabPage_ModifierTrees.UseVisualStyleBackColor = true;
@@ -2115,6 +2129,7 @@
             // textBox_ModifierTrees_ModifierTreeId
             // 
             this.textBox_ModifierTrees_ModifierTreeId.Location = new System.Drawing.Point(135, 10);
+            this.textBox_ModifierTrees_ModifierTreeId.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_ModifierTrees_ModifierTreeId.Name = "textBox_ModifierTrees_ModifierTreeId";
             this.textBox_ModifierTrees_ModifierTreeId.Size = new System.Drawing.Size(100, 20);
             this.textBox_ModifierTrees_ModifierTreeId.TabIndex = 19;
@@ -2123,7 +2138,7 @@
             // label_ModifierTrees_ModifierTreeId
             // 
             this.label_ModifierTrees_ModifierTreeId.AutoSize = true;
-            this.label_ModifierTrees_ModifierTreeId.Location = new System.Drawing.Point(6, 13);
+            this.label_ModifierTrees_ModifierTreeId.Location = new System.Drawing.Point(6, 12);
             this.label_ModifierTrees_ModifierTreeId.Name = "label_ModifierTrees_ModifierTreeId";
             this.label_ModifierTrees_ModifierTreeId.Size = new System.Drawing.Size(84, 13);
             this.label_ModifierTrees_ModifierTreeId.TabIndex = 18;
@@ -2140,8 +2155,9 @@
             // treeView_ModifierTrees_ModifierTrees
             // 
             this.treeView_ModifierTrees_ModifierTrees.Location = new System.Drawing.Point(3, 165);
+            this.treeView_ModifierTrees_ModifierTrees.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeView_ModifierTrees_ModifierTrees.Name = "treeView_ModifierTrees_ModifierTrees";
-            this.treeView_ModifierTrees_ModifierTrees.Size = new System.Drawing.Size(2028, 767);
+            this.treeView_ModifierTrees_ModifierTrees.Size = new System.Drawing.Size(2028, 766);
             this.treeView_ModifierTrees_ModifierTrees.TabIndex = 14;
             // 
             // createSQLToolStripMenuItem
@@ -2190,6 +2206,7 @@
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Wow Developer Assistant";
@@ -2404,6 +2421,7 @@
         private System.Windows.Forms.ToolStripMenuItem createLegionCombatAISqlToolStripMenuItem;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox textBox_Phasing_AreaID;
+        public System.Windows.Forms.RichTextBox Core_script_creatore_preview;
     }
 }
 

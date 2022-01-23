@@ -104,12 +104,10 @@ namespace WoWDeveloperAssistant
                 }
             }
 
-            creaturesDataRowCollection = GetDataRowCollectionFromQuery("SELECT `linked_id`, `id`, `position_x`, `position_y`, `position_z` FROM `creature` WHERE `id` IN (" + GetStringFromList(creatureEntries) + ")");
-
-            gameobjectsDataRowCollection = GetDataRowCollectionFromQuery("SELECT `linked_id`, `id`, `position_x`, `position_y`, `position_z` FROM `gameobject` WHERE `id` IN (" + GetStringFromList(gameobjectEntries) + ")");
-
-            if (creaturesDataRowCollection != null)
+            if (creatureEntries.Count != 0)
             {
+                creaturesDataRowCollection = GetDataRowCollectionFromQuery("SELECT `linked_id`, `id`, `position_x`, `position_y`, `position_z` FROM `creature` WHERE `id` IN (" + GetStringFromList(creatureEntries) + ")");
+
                 foreach (DataRow row in creaturesDataRowCollection)
                 {
                     if (!creaturesDataRowDictionary.ContainsKey(row[1].ToString()))
@@ -124,8 +122,10 @@ namespace WoWDeveloperAssistant
                 }
             }
 
-            if (gameobjectsDataRowCollection != null)
+            if (gameobjectEntries.Count != 0)
             {
+                gameobjectsDataRowCollection = GetDataRowCollectionFromQuery("SELECT `linked_id`, `id`, `position_x`, `position_y`, `position_z` FROM `gameobject` WHERE `id` IN (" + GetStringFromList(gameobjectEntries) + ")");
+
                 foreach (DataRow row in gameobjectsDataRowCollection)
                 {
                     if (!gameobjectDataRowDictionary.ContainsKey(row[1].ToString()))
