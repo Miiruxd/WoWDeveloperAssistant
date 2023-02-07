@@ -1,8 +1,8 @@
-﻿using DB2.Structures;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using WoWDeveloperAssistant.DBC.Structures;
 
 namespace WoWDeveloperAssistant.Achievements
 {
@@ -10,16 +10,16 @@ namespace WoWDeveloperAssistant.Achievements
     {
         public static void ShowAchievementRequirements(MainForm mainForm)
         {
-            if (!DB2.Db2.IsLoaded())
+            if (!DBC.DBC.IsLoaded())
             {
-                DB2.Db2.Load();
+                DBC.DBC.Load();
             }
 
-            DB2.Db2.Achievement.TryGetValue(int.Parse(mainForm.textBox_Achievements_AchievementId.Text), out var achievement);
+            DBC.DBC.Achievement.TryGetValue(int.Parse(mainForm.textBox_Achievements_AchievementId.Text), out var achievement);
             if (achievement == null)
                 return;
 
-            DB2.Db2.CriteriaTree.TryGetValue((int)achievement.CriteriaTree, out var criteriaTree);
+            DBC.DBC.CriteriaTree.TryGetValue((int)achievement.CriteriaTree, out var criteriaTree);
             if (criteriaTree == null)
                 return;
 
@@ -59,9 +59,9 @@ namespace WoWDeveloperAssistant.Achievements
             return flagNames;
         }
 
-        private static IEnumerable<KeyValuePair<int, CriteriaTree>> GetCriteriaTreeChildNodes(uint criteriaTreeId)
+        private static IEnumerable<KeyValuePair<int, CriteriaTreeEntry>> GetCriteriaTreeChildNodes(uint criteriaTreeId)
         {
-            return DB2.Db2.CriteriaTree.Where(x => x.Value.Parent == criteriaTreeId);
+            return DBC.DBC.CriteriaTree.Where(x => x.Value.Parent == criteriaTreeId);
         }
 
         private static void FillTreeWithCriteriaTreeChildNodes(uint criteriaTreeId, TreeView treeWiev)
@@ -94,7 +94,7 @@ namespace WoWDeveloperAssistant.Achievements
 
         public static void FillTreeWithCriterias(uint criteriaTreeId, TreeView treeWiev, bool clearBeforeAdd)
         {
-            DB2.Db2.Criteria.TryGetValue((int)GetCriteriaIdFromCriteriaTree(criteriaTreeId), out var criteria);
+            DBC.DBC.Criteria.TryGetValue((int)GetCriteriaIdFromCriteriaTree(criteriaTreeId), out var criteria);
             if (criteria == null)
                 return;
 
@@ -117,8 +117,8 @@ namespace WoWDeveloperAssistant.Achievements
 
         private static uint GetCriteriaIdFromCriteriaTree(uint criteriaTreeId)
         {
-            if (DB2.Db2.CriteriaTree.ContainsKey((int)criteriaTreeId))
-                return DB2.Db2.CriteriaTree[(int)criteriaTreeId].CriteriaID;
+            if (DBC.DBC.CriteriaTree.ContainsKey((int)criteriaTreeId))
+                return DBC.DBC.CriteriaTree[(int)criteriaTreeId].CriteriaID;
 
             return 0;
         }
@@ -175,7 +175,7 @@ namespace WoWDeveloperAssistant.Achievements
 
         public static void FillTreeWithModifiers(uint criteriaTreeId, TreeView treeWiev, bool clearBeforeAdd)
         {
-            DB2.Db2.ModifierTree.TryGetValue((int)GetModifierTreeForCriteria(criteriaTreeId), out var modifierTree);
+            DBC.DBC.ModifierTree.TryGetValue((int)GetModifierTreeForCriteria(criteriaTreeId), out var modifierTree);
             if (modifierTree == null)
                 return;
 
@@ -196,8 +196,8 @@ namespace WoWDeveloperAssistant.Achievements
 
         private static uint GetModifierTreeForCriteria(uint criteriaId)
         {
-            if (DB2.Db2.Criteria.ContainsKey((int)criteriaId))
-                return DB2.Db2.Criteria[(int)criteriaId].ModifierTreeId;
+            if (DBC.DBC.Criteria.ContainsKey((int)criteriaId))
+                return DBC.DBC.Criteria[(int)criteriaId].ModifierTreeID;
 
             return 0;
         }
@@ -229,12 +229,12 @@ namespace WoWDeveloperAssistant.Achievements
 
                 if (nodeIter.Value.Type == 73)
                 {
-                    ModifierTree modifierTree = DB2.Db2.ModifierTree[(int)nodeIter.Value.Asset];
-                    TreeNode testnode = new TreeNode(nodeIter.Value.Asset.ToString());
+                    ModifierTreeEntry modifierTree = DBC.DBC.ModifierTree[(int)nodeIter.Value.Asset];
+                    TreeNode testnode = new TreeNode(modifierTree.ID.ToString());
                     testnode.Nodes.Add("Operator: " + (AchievementEnums.ModifierTreeOperator)modifierTree.Operator);
                     testnode.Nodes.Add("Amount: " + modifierTree.Amount);
                     testnode.Nodes.Add("Type: " + (AchievementEnums.CriteriaAdditionalCondition)modifierTree.Type);
-                    FillTreeWithModifiersChildNodes((uint)nodeIter.Value.Asset, testnode);
+                    FillTreeWithModifiersChildNodes(modifierTree.ID, testnode);
                     node.Nodes.Add(testnode);
                 }
                 else
@@ -249,9 +249,9 @@ namespace WoWDeveloperAssistant.Achievements
             }
         }
 
-        private static IEnumerable<KeyValuePair<int, ModifierTree>> GetModifierTreeChildNodes(uint modifierTreeId)
+        private static IEnumerable<KeyValuePair<int, ModifierTreeEntry>> GetModifierTreeChildNodes(uint modifierTreeId)
         {
-            return DB2.Db2.ModifierTree.Where(x => x.Value.Parent == modifierTreeId);
+            return DBC.DBC.ModifierTree.Where(x => x.Value.Parent == modifierTreeId);
         }
     }
 }

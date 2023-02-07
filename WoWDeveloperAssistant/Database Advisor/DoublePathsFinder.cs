@@ -191,12 +191,12 @@ namespace WoWDeveloperAssistant.Database_Advisor
                 int mapId = Convert.ToInt32(creatureDatas[linkedId][2]);
                 string mapName = "";
 
-                if (!DB2.Db2.IsLoaded())
+                if (!DBC.DBC.IsLoaded())
                 {
-                    DB2.Db2.Load();
+                    DBC.DBC.Load();
                 }
 
-                mapName = DB2.Db2.Map[mapId].MapName;
+                mapName = DBC.DBC.Map[mapId].MapName;
 
                 return mapData += $"MapId: {mapId}, MapName: {mapName}";
             }

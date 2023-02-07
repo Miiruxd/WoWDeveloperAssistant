@@ -12,7 +12,7 @@ namespace WoWDeveloperAssistant.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -176,30 +176,6 @@ namespace WoWDeveloperAssistant.Properties {
             }
             set {
                 this["HotfixDatabase"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("db2")]
-        public string DB2Database {
-            get {
-                return ((string)(this["DB2Database"]));
-            }
-            set {
-                this["DB2Database"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CheckCreatureForWaypointsOnDb {
-            get {
-                return ((bool)(this["CheckCreatureForWaypointsOnDb"]));
-            }
-            set {
-                this["CheckCreatureForWaypointsOnDb"] = value;
             }
         }
     }

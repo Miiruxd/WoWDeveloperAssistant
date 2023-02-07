@@ -67,7 +67,6 @@ namespace WoWDeveloperAssistant.Waypoints_Creator
             waypoint.scripts = new List<WaypointScript>();
             waypoint.moveType = moveType;
             waypoint.packetNumber = packetNumber;
-            waypoint.velocity = velocity;
 
             foreach (WaypointScript script in scripts)
             {

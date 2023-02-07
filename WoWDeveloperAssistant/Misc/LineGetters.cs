@@ -8,7 +8,7 @@ namespace WoWDeveloperAssistant.Misc
 {
     public static class LineGetters
     {
-        public static string GetGuidFromLine(string line, BuildVersions buidVersion, bool objectFieldGuid = false, bool unitGuid = false, bool senderGuid = false, bool moverGuid = false, bool attackerGuid = false, bool casterGuid = false, bool casterUnit = false, bool transportGuid = false, bool conversationActorGuid = false)
+        public static string GetGuidFromLine(string line, BuildVersions buidVersion, bool objectFieldGuid = false, bool unitGuid = false, bool senderGuid = false, bool moverGuid = false, bool attackerGuid = false, bool casterGuid = false, bool casterUnit = false, bool transportGuid = false)
         {
             if (!line.Contains("TypeName: Creature; Full:") && !line.Contains("TypeName: Vehicle; Full:") && !line.Contains("TypeName: Player; Full:") && !line.Contains("TypeName: Transport; Full:"))
                 return "";
@@ -62,12 +62,6 @@ namespace WoWDeveloperAssistant.Misc
                 Regex guidRegex = new Regex(@"TransportGUID: TypeName:{1}\s{1}[a-zA-Z]+;{1}\s{1}Full:{1}\s{1}\w{20,}");
                 if (guidRegex.IsMatch(line))
                     return guidRegex.Match(line).ToString().Replace("TransportGUID: TypeName: ", "").Replace(objectTypeRegex.Match(line).ToString(), "");
-            }
-            else if (conversationActorGuid)
-            {
-                Regex guidRegex = new Regex(@"ActorGUID: TypeName:{1}\s{1}[a-zA-Z]+;{1}\s{1}Full:{1}\s{1}\w{20,}");
-                if (guidRegex.IsMatch(line))
-                    return guidRegex.Match(line).ToString().Replace("ActorGUID: TypeName: ", "").Replace(objectTypeRegex.Match(line).ToString(), "");
             }
             else
             {
@@ -175,12 +169,6 @@ namespace WoWDeveloperAssistant.Misc
                         return BuildVersions.BUILD_9_1_5;
                     else if (line.Contains("V9_2_0"))
                         return BuildVersions.BUILD_9_2_0;
-                    else if (line.Contains("V9_2_5"))
-                        return BuildVersions.BUILD_9_2_5;
-                    else if (line.Contains("V9_2_7"))
-                        return BuildVersions.BUILD_9_2_7;
-                    else if (line.Contains("V10_0_2"))
-                        return BuildVersions.BUILD_10_0_2;
 
                     return BuildVersions.BUILD_UNKNOWN;
                 }
@@ -220,86 +208,6 @@ namespace WoWDeveloperAssistant.Misc
                 return Convert.ToInt64(numberRegex.Match(line).ToString().Replace("Number: ", ""));
 
             return 0;
-        }
-
-        public static bool IsConversationLine(this string value)
-        {
-            if (value.Contains("ObjectGuid: TypeName: Conversation; Full:"))
-                return true;
-
-            return false;
-        }
-
-        public static string GetLinkedIdFromLine(string line)
-        {
-            Regex linkedIdRegex = new Regex(@"'\S+'");
-
-            if (linkedIdRegex.IsMatch(line))
-            {
-                return linkedIdRegex.Match(line).ToString().Replace("'", "");
-            }
-
-            return "";
-        }
-
-        public static uint GetEntryFromLine(string line)
-        {
-            Regex entryRegex = new Regex(@"'\S+', \w+");
-
-            if (entryRegex.IsMatch(line))
-            {
-                return Convert.ToUInt32(entryRegex.Match(line).ToString().Split(' ')[1]);
-            }
-
-            return 0;
-        }
-
-        public static uint GetZoneIdFromLine(string line)
-        {
-            Regex zoneIdRegex = new Regex(@"\w+, \w+, '.+'{1}");
-
-            if (zoneIdRegex.IsMatch(line))
-            {
-                return Convert.ToUInt32(zoneIdRegex.Match(line).ToString().Split(',')[0].Replace(",", ""));
-            }
-
-            return 0;
-        }
-
-        public static uint GetPhaseIdFromLine(string line)
-        {
-            Regex phaseIdRegex = new Regex(@" '.+'{1}, \w{1}, \w+");
-
-            if (phaseIdRegex.IsMatch(line))
-            {
-                return Convert.ToUInt32(phaseIdRegex.Match(line).ToString().Split(',')[2].Replace(" ", ""));
-            }
-
-            return 0;
-        }
-
-        public static string GetCreatureNameFromLine(string line)
-        {
-            Regex creatureNameByAreaRegex = new Regex(@"-- .+ \(Area:");
-            Regex creatureNameByObjectGuidRegex = new Regex(@"-- .+ \(ObjectGuid:");
-
-            if (line.Contains("ObjectGuid"))
-            {
-                if (creatureNameByObjectGuidRegex.IsMatch(line))
-                {
-                    return creatureNameByObjectGuidRegex.Match(line).ToString().Replace("--  ", "").Replace("-- ", "").Replace(" (ObjectGuid:", "").Replace("(", "").Replace(")", "");
-                }
-            }
-            else
-            {
-                if (creatureNameByAreaRegex.IsMatch(line))
-                {
-                    return creatureNameByAreaRegex.Match(line).ToString().Replace("--  ", "").Replace("-- ", "").Replace(" (Area:", "").Replace("(", "").Replace(")", "");
-                }
-            }
-
-
-            return "";
         }
     }
 }

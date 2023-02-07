@@ -98,14 +98,13 @@
             this.removeNearestPointsToolStripMenuItem_WC = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDuplicatePointsToolStripMenuItem_WC = new System.Windows.Forms.ToolStripMenuItem();
             this.createReturnPathToolStripMenuItem_WC = new System.Windows.Forms.ToolStripMenuItem();
-            this.optimizeCirclePathToolStripMenuItem_WC = new System.Windows.Forms.ToolStripMenuItem();
-            this.optimizeRegularPathToolStripMenuItem_WC = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator_WC = new System.Windows.Forms.ToolStripSeparator();
             this.createSQLToolStripMenuItem_WC = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox_WaypointsCreator_CreatureGuids = new System.Windows.Forms.ListBox();
             this.contextMenuStrip_WaypointsCreator_Guids = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeGuidsBeforeSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createRandomMovementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateInhabitTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chart_WaypointsCreator_Path = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolStrip_WaypointsCreator = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_WaypointsCreator_Search = new System.Windows.Forms.ToolStripButton();
@@ -117,19 +116,21 @@
             this.tabPage_SqlOutput = new System.Windows.Forms.TabPage();
             this.textBox_SqlOutput = new System.Windows.Forms.TextBox();
             this.tabPage_DatabaseAdvisor = new System.Windows.Forms.TabPage();
-            this.textBox_DatabaseAdvisor_FindPossibleFormations = new System.Windows.Forms.TextBox();
-            this.label_DatabaseAdvisor_FindPossibleFormations = new System.Windows.Forms.Label();
             this.textBox_DatabaseAdvisor_FindDoublePaths = new System.Windows.Forms.TextBox();
             this.label_DatabaseAdvisor_FindDoublePaths = new System.Windows.Forms.Label();
+            this.textBox_DatabaseAdvisor_PlayerCastedSpells = new System.Windows.Forms.TextBox();
+            this.label_DatabaseAdvisor_PlayerCasterSpells = new System.Windows.Forms.Label();
             this.textBox_DatabaseAdvisor_Output = new System.Windows.Forms.TextBox();
             this.contextMenuStrip_DatabaseAdvisor = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.createReturnPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recalculatePointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getAddonsFromSqlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recalculateTextForGossipMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.getPhaseDataForCreatures = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox_DatabaseAdvisor_GossipMenuText = new System.Windows.Forms.TextBox();
             this.label_DatabaseAdvisor_GossipMenuText = new System.Windows.Forms.Label();
+            this.textBox_DatabaseAdvisor_SpellDestinations = new System.Windows.Forms.TextBox();
+            this.label_DatabaseAdvisor_SpellDestinations = new System.Windows.Forms.Label();
+            this.textBox_DatabaseAdvisor_AreatriggerSplines = new System.Windows.Forms.TextBox();
+            this.label_DatabaseAdvisor_AreatriggerSplines = new System.Windows.Forms.Label();
             this.textBox_DatabaseAdvisor_QuestFlags = new System.Windows.Forms.TextBox();
             this.label_DatabaseAdvisor_QuestFlags = new System.Windows.Forms.Label();
             this.textBox_DatabaseAdvisor_CreatureFlags = new System.Windows.Forms.TextBox();
@@ -219,28 +220,10 @@
             this.label_ModifierTrees_ModifierTrees = new System.Windows.Forms.Label();
             this.treeView_ModifierTrees_ModifierTrees = new System.Windows.Forms.TreeView();
             this.createSQLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage_ParsedFileAdvisor = new System.Windows.Forms.TabPage();
-            this.textBox_ParsedFileAdvisor_LosConversationsOrTexts = new System.Windows.Forms.TextBox();
-            this.label_ParsedFileAdvisor_LosConversationsOrTexts = new System.Windows.Forms.Label();
-            this.textBox_ParsedFileAdvisor_QuestConversationsOrTexts = new System.Windows.Forms.TextBox();
-            this.label_ParsedFileAdvisor_QuestConversationsOrTexts = new System.Windows.Forms.Label();
-            this.textBox_ParsedFileAdvisor_SpellDestinations = new System.Windows.Forms.TextBox();
-            this.label_ParsedFileAdvisor_SpellDestinations = new System.Windows.Forms.Label();
-            this.checkBox_ParsedFileAdvisor_CreateDataFile = new System.Windows.Forms.CheckBox();
-            this.toolStrip_ParsedFileAdvisor = new System.Windows.Forms.ToolStrip();
-            this.toolStripStatusLabel_ParsedFileAdvisor_FileStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripButton_ParsedFileAdvisor_ImportSniff = new System.Windows.Forms.ToolStripButton();
-            this.textBox_ParsedFileAdvisor_PlayerCastedSpells = new System.Windows.Forms.TextBox();
-            this.label_ParsedFileAdvisor_PlayerCastedSpells = new System.Windows.Forms.Label();
-            this.textBox_ParsedFileAdvisor_AreaTriggerSplines = new System.Windows.Forms.TextBox();
-            this.label_ParsedFileAdvisor_AreaTriggerSplines = new System.Windows.Forms.Label();
-            this.textBox_ParsedFileAdvisor_Output = new System.Windows.Forms.TextBox();
             this.statusStrip_LoadedFile = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_FileStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_CurrentAction = new System.Windows.Forms.ToolStripStatusLabel();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.reversePointsOrderToolStripMenuItem_WC = new System.Windows.Forms.ToolStripMenuItem();
-            this.setSelectedPointAsFirstToolStripMenuItem_WC = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl.SuspendLayout();
             this.tabPage_CreatureScriptsCreator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_CreatureScriptsCreator_Spells)).BeginInit();
@@ -261,8 +244,6 @@
             this.tabPage_ConditionsCreator.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage_ModifierTrees.SuspendLayout();
-            this.tabPage_ParsedFileAdvisor.SuspendLayout();
-            this.toolStrip_ParsedFileAdvisor.SuspendLayout();
             this.statusStrip_LoadedFile.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -278,7 +259,6 @@
             this.tabControl.Controls.Add(this.tabPage_ConditionsCreator);
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Controls.Add(this.tabPage_ModifierTrees);
-            this.tabControl.Controls.Add(this.tabPage_ParsedFileAdvisor);
             this.tabControl.Location = new System.Drawing.Point(4, 5);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -760,66 +740,48 @@
             this.removeNearestPointsToolStripMenuItem_WC,
             this.removeDuplicatePointsToolStripMenuItem_WC,
             this.createReturnPathToolStripMenuItem_WC,
-            this.optimizeCirclePathToolStripMenuItem_WC,
-            this.optimizeRegularPathToolStripMenuItem_WC,
-            this.reversePointsOrderToolStripMenuItem_WC,
-            this.setSelectedPointAsFirstToolStripMenuItem_WC,
             this.toolStripSeparator_WC,
             this.createSQLToolStripMenuItem_WC});
             this.contextMenuStrip_WaypointsCreator.Name = "contextMenuStrip_WC";
-            this.contextMenuStrip_WaypointsCreator.Size = new System.Drawing.Size(289, 331);
+            this.contextMenuStrip_WaypointsCreator.Size = new System.Drawing.Size(281, 170);
             // 
             // cutToolStripMenuItem_WC
             // 
             this.cutToolStripMenuItem_WC.Name = "cutToolStripMenuItem_WC";
-            this.cutToolStripMenuItem_WC.Size = new System.Drawing.Size(288, 32);
+            this.cutToolStripMenuItem_WC.Size = new System.Drawing.Size(280, 32);
             this.cutToolStripMenuItem_WC.Text = "Cut";
             this.cutToolStripMenuItem_WC.Click += new System.EventHandler(this.cutToolStripMenuItem1_Click);
             // 
             // removeNearestPointsToolStripMenuItem_WC
             // 
             this.removeNearestPointsToolStripMenuItem_WC.Name = "removeNearestPointsToolStripMenuItem_WC";
-            this.removeNearestPointsToolStripMenuItem_WC.Size = new System.Drawing.Size(288, 32);
-            this.removeNearestPointsToolStripMenuItem_WC.Text = "Remove Nearest Points";
+            this.removeNearestPointsToolStripMenuItem_WC.Size = new System.Drawing.Size(280, 32);
+            this.removeNearestPointsToolStripMenuItem_WC.Text = "Remove nearest points";
             this.removeNearestPointsToolStripMenuItem_WC.Click += new System.EventHandler(this.removeExcessPointsToolStripMenuItem_Click);
             // 
             // removeDuplicatePointsToolStripMenuItem_WC
             // 
             this.removeDuplicatePointsToolStripMenuItem_WC.Name = "removeDuplicatePointsToolStripMenuItem_WC";
-            this.removeDuplicatePointsToolStripMenuItem_WC.Size = new System.Drawing.Size(288, 32);
-            this.removeDuplicatePointsToolStripMenuItem_WC.Text = "Remove Duplicate Points";
+            this.removeDuplicatePointsToolStripMenuItem_WC.Size = new System.Drawing.Size(280, 32);
+            this.removeDuplicatePointsToolStripMenuItem_WC.Text = "Remove duplicate points";
             this.removeDuplicatePointsToolStripMenuItem_WC.Click += new System.EventHandler(this.removeDuplicatePointsToolStripMenuItem_WC_Click);
             // 
             // createReturnPathToolStripMenuItem_WC
             // 
             this.createReturnPathToolStripMenuItem_WC.Name = "createReturnPathToolStripMenuItem_WC";
-            this.createReturnPathToolStripMenuItem_WC.Size = new System.Drawing.Size(288, 32);
-            this.createReturnPathToolStripMenuItem_WC.Text = "Create Return Path";
+            this.createReturnPathToolStripMenuItem_WC.Size = new System.Drawing.Size(280, 32);
+            this.createReturnPathToolStripMenuItem_WC.Text = "Create return path";
             this.createReturnPathToolStripMenuItem_WC.Click += new System.EventHandler(this.createReturnPathToolStripMenuItem_WC_Click);
-            // 
-            // optimizeCirclePathToolStripMenuItem_WC
-            // 
-            this.optimizeCirclePathToolStripMenuItem_WC.Name = "optimizeCirclePathToolStripMenuItem_WC";
-            this.optimizeCirclePathToolStripMenuItem_WC.Size = new System.Drawing.Size(288, 32);
-            this.optimizeCirclePathToolStripMenuItem_WC.Text = "Optimize Circle Path";
-            this.optimizeCirclePathToolStripMenuItem_WC.Click += new System.EventHandler(this.optimizeCirclePathToolStripMenuItem_Click);
-            // 
-            // optimizeRegularPathToolStripMenuItem_WC
-            // 
-            this.optimizeRegularPathToolStripMenuItem_WC.Name = "optimizeRegularPathToolStripMenuItem_WC";
-            this.optimizeRegularPathToolStripMenuItem_WC.Size = new System.Drawing.Size(288, 32);
-            this.optimizeRegularPathToolStripMenuItem_WC.Text = "Optimize Regular Path";
-            this.optimizeRegularPathToolStripMenuItem_WC.Click += new System.EventHandler(this.optimizeRegularPathToolStripMenuItem_WC_Click);
             // 
             // toolStripSeparator_WC
             // 
             this.toolStripSeparator_WC.Name = "toolStripSeparator_WC";
-            this.toolStripSeparator_WC.Size = new System.Drawing.Size(285, 6);
+            this.toolStripSeparator_WC.Size = new System.Drawing.Size(277, 6);
             // 
             // createSQLToolStripMenuItem_WC
             // 
             this.createSQLToolStripMenuItem_WC.Name = "createSQLToolStripMenuItem_WC";
-            this.createSQLToolStripMenuItem_WC.Size = new System.Drawing.Size(288, 32);
+            this.createSQLToolStripMenuItem_WC.Size = new System.Drawing.Size(280, 32);
             this.createSQLToolStripMenuItem_WC.Text = "Create SQL";
             this.createSQLToolStripMenuItem_WC.Click += new System.EventHandler(this.createSQLToolStripMenuItem1_Click);
             // 
@@ -842,23 +804,31 @@
             this.contextMenuStrip_WaypointsCreator_Guids.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip_WaypointsCreator_Guids.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeGuidsBeforeSelectedToolStripMenuItem,
-            this.createRandomMovementsToolStripMenuItem});
+            this.createRandomMovementsToolStripMenuItem,
+            this.updateInhabitTypeToolStripMenuItem});
             this.contextMenuStrip_WaypointsCreator_Guids.Name = "contextMenuStrip_WC_Guids";
-            this.contextMenuStrip_WaypointsCreator_Guids.Size = new System.Drawing.Size(324, 68);
+            this.contextMenuStrip_WaypointsCreator_Guids.Size = new System.Drawing.Size(330, 100);
             // 
             // removeGuidsBeforeSelectedToolStripMenuItem
             // 
             this.removeGuidsBeforeSelectedToolStripMenuItem.Name = "removeGuidsBeforeSelectedToolStripMenuItem";
-            this.removeGuidsBeforeSelectedToolStripMenuItem.Size = new System.Drawing.Size(323, 32);
+            this.removeGuidsBeforeSelectedToolStripMenuItem.Size = new System.Drawing.Size(329, 32);
             this.removeGuidsBeforeSelectedToolStripMenuItem.Text = "Remove guids before selected";
             this.removeGuidsBeforeSelectedToolStripMenuItem.Click += new System.EventHandler(this.removeGuidsBeforeSelectedToolStripMenuItem_Click);
             // 
             // createRandomMovementsToolStripMenuItem
             // 
             this.createRandomMovementsToolStripMenuItem.Name = "createRandomMovementsToolStripMenuItem";
-            this.createRandomMovementsToolStripMenuItem.Size = new System.Drawing.Size(323, 32);
+            this.createRandomMovementsToolStripMenuItem.Size = new System.Drawing.Size(329, 32);
             this.createRandomMovementsToolStripMenuItem.Text = "Create random movements";
             this.createRandomMovementsToolStripMenuItem.Click += new System.EventHandler(this.createRandomMovementsToolStripMenuItem_Click);
+            // 
+            // updateInhabitTypeToolStripMenuItem
+            // 
+            this.updateInhabitTypeToolStripMenuItem.Name = "updateInhabitTypeToolStripMenuItem";
+            this.updateInhabitTypeToolStripMenuItem.Size = new System.Drawing.Size(329, 32);
+            this.updateInhabitTypeToolStripMenuItem.Text = "Update inhabit type and speed";
+            this.updateInhabitTypeToolStripMenuItem.Click += new System.EventHandler(this.updateInhabitTypeToolStripMenuItem_Click);
             // 
             // chart_WaypointsCreator_Path
             // 
@@ -997,7 +967,6 @@
             this.toolStripLabel_WaypointsCreator_Entry.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripLabel_WaypointsCreator_Entry.Name = "toolStripLabel_WaypointsCreator_Entry";
             this.toolStripLabel_WaypointsCreator_Entry.Size = new System.Drawing.Size(184, 29);
-            this.toolStripLabel_WaypointsCreator_Entry.Size = new System.Drawing.Size(184, 29);
             this.toolStripLabel_WaypointsCreator_Entry.Text = "Creature EntryOrGuid:";
             this.toolStripLabel_WaypointsCreator_Entry.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1005,7 +974,6 @@
             // 
             this.toolStripSeparator1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 34);
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 34);
             // 
             // toolStripButton_WaypointsCreator_Settings
@@ -1056,13 +1024,17 @@
             // 
             // tabPage_DatabaseAdvisor
             // 
-            this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_FindPossibleFormations);
-            this.tabPage_DatabaseAdvisor.Controls.Add(this.label_DatabaseAdvisor_FindPossibleFormations);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_FindDoublePaths);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.label_DatabaseAdvisor_FindDoublePaths);
+            this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_PlayerCastedSpells);
+            this.tabPage_DatabaseAdvisor.Controls.Add(this.label_DatabaseAdvisor_PlayerCasterSpells);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_Output);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_GossipMenuText);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.label_DatabaseAdvisor_GossipMenuText);
+            this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_SpellDestinations);
+            this.tabPage_DatabaseAdvisor.Controls.Add(this.label_DatabaseAdvisor_SpellDestinations);
+            this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_AreatriggerSplines);
+            this.tabPage_DatabaseAdvisor.Controls.Add(this.label_DatabaseAdvisor_AreatriggerSplines);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_QuestFlags);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.label_DatabaseAdvisor_QuestFlags);
             this.tabPage_DatabaseAdvisor.Controls.Add(this.textBox_DatabaseAdvisor_CreatureFlags);
@@ -1076,40 +1048,14 @@
             this.tabPage_DatabaseAdvisor.Text = "Database Advisor";
             this.tabPage_DatabaseAdvisor.UseVisualStyleBackColor = true;
             // 
-            // textBox_DatabaseAdvisor_FindPossibleFormations
-            // 
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.Location = new System.Drawing.Point(8, 277);
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.Name = "textBox_DatabaseAdvisor_FindPossibleFormations";
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.Size = new System.Drawing.Size(162, 26);
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.TabIndex = 16;
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.Click += new System.EventHandler(this.textBox_DatabaseAdvisor_FindPossibleFormations_Click);
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_DatabaseAdvisor_FindPossibleFormations_KeyDown);
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.MouseEnter += new System.EventHandler(this.textBox_DatabaseAdvisor_FindPossibleFormations_MouseEnter);
-            this.textBox_DatabaseAdvisor_FindPossibleFormations.MouseLeave += new System.EventHandler(this.textBox_DatabaseAdvisor_FindPossibleFormations_MouseLeave);
-            // 
-            // label_DatabaseAdvisor_FindPossibleFormations
-            // 
-            this.label_DatabaseAdvisor_FindPossibleFormations.AutoSize = true;
-            this.label_DatabaseAdvisor_FindPossibleFormations.Location = new System.Drawing.Point(6, 255);
-            this.label_DatabaseAdvisor_FindPossibleFormations.Name = "label_DatabaseAdvisor_FindPossibleFormations";
-            this.label_DatabaseAdvisor_FindPossibleFormations.Size = new System.Drawing.Size(181, 20);
-            this.label_DatabaseAdvisor_FindPossibleFormations.TabIndex = 15;
-            this.label_DatabaseAdvisor_FindPossibleFormations.Text = "Find possible formations";
-            // 
             // textBox_DatabaseAdvisor_FindDoublePaths
             // 
             this.textBox_DatabaseAdvisor_FindDoublePaths.Location = new System.Drawing.Point(65, 866);
             this.textBox_DatabaseAdvisor_FindDoublePaths.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBox_DatabaseAdvisor_FindDoublePaths.Name = "textBox_DatabaseAdvisor_FindDoublePaths";
-            this.textBox_DatabaseAdvisor_FindDoublePaths.Size = new System.Drawing.Size(162, 26);
+            this.textBox_DatabaseAdvisor_FindDoublePaths.Size = new System.Drawing.Size(139, 26);
             this.textBox_DatabaseAdvisor_FindDoublePaths.TabIndex = 14;
-            this.textBox_DatabaseAdvisor_FindDoublePaths.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_DatabaseAdvisor_FindDoublePaths.Click += new System.EventHandler(this.textBox_DatabaseAdvisor_FindDoublePaths_Click);
             this.textBox_DatabaseAdvisor_FindDoublePaths.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_DatabaseAdvisor_FindDoublePaths_KeyDown);
-            this.textBox_DatabaseAdvisor_FindDoublePaths.MouseEnter += new System.EventHandler(this.textBox_DatabaseAdvisor_FindDoublePaths_MouseEnter);
-            this.textBox_DatabaseAdvisor_FindDoublePaths.MouseLeave += new System.EventHandler(this.textBox_DatabaseAdvisor_FindDoublePaths_MouseLeave);
             // 
             // label_DatabaseAdvisor_FindDoublePaths
             // 
@@ -1159,46 +1105,30 @@
             this.contextMenuStrip_DatabaseAdvisor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createReturnPathToolStripMenuItem,
             this.recalculatePointsToolStripMenuItem,
-            this.getAddonsFromSqlToolStripMenuItem,
-            this.recalculateTextForGossipMenuToolStripMenuItem,
-            this.getPhaseDataForCreatures});
+            this.getAddonsFromSqlToolStripMenuItem});
             this.contextMenuStrip_DatabaseAdvisor.Name = "contextMenuStrip_DatabaseAdvisor";
-            this.contextMenuStrip_DatabaseAdvisor.Size = new System.Drawing.Size(341, 164);
+            this.contextMenuStrip_DatabaseAdvisor.Size = new System.Drawing.Size(258, 100);
             // 
             // createReturnPathToolStripMenuItem
             // 
             this.createReturnPathToolStripMenuItem.Name = "createReturnPathToolStripMenuItem";
-            this.createReturnPathToolStripMenuItem.Size = new System.Drawing.Size(340, 32);
+            this.createReturnPathToolStripMenuItem.Size = new System.Drawing.Size(257, 32);
             this.createReturnPathToolStripMenuItem.Text = "Create return path";
             this.createReturnPathToolStripMenuItem.Click += new System.EventHandler(this.createReturnPathToolStripMenuItem_Click);
             // 
             // recalculatePointsToolStripMenuItem
             // 
             this.recalculatePointsToolStripMenuItem.Name = "recalculatePointsToolStripMenuItem";
-            this.recalculatePointsToolStripMenuItem.Size = new System.Drawing.Size(340, 32);
+            this.recalculatePointsToolStripMenuItem.Size = new System.Drawing.Size(257, 32);
             this.recalculatePointsToolStripMenuItem.Text = "Recalculate point ids";
             this.recalculatePointsToolStripMenuItem.Click += new System.EventHandler(this.recalculatePointsToolStripMenuItem_Click);
             // 
             // getAddonsFromSqlToolStripMenuItem
             // 
             this.getAddonsFromSqlToolStripMenuItem.Name = "getAddonsFromSqlToolStripMenuItem";
-            this.getAddonsFromSqlToolStripMenuItem.Size = new System.Drawing.Size(340, 32);
+            this.getAddonsFromSqlToolStripMenuItem.Size = new System.Drawing.Size(257, 32);
             this.getAddonsFromSqlToolStripMenuItem.Text = "Get addons from SQL";
             this.getAddonsFromSqlToolStripMenuItem.Click += new System.EventHandler(this.getAddonsFromSqlToolStripMenuItem_Click);
-            // 
-            // recalculateTextForGossipMenuToolStripMenuItem
-            // 
-            this.recalculateTextForGossipMenuToolStripMenuItem.Name = "recalculateTextForGossipMenuToolStripMenuItem";
-            this.recalculateTextForGossipMenuToolStripMenuItem.Size = new System.Drawing.Size(340, 32);
-            this.recalculateTextForGossipMenuToolStripMenuItem.Text = "Recalculate text for gossip menu";
-            this.recalculateTextForGossipMenuToolStripMenuItem.Click += new System.EventHandler(this.recalculateTextForGossipMenuToolStripMenuItem_Click);
-            // 
-            // getPhaseDataForCreatures
-            // 
-            this.getPhaseDataForCreatures.Name = "getPhaseDataForCreatures";
-            this.getPhaseDataForCreatures.Size = new System.Drawing.Size(340, 32);
-            this.getPhaseDataForCreatures.Text = "Get phase data for creatures";
-            this.getPhaseDataForCreatures.Click += new System.EventHandler(this.getPhaseDataForCreatures_Click);
             // 
             // textBox_DatabaseAdvisor_GossipMenuText
             // 
@@ -1207,11 +1137,7 @@
             this.textBox_DatabaseAdvisor_GossipMenuText.Name = "textBox_DatabaseAdvisor_GossipMenuText";
             this.textBox_DatabaseAdvisor_GossipMenuText.Size = new System.Drawing.Size(139, 26);
             this.textBox_DatabaseAdvisor_GossipMenuText.TabIndex = 9;
-            this.textBox_DatabaseAdvisor_GossipMenuText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_DatabaseAdvisor_GossipMenuText.Click += new System.EventHandler(this.textBox_DatabaseAdvisor_GossipMenuText_Click);
             this.textBox_DatabaseAdvisor_GossipMenuText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_GossipMenuText_KeyUp);
-            this.textBox_DatabaseAdvisor_GossipMenuText.MouseEnter += new System.EventHandler(this.textBox_DatabaseAdvisor_GossipMenuText_MouseEnter);
-            this.textBox_DatabaseAdvisor_GossipMenuText.MouseLeave += new System.EventHandler(this.textBox_DatabaseAdvisor_GossipMenuText_MouseLeave);
             // 
             // label_DatabaseAdvisor_GossipMenuText
             // 
@@ -1219,9 +1145,9 @@
             this.label_DatabaseAdvisor_GossipMenuText.Location = new System.Drawing.Point(66, 569);
             this.label_DatabaseAdvisor_GossipMenuText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_DatabaseAdvisor_GossipMenuText.Name = "label_DatabaseAdvisor_GossipMenuText";
-            this.label_DatabaseAdvisor_GossipMenuText.Size = new System.Drawing.Size(147, 20);
+            this.label_DatabaseAdvisor_GossipMenuText.Size = new System.Drawing.Size(137, 20);
             this.label_DatabaseAdvisor_GossipMenuText.TabIndex = 8;
-            this.label_DatabaseAdvisor_GossipMenuText.Text = "Get texts for gossip";
+            this.label_DatabaseAdvisor_GossipMenuText.Text = "Gossip Menu Text";
             // 
             // textBox_DatabaseAdvisor_SpellDestinations
             // 
@@ -1267,20 +1193,16 @@
             this.textBox_DatabaseAdvisor_QuestFlags.Name = "textBox_DatabaseAdvisor_QuestFlags";
             this.textBox_DatabaseAdvisor_QuestFlags.Size = new System.Drawing.Size(139, 26);
             this.textBox_DatabaseAdvisor_QuestFlags.TabIndex = 3;
-            this.textBox_DatabaseAdvisor_QuestFlags.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_DatabaseAdvisor_QuestFlags.Click += new System.EventHandler(this.textBox_DatabaseAdvisor_QuestFlags_Click);
             this.textBox_DatabaseAdvisor_QuestFlags.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_QuestFlags_KeyDown);
-            this.textBox_DatabaseAdvisor_QuestFlags.MouseEnter += new System.EventHandler(this.textBox_DatabaseAdvisor_QuestFlags_MouseEnter);
-            this.textBox_DatabaseAdvisor_QuestFlags.MouseLeave += new System.EventHandler(this.textBox_DatabaseAdvisor_QuestFlags_MouseLeave);
             // 
             // label_DatabaseAdvisor_QuestFlags
             // 
             this.label_DatabaseAdvisor_QuestFlags.AutoSize = true;
             this.label_DatabaseAdvisor_QuestFlags.Location = new System.Drawing.Point(87, 209);
             this.label_DatabaseAdvisor_QuestFlags.Name = "label_DatabaseAdvisor_QuestFlags";
-            this.label_DatabaseAdvisor_QuestFlags.Size = new System.Drawing.Size(141, 20);
+            this.label_DatabaseAdvisor_QuestFlags.Size = new System.Drawing.Size(95, 20);
             this.label_DatabaseAdvisor_QuestFlags.TabIndex = 2;
-            this.label_DatabaseAdvisor_QuestFlags.Text = "Get flags for quest";
+            this.label_DatabaseAdvisor_QuestFlags.Text = "Quest Flags";
             // 
             // textBox_DatabaseAdvisor_CreatureFlags
             // 
@@ -1289,11 +1211,7 @@
             this.textBox_DatabaseAdvisor_CreatureFlags.Name = "textBox_DatabaseAdvisor_CreatureFlags";
             this.textBox_DatabaseAdvisor_CreatureFlags.Size = new System.Drawing.Size(140, 26);
             this.textBox_DatabaseAdvisor_CreatureFlags.TabIndex = 1;
-            this.textBox_DatabaseAdvisor_CreatureFlags.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox_DatabaseAdvisor_CreatureFlags.Click += new System.EventHandler(this.textBox_DatabaseAdvisor_CreatureFlags_Click);
             this.textBox_DatabaseAdvisor_CreatureFlags.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_CreatureFlags_KeyDown);
-            this.textBox_DatabaseAdvisor_CreatureFlags.MouseEnter += new System.EventHandler(this.textBox_DatabaseAdvisor_CreatureFlags_MouseEnter);
-            this.textBox_DatabaseAdvisor_CreatureFlags.MouseLeave += new System.EventHandler(this.textBox_DatabaseAdvisor_CreatureFlags_MouseLeave);
             // 
             // label_DatabaseAdvisor_CreatureFlags
             // 
@@ -1301,9 +1219,9 @@
             this.label_DatabaseAdvisor_CreatureFlags.Location = new System.Drawing.Point(77, 89);
             this.label_DatabaseAdvisor_CreatureFlags.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_DatabaseAdvisor_CreatureFlags.Name = "label_DatabaseAdvisor_CreatureFlags";
-            this.label_DatabaseAdvisor_CreatureFlags.Size = new System.Drawing.Size(160, 20);
+            this.label_DatabaseAdvisor_CreatureFlags.Size = new System.Drawing.Size(114, 20);
             this.label_DatabaseAdvisor_CreatureFlags.TabIndex = 0;
-            this.label_DatabaseAdvisor_CreatureFlags.Text = "Get flags for creature";
+            this.label_DatabaseAdvisor_CreatureFlags.Text = "Creature Flags";
             // 
             // tabPage_DoubleSpawnsRemover
             // 
@@ -2249,178 +2167,6 @@
             this.createSQLToolStripMenuItem.Text = "Create SQL";
             this.createSQLToolStripMenuItem.Click += new System.EventHandler(this.createSQLToolStripMenuItem_Click);
             // 
-            // tabPage_ParsedFileAdvisor
-            // 
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.textBox_ParsedFileAdvisor_LosConversationsOrTexts);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.label_ParsedFileAdvisor_LosConversationsOrTexts);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.textBox_ParsedFileAdvisor_QuestConversationsOrTexts);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.label_ParsedFileAdvisor_QuestConversationsOrTexts);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.textBox_ParsedFileAdvisor_SpellDestinations);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.label_ParsedFileAdvisor_SpellDestinations);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.checkBox_ParsedFileAdvisor_CreateDataFile);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.toolStrip_ParsedFileAdvisor);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.textBox_ParsedFileAdvisor_PlayerCastedSpells);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.label_ParsedFileAdvisor_PlayerCastedSpells);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.textBox_ParsedFileAdvisor_AreaTriggerSplines);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.label_ParsedFileAdvisor_AreaTriggerSplines);
-            this.tabPage_ParsedFileAdvisor.Controls.Add(this.textBox_ParsedFileAdvisor_Output);
-            this.tabPage_ParsedFileAdvisor.Location = new System.Drawing.Point(4, 29);
-            this.tabPage_ParsedFileAdvisor.Name = "tabPage_ParsedFileAdvisor";
-            this.tabPage_ParsedFileAdvisor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ParsedFileAdvisor.Size = new System.Drawing.Size(2040, 955);
-            this.tabPage_ParsedFileAdvisor.TabIndex = 9;
-            this.tabPage_ParsedFileAdvisor.Text = "Parsed File Advisor";
-            this.tabPage_ParsedFileAdvisor.UseVisualStyleBackColor = true;
-            // 
-            // textBox_ParsedFileAdvisor_LosConversationsOrTexts
-            // 
-            this.textBox_ParsedFileAdvisor_LosConversationsOrTexts.Enabled = false;
-            this.textBox_ParsedFileAdvisor_LosConversationsOrTexts.Location = new System.Drawing.Point(21, 326);
-            this.textBox_ParsedFileAdvisor_LosConversationsOrTexts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox_ParsedFileAdvisor_LosConversationsOrTexts.Name = "textBox_ParsedFileAdvisor_LosConversationsOrTexts";
-            this.textBox_ParsedFileAdvisor_LosConversationsOrTexts.Size = new System.Drawing.Size(140, 26);
-            this.textBox_ParsedFileAdvisor_LosConversationsOrTexts.TabIndex = 36;
-            this.textBox_ParsedFileAdvisor_LosConversationsOrTexts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_ParsedFileAdvisor_LosConversationsOrTexts_KeyDown);
-            // 
-            // label_ParsedFileAdvisor_LosConversationsOrTexts
-            // 
-            this.label_ParsedFileAdvisor_LosConversationsOrTexts.AutoSize = true;
-            this.label_ParsedFileAdvisor_LosConversationsOrTexts.Location = new System.Drawing.Point(6, 304);
-            this.label_ParsedFileAdvisor_LosConversationsOrTexts.Name = "label_ParsedFileAdvisor_LosConversationsOrTexts";
-            this.label_ParsedFileAdvisor_LosConversationsOrTexts.Size = new System.Drawing.Size(182, 20);
-            this.label_ParsedFileAdvisor_LosConversationsOrTexts.TabIndex = 35;
-            this.label_ParsedFileAdvisor_LosConversationsOrTexts.Text = "Los Conversations/Texts";
-            // 
-            // textBox_ParsedFileAdvisor_QuestConversationsOrTexts
-            // 
-            this.textBox_ParsedFileAdvisor_QuestConversationsOrTexts.Enabled = false;
-            this.textBox_ParsedFileAdvisor_QuestConversationsOrTexts.Location = new System.Drawing.Point(21, 265);
-            this.textBox_ParsedFileAdvisor_QuestConversationsOrTexts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox_ParsedFileAdvisor_QuestConversationsOrTexts.Name = "textBox_ParsedFileAdvisor_QuestConversationsOrTexts";
-            this.textBox_ParsedFileAdvisor_QuestConversationsOrTexts.Size = new System.Drawing.Size(140, 26);
-            this.textBox_ParsedFileAdvisor_QuestConversationsOrTexts.TabIndex = 34;
-            this.textBox_ParsedFileAdvisor_QuestConversationsOrTexts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_ParsedFileAdvisor_QuestConversations_KeyDown);
-            // 
-            // label_ParsedFileAdvisor_QuestConversationsOrTexts
-            // 
-            this.label_ParsedFileAdvisor_QuestConversationsOrTexts.AutoSize = true;
-            this.label_ParsedFileAdvisor_QuestConversationsOrTexts.Location = new System.Drawing.Point(2, 243);
-            this.label_ParsedFileAdvisor_QuestConversationsOrTexts.Name = "label_ParsedFileAdvisor_QuestConversationsOrTexts";
-            this.label_ParsedFileAdvisor_QuestConversationsOrTexts.Size = new System.Drawing.Size(199, 20);
-            this.label_ParsedFileAdvisor_QuestConversationsOrTexts.TabIndex = 33;
-            this.label_ParsedFileAdvisor_QuestConversationsOrTexts.Text = "Quest Conversations/Texts";
-            // 
-            // textBox_ParsedFileAdvisor_SpellDestinations
-            // 
-            this.textBox_ParsedFileAdvisor_SpellDestinations.Enabled = false;
-            this.textBox_ParsedFileAdvisor_SpellDestinations.Location = new System.Drawing.Point(21, 199);
-            this.textBox_ParsedFileAdvisor_SpellDestinations.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox_ParsedFileAdvisor_SpellDestinations.Name = "textBox_ParsedFileAdvisor_SpellDestinations";
-            this.textBox_ParsedFileAdvisor_SpellDestinations.Size = new System.Drawing.Size(140, 26);
-            this.textBox_ParsedFileAdvisor_SpellDestinations.TabIndex = 32;
-            this.textBox_ParsedFileAdvisor_SpellDestinations.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_ParsedFileAdvisor_SpellDestinations_KeyDown);
-            // 
-            // label_ParsedFileAdvisor_SpellDestinations
-            // 
-            this.label_ParsedFileAdvisor_SpellDestinations.AutoSize = true;
-            this.label_ParsedFileAdvisor_SpellDestinations.Location = new System.Drawing.Point(17, 177);
-            this.label_ParsedFileAdvisor_SpellDestinations.Name = "label_ParsedFileAdvisor_SpellDestinations";
-            this.label_ParsedFileAdvisor_SpellDestinations.Size = new System.Drawing.Size(137, 20);
-            this.label_ParsedFileAdvisor_SpellDestinations.TabIndex = 31;
-            this.label_ParsedFileAdvisor_SpellDestinations.Text = "Spell Destinations";
-            // 
-            // checkBox_ParsedFileAdvisor_CreateDataFile
-            // 
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.AutoSize = true;
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.BackColor = System.Drawing.Color.LightGray;
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.Location = new System.Drawing.Point(1732, 10);
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.Name = "checkBox_ParsedFileAdvisor_CreateDataFile";
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.Size = new System.Drawing.Size(161, 29);
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.TabIndex = 30;
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.Text = "Create Data File";
-            this.checkBox_ParsedFileAdvisor_CreateDataFile.UseVisualStyleBackColor = false;
-            // 
-            // toolStrip_ParsedFileAdvisor
-            // 
-            this.toolStrip_ParsedFileAdvisor.BackColor = System.Drawing.Color.LightGray;
-            this.toolStrip_ParsedFileAdvisor.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel_ParsedFileAdvisor_FileStatus,
-            this.toolStripButton_ParsedFileAdvisor_ImportSniff});
-            this.toolStrip_ParsedFileAdvisor.Location = new System.Drawing.Point(3, 3);
-            this.toolStrip_ParsedFileAdvisor.Name = "toolStrip_ParsedFileAdvisor";
-            this.toolStrip_ParsedFileAdvisor.Size = new System.Drawing.Size(2034, 34);
-            this.toolStrip_ParsedFileAdvisor.TabIndex = 16;
-            this.toolStrip_ParsedFileAdvisor.Text = "toolStrip1";
-            // 
-            // toolStripStatusLabel_ParsedFileAdvisor_FileStatus
-            // 
-            this.toolStripStatusLabel_ParsedFileAdvisor_FileStatus.AutoToolTip = true;
-            this.toolStripStatusLabel_ParsedFileAdvisor_FileStatus.Name = "toolStripStatusLabel_ParsedFileAdvisor_FileStatus";
-            this.toolStripStatusLabel_ParsedFileAdvisor_FileStatus.Size = new System.Drawing.Size(131, 27);
-            this.toolStripStatusLabel_ParsedFileAdvisor_FileStatus.Text = "No File Loaded";
-            // 
-            // toolStripButton_ParsedFileAdvisor_ImportSniff
-            // 
-            this.toolStripButton_ParsedFileAdvisor_ImportSniff.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton_ParsedFileAdvisor_ImportSniff.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_ParsedFileAdvisor_ImportSniff.Image")));
-            this.toolStripButton_ParsedFileAdvisor_ImportSniff.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_ParsedFileAdvisor_ImportSniff.Name = "toolStripButton_ParsedFileAdvisor_ImportSniff";
-            this.toolStripButton_ParsedFileAdvisor_ImportSniff.Size = new System.Drawing.Size(128, 29);
-            this.toolStripButton_ParsedFileAdvisor_ImportSniff.Text = "Import Sniff";
-            this.toolStripButton_ParsedFileAdvisor_ImportSniff.Click += new System.EventHandler(this.toolStripButton_ParsedFileAdvisor_ImportSniff_Click);
-            // 
-            // textBox_ParsedFileAdvisor_PlayerCastedSpells
-            // 
-            this.textBox_ParsedFileAdvisor_PlayerCastedSpells.Enabled = false;
-            this.textBox_ParsedFileAdvisor_PlayerCastedSpells.Location = new System.Drawing.Point(21, 134);
-            this.textBox_ParsedFileAdvisor_PlayerCastedSpells.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox_ParsedFileAdvisor_PlayerCastedSpells.Name = "textBox_ParsedFileAdvisor_PlayerCastedSpells";
-            this.textBox_ParsedFileAdvisor_PlayerCastedSpells.Size = new System.Drawing.Size(139, 26);
-            this.textBox_ParsedFileAdvisor_PlayerCastedSpells.TabIndex = 15;
-            this.textBox_ParsedFileAdvisor_PlayerCastedSpells.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_ParsedFileAdvisor_PlayerCastedSpells_KeyDown);
-            // 
-            // label_ParsedFileAdvisor_PlayerCastedSpells
-            // 
-            this.label_ParsedFileAdvisor_PlayerCastedSpells.AutoSize = true;
-            this.label_ParsedFileAdvisor_PlayerCastedSpells.Location = new System.Drawing.Point(17, 112);
-            this.label_ParsedFileAdvisor_PlayerCastedSpells.Name = "label_ParsedFileAdvisor_PlayerCastedSpells";
-            this.label_ParsedFileAdvisor_PlayerCastedSpells.Size = new System.Drawing.Size(154, 20);
-            this.label_ParsedFileAdvisor_PlayerCastedSpells.TabIndex = 14;
-            this.label_ParsedFileAdvisor_PlayerCastedSpells.Text = "Player Casted Spells";
-            // 
-            // textBox_ParsedFileAdvisor_AreaTriggerSplines
-            // 
-            this.textBox_ParsedFileAdvisor_AreaTriggerSplines.Enabled = false;
-            this.textBox_ParsedFileAdvisor_AreaTriggerSplines.Location = new System.Drawing.Point(21, 74);
-            this.textBox_ParsedFileAdvisor_AreaTriggerSplines.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox_ParsedFileAdvisor_AreaTriggerSplines.Name = "textBox_ParsedFileAdvisor_AreaTriggerSplines";
-            this.textBox_ParsedFileAdvisor_AreaTriggerSplines.Size = new System.Drawing.Size(139, 26);
-            this.textBox_ParsedFileAdvisor_AreaTriggerSplines.TabIndex = 13;
-            // 
-            // label_ParsedFileAdvisor_AreaTriggerSplines
-            // 
-            this.label_ParsedFileAdvisor_AreaTriggerSplines.AutoSize = true;
-            this.label_ParsedFileAdvisor_AreaTriggerSplines.Location = new System.Drawing.Point(17, 52);
-            this.label_ParsedFileAdvisor_AreaTriggerSplines.Name = "label_ParsedFileAdvisor_AreaTriggerSplines";
-            this.label_ParsedFileAdvisor_AreaTriggerSplines.Size = new System.Drawing.Size(144, 20);
-            this.label_ParsedFileAdvisor_AreaTriggerSplines.TabIndex = 12;
-            this.label_ParsedFileAdvisor_AreaTriggerSplines.Text = "Areatrigger Splines";
-            // 
-            // textBox_ParsedFileAdvisor_Output
-            // 
-            this.textBox_ParsedFileAdvisor_Output.Font = new System.Drawing.Font("Courier New", 9.75F);
-            this.textBox_ParsedFileAdvisor_Output.Location = new System.Drawing.Point(207, 41);
-            this.textBox_ParsedFileAdvisor_Output.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox_ParsedFileAdvisor_Output.MaxLength = 1000000;
-            this.textBox_ParsedFileAdvisor_Output.Multiline = true;
-            this.textBox_ParsedFileAdvisor_Output.Name = "textBox_ParsedFileAdvisor_Output";
-            this.textBox_ParsedFileAdvisor_Output.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox_ParsedFileAdvisor_Output.Size = new System.Drawing.Size(1830, 903);
-            this.textBox_ParsedFileAdvisor_Output.TabIndex = 11;
-            this.textBox_ParsedFileAdvisor_Output.WordWrap = false;
-            // 
             // statusStrip_LoadedFile
             // 
             this.statusStrip_LoadedFile.BackColor = System.Drawing.Color.LightGray;
@@ -2450,20 +2196,6 @@
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
-            // 
-            // reversePointsOrderToolStripMenuItem_WC
-            // 
-            this.reversePointsOrderToolStripMenuItem_WC.Name = "reversePointsOrderToolStripMenuItem_WC";
-            this.reversePointsOrderToolStripMenuItem_WC.Size = new System.Drawing.Size(288, 32);
-            this.reversePointsOrderToolStripMenuItem_WC.Text = "Reverse Points Order";
-            this.reversePointsOrderToolStripMenuItem_WC.Click += new System.EventHandler(this.reversePointsOrderToolStripMenuItem_Click);
-            // 
-            // setSelectedPointAsFirstToolStripMenuItem_WC
-            // 
-            this.setSelectedPointAsFirstToolStripMenuItem_WC.Name = "setSelectedPointAsFirstToolStripMenuItem_WC";
-            this.setSelectedPointAsFirstToolStripMenuItem_WC.Size = new System.Drawing.Size(288, 32);
-            this.setSelectedPointAsFirstToolStripMenuItem_WC.Text = "Set Selected Point As First";
-            this.setSelectedPointAsFirstToolStripMenuItem_WC.Click += new System.EventHandler(this.setSelectedPointAsFirstToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -2511,10 +2243,6 @@
             this.tabPage1.PerformLayout();
             this.tabPage_ModifierTrees.ResumeLayout(false);
             this.tabPage_ModifierTrees.PerformLayout();
-            this.tabPage_ParsedFileAdvisor.ResumeLayout(false);
-            this.tabPage_ParsedFileAdvisor.PerformLayout();
-            this.toolStrip_ParsedFileAdvisor.ResumeLayout(false);
-            this.toolStrip_ParsedFileAdvisor.PerformLayout();
             this.statusStrip_LoadedFile.ResumeLayout(false);
             this.statusStrip_LoadedFile.PerformLayout();
             this.ResumeLayout(false);
@@ -2555,6 +2283,8 @@
         private System.Windows.Forms.CheckBox checkBox_DoubleSpawnsRemover_Gameobjects;
         private System.Windows.Forms.CheckBox checkBox_DoubleSpawnsRemover_Creatures;
         private System.Windows.Forms.Label label_DoubleSpawnsRemover_GameobjectsRemoved;
+        private System.Windows.Forms.TextBox textBox_DatabaseAdvisor_AreatriggerSplines;
+        private System.Windows.Forms.Label label_DatabaseAdvisor_AreatriggerSplines;
         private System.Windows.Forms.TabPage tabPage_WaypointsCreator;
         internal System.Windows.Forms.DataGridView grid_WaypointsCreator_Waypoints;
         public System.Windows.Forms.ListBox listBox_WaypointsCreator_CreatureGuids;
@@ -2609,6 +2339,8 @@
         public System.Windows.Forms.TreeView treeView_Achievements_ModifierTrees;
         private System.Windows.Forms.Label label_Achievements_ModifierTreeChildNodes;
         public System.Windows.Forms.TreeView treeView_Achievements_ModifierTreeChildNodes;
+        private System.Windows.Forms.TextBox textBox_DatabaseAdvisor_SpellDestinations;
+        private System.Windows.Forms.Label label_DatabaseAdvisor_SpellDestinations;
         private System.Windows.Forms.TabPage tabPage_ConditionsCreator;
         public System.Windows.Forms.ComboBox comboBox_ConditionsCreator_ConditionSourceType;
         private System.Windows.Forms.Label label_ConditionsCreator_ConditionSourceType;
@@ -2640,6 +2372,8 @@
         public System.Windows.Forms.TextBox textBox_DatabaseAdvisor_Output;
         private System.Windows.Forms.TextBox textBox_DatabaseAdvisor_GossipMenuText;
         private System.Windows.Forms.Label label_DatabaseAdvisor_GossipMenuText;
+        private System.Windows.Forms.TextBox textBox_DatabaseAdvisor_PlayerCastedSpells;
+        private System.Windows.Forms.Label label_DatabaseAdvisor_PlayerCasterSpells;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_WaypointsCreator_Guids;
         private System.Windows.Forms.ToolStripMenuItem removeGuidsBeforeSelectedToolStripMenuItem;
         public System.Windows.Forms.CheckBox checkBox_CreatureScriptsCreator_CreateDataFile;
@@ -2648,6 +2382,7 @@
         private System.Windows.Forms.ToolStripMenuItem createReturnPathToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recalculatePointsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createRandomMovementsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateInhabitTypeToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox_DatabaseAdvisor_FindDoublePaths;
         private System.Windows.Forms.Label label_DatabaseAdvisor_FindDoublePaths;
         private System.Windows.Forms.ToolStripMenuItem getAddonsFromSqlToolStripMenuItem;
@@ -2687,30 +2422,6 @@
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox textBox_Phasing_AreaID;
         public System.Windows.Forms.RichTextBox Core_script_creatore_preview;
-        private System.Windows.Forms.TabPage tabPage_ParsedFileAdvisor;
-        public System.Windows.Forms.TextBox textBox_ParsedFileAdvisor_Output;
-        private System.Windows.Forms.Label label_ParsedFileAdvisor_PlayerCastedSpells;
-        private System.Windows.Forms.Label label_ParsedFileAdvisor_AreaTriggerSplines;
-        private System.Windows.Forms.ToolStrip toolStrip_ParsedFileAdvisor;
-        public System.Windows.Forms.ToolStripButton toolStripButton_ParsedFileAdvisor_ImportSniff;
-        public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_ParsedFileAdvisor_FileStatus;
-        public System.Windows.Forms.TextBox textBox_ParsedFileAdvisor_PlayerCastedSpells;
-        public System.Windows.Forms.TextBox textBox_ParsedFileAdvisor_AreaTriggerSplines;
-        public System.Windows.Forms.CheckBox checkBox_ParsedFileAdvisor_CreateDataFile;
-        private System.Windows.Forms.Label label_ParsedFileAdvisor_SpellDestinations;
-        public System.Windows.Forms.TextBox textBox_ParsedFileAdvisor_SpellDestinations;
-        public System.Windows.Forms.TextBox textBox_ParsedFileAdvisor_QuestConversationsOrTexts;
-        private System.Windows.Forms.Label label_ParsedFileAdvisor_QuestConversationsOrTexts;
-        public System.Windows.Forms.TextBox textBox_ParsedFileAdvisor_LosConversationsOrTexts;
-        private System.Windows.Forms.Label label_ParsedFileAdvisor_LosConversationsOrTexts;
-        private System.Windows.Forms.ToolStripMenuItem recalculateTextForGossipMenuToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem getPhaseDataForCreatures;
-        private System.Windows.Forms.ToolStripMenuItem optimizeCirclePathToolStripMenuItem_WC;
-        private System.Windows.Forms.ToolStripMenuItem optimizeRegularPathToolStripMenuItem_WC;
-        private System.Windows.Forms.TextBox textBox_DatabaseAdvisor_FindPossibleFormations;
-        private System.Windows.Forms.Label label_DatabaseAdvisor_FindPossibleFormations;
-        private System.Windows.Forms.ToolStripMenuItem reversePointsOrderToolStripMenuItem_WC;
-        private System.Windows.Forms.ToolStripMenuItem setSelectedPointAsFirstToolStripMenuItem_WC;
     }
 }
 
