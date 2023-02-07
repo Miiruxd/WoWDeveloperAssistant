@@ -5,15 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WoWDeveloperAssistant.Misc;
 
 namespace WoWDeveloperAssistant.Database_Advisor
 {
     public static class AddonsHelper
     {
-        public static void GetAddonsFromSql(string fileName, TextBox textBox)
+        public static string GetAddonsFromSql(string fileName, TextBox textBox)
         {
             if (textBox.Text == "")
-                return;
+                return "";
 
             string[] lines = File.ReadAllLines(fileName);
             List<string> creatureLinkedIds = new List<string>();
@@ -30,7 +31,7 @@ namespace WoWDeveloperAssistant.Database_Advisor
 
                     do
                     {
-                        creatureAddons.Add(GetLinkedIdFromLine(lines[i]), lines[i]);
+                        creatureAddons.Add(LineGetters.GetLinkedIdFromLine(lines[i]), lines[i]);
                         i++;
                     } while (lines[i] != "");
                 }
@@ -40,7 +41,7 @@ namespace WoWDeveloperAssistant.Database_Advisor
 
                     do
                     {
-                        gameobjectAddons.Add(GetLinkedIdFromLine(lines[i]), lines[i]);
+                        gameobjectAddons.Add(LineGetters.GetLinkedIdFromLine(lines[i]), lines[i]);
                         i++;
                     } while (lines[i] != "");
                 }
@@ -48,7 +49,7 @@ namespace WoWDeveloperAssistant.Database_Advisor
 
             foreach (string line in textBox.Text.Split('\n'))
             {
-                string linkedId = GetLinkedIdFromLine(line);
+                string linkedId = LineGetters.GetLinkedIdFromLine(line);
 
                 if (creatureAddons.ContainsKey(linkedId))
                 {
@@ -64,7 +65,7 @@ namespace WoWDeveloperAssistant.Database_Advisor
             {
                 List<string> intersectedLinkedIds = creatureAddons.Keys.Intersect(creatureLinkedIds).ToList();
 
-                output += "INSERT INTO `creature_addon` (`linked_id`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `aiAnimKit`, `movementAnimKit`, `meleeAnimKit`, `auras`, `VerifiedBuild`) VALUES" + "\r\n";
+                output += "INSERT INTO `creature_addon` (`linked_id`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `aiAnimKit`, `movementAnimKit`, `meleeAnimKit`, `auras`, `WorldEffectIDs`, `VerifiedBuild`) VALUES" + "\r\n";
 
                 for (int i = 0; i < creatureLinkedIds.Count; i++)
                 {
@@ -110,25 +111,19 @@ namespace WoWDeveloperAssistant.Database_Advisor
             }
 
             textBox.Text = output;
-        }
-
-        private static string GetLinkedIdFromLine(string line)
-        {
-            if (line.Contains("('"))
-                return line.Split(',')[0].Replace("(", "");
-            else
-                return "";
+            return output;
         }
 
         public static void OpenFileDialog(OpenFileDialog fileDialog)
         {
             fileDialog.Title = "Open File";
-            fileDialog.Filter = "Sql File (*.sql)|*.sql";
+            fileDialog.Filter = "Parsed SQL file with addons (*.sql)|*.sql";
             fileDialog.FileName = "";
             fileDialog.FilterIndex = 1;
             fileDialog.ShowReadOnly = false;
             fileDialog.Multiselect = false;
             fileDialog.CheckFileExists = true;
+            fileDialog.FileName = " ";
         }
     }
 }

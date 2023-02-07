@@ -24,7 +24,11 @@ namespace WoWDeveloperAssistant.Misc
         public Dictionary<uint, Spell> castedSpells;
         public TimeSpan lastUpdatePacketTime;
         public bool hasDisableGravity;
+        public bool isCyclic;
         public string transportGuid;
+        public Dictionary<uint, MonsterMovePacket.FilterKey> filterKeys;
+
+        public Creature() { }
 
         public Creature(UpdateObjectPacket updatePacket)
         {
@@ -40,7 +44,9 @@ namespace WoWDeveloperAssistant.Misc
             auras = new List<Aura>();
             lastUpdatePacketTime = updatePacket.packetSendTime;
             hasDisableGravity = updatePacket.hasDisableGravity;
+            isCyclic = updatePacket.isCyclic;
             transportGuid = updatePacket.transportGuid;
+            filterKeys = updatePacket.filterKeys;
         }
 
         public void UpdateCreature(UpdateObjectPacket updatePacket)
@@ -77,8 +83,16 @@ namespace WoWDeveloperAssistant.Misc
             if (!hasDisableGravity && updatePacket.hasDisableGravity)
                 hasDisableGravity = updatePacket.hasDisableGravity;
 
+            if (!isCyclic && updatePacket.isCyclic)
+                isCyclic = updatePacket.isCyclic;
+
             if (transportGuid == "" && updatePacket.transportGuid != "")
                 transportGuid = updatePacket.transportGuid;
+
+            if (filterKeys.Count == 0)
+            {
+                filterKeys = updatePacket.filterKeys;
+            }
         }
 
         public void UpdateSpells(SpellStartPacket spellPacket)
@@ -222,7 +236,14 @@ namespace WoWDeveloperAssistant.Misc
 
         public void SortWaypoints()
         {
-            waypoints = new List<Waypoint>(from waypoint in waypoints orderby waypoint.idFromParse orderby waypoint.packetNumber select waypoint);
+            if (waypoints.Where(x => x.packetNumber == -1).Count() != 0)
+            {
+                waypoints = new List<Waypoint>(from waypoint in waypoints orderby waypoint.idFromParse orderby waypoint.moveStartTime select waypoint);
+            }
+            else
+            {
+                waypoints = new List<Waypoint>(from waypoint in waypoints orderby waypoint.idFromParse orderby waypoint.packetNumber select waypoint);
+            }
         }
 
         public string GetSpawnDifficulties()
@@ -230,8 +251,8 @@ namespace WoWDeveloperAssistant.Misc
             if (MapIsAzeriteExpeditions((uint)mapId))
                 return "38 39 40 45";
 
-            if (DBC.DBC.MapDifficultyStores.ContainsKey((int)mapId))
-                return DBC.DBC.MapDifficultyStores[(int)mapId];
+            if (DB2.Db2.MapDifficultyStore.ContainsKey((uint)mapId))
+                return DB2.Db2.MapDifficultyStore[(uint)mapId];
 
             if (MapIsContinent((uint)mapId))
                 return "0";
@@ -376,6 +397,8 @@ namespace WoWDeveloperAssistant.Misc
                 case 1643: // Kultiras
                 case 1642: // Zandalar
                 case 1718: // Nazjatar
+                case 2241: // New Uldum
+                case 2222: // Shadowlands
                     return true;
                 default:
                     return false;

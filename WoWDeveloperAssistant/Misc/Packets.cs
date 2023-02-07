@@ -4,8 +4,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using WoWDeveloperAssistant.Creature_Scripts_Creator;
+using WoWDeveloperAssistant.Parsed_File_Advisor;
 using WoWDeveloperAssistant.Waypoints_Creator;
 using static WoWDeveloperAssistant.Database_Advisor.CreatureFlagsAdvisor;
+using static WoWDeveloperAssistant.Misc.Packets.Packet;
 using static WoWDeveloperAssistant.Misc.Utils;
 
 namespace WoWDeveloperAssistant.Misc
@@ -26,43 +28,39 @@ namespace WoWDeveloperAssistant.Misc
 
             public enum PacketTypes : byte
             {
-                UNKNOWN_PACKET       = 0,
-                SMSG_UPDATE_OBJECT   = 1,
-                SMSG_AI_REACTION     = 2,
-                SMSG_SPELL_START     = 3,
-                SMSG_CHAT            = 4,
-                SMSG_ON_MONSTER_MOVE = 5,
-                SMSG_ATTACK_STOP     = 6,
-                SMSG_AURA_UPDATE     = 7,
-                SMSG_EMOTE           = 8,
-                SMSG_SPELL_GO        = 9,
-                SMSG_SET_AI_ANIM_KIT = 10
+                UNKNOWN_PACKET,
+                SMSG_UPDATE_OBJECT,
+                SMSG_AI_REACTION,
+                SMSG_SPELL_START,
+                SMSG_CHAT,
+                SMSG_ON_MONSTER_MOVE,
+                SMSG_ATTACK_STOP,
+                SMSG_AURA_UPDATE,
+                SMSG_EMOTE,
+                SMSG_SPELL_GO,
+                SMSG_SET_AI_ANIM_KIT,
+                CMSG_QUEST_GIVER_ACCEPT_QUEST,
+                SMSG_QUEST_GIVER_QUEST_COMPLETE,
+                CMSG_MOVE_START_FORWARD,
+                CMSG_MOVE_STOP,
+                CMSG_MOVE_HEARTBEAT,
+                SMSG_QUEST_UPDATE_ADD_CREDIT,
+                SMSG_QUEST_UPDATE_COMPLETE
             }
 
             public static PacketTypes GetPacketTypeFromLine(string line)
             {
-                PacketTypes packetType = PacketTypes.UNKNOWN_PACKET;
+                foreach (string packetName in Enum.GetNames(typeof(PacketTypes)))
+                {
+                    if (line.Contains(packetName))
+                    {
+                        Regex packetnameRegex = new Regex(packetName + @"{1}\s+");
+                        if (packetnameRegex.IsMatch(line))
+                            return (PacketTypes)Enum.Parse(typeof(PacketTypes), packetnameRegex.Match(line).ToString());
+                    }
+                }
 
-                if (line.Contains("SMSG_UPDATE_OBJECT"))
-                    packetType = PacketTypes.SMSG_UPDATE_OBJECT;
-                else if (line.Contains("SMSG_SPELL_START"))
-                    packetType = PacketTypes.SMSG_SPELL_START;
-                else if (line.Contains("SMSG_ON_MONSTER_MOVE"))
-                    packetType = PacketTypes.SMSG_ON_MONSTER_MOVE;
-                else if (line.Contains("SMSG_AURA_UPDATE"))
-                    packetType = PacketTypes.SMSG_AURA_UPDATE;
-                else if (line.Contains("SMSG_EMOTE"))
-                    packetType = PacketTypes.SMSG_EMOTE;
-                else if (line.Contains("SMSG_ATTACK_STOP"))
-                    packetType = PacketTypes.SMSG_ATTACK_STOP;
-                else if (line.Contains("SMSG_SET_AI_ANIM_KIT"))
-                    packetType = PacketTypes.SMSG_SET_AI_ANIM_KIT;
-                else if (line.Contains("SMSG_AI_REACTION"))
-                    packetType = PacketTypes.SMSG_AI_REACTION;
-                else if (line.Contains("SMSG_CHAT"))
-                    packetType = PacketTypes.SMSG_CHAT;
-
-                return packetType;
+                return PacketTypes.UNKNOWN_PACKET;
             }
 
             public bool HasCreatureWithGuid(string guid)
@@ -151,6 +149,16 @@ namespace WoWDeveloperAssistant.Misc
                         return false;
                 }
             }
+
+            public static bool IsPlayerMovePacket(PacketTypes packetType)
+            {
+                return packetType == PacketTypes.CMSG_MOVE_START_FORWARD || packetType == PacketTypes.CMSG_MOVE_STOP || packetType == PacketTypes.CMSG_MOVE_HEARTBEAT;
+            }
+
+            public static bool IsQuestPacket(PacketTypes packetType)
+            {
+                return packetType == PacketTypes.CMSG_QUEST_GIVER_ACCEPT_QUEST || packetType == PacketTypes.SMSG_QUEST_GIVER_QUEST_COMPLETE || packetType == PacketTypes.SMSG_QUEST_UPDATE_ADD_CREDIT || packetType == PacketTypes.SMSG_QUEST_UPDATE_COMPLETE;
+            }
         }
 
         [Serializable]
@@ -161,9 +169,10 @@ namespace WoWDeveloperAssistant.Misc
             public TimeSpan spellCastTime;
             public TimeSpan spellCastStartTime;
             public Position spellDestination;
+            public PacketTypes type;
 
-            public SpellStartPacket(string guid, uint id, TimeSpan castTime, TimeSpan startTime, Position spellDest)
-            { casterGuid = guid; spellId = id; spellCastTime = castTime; spellCastStartTime = startTime; spellDestination = spellDest; }
+            public SpellStartPacket(string guid, uint id, TimeSpan castTime, TimeSpan startTime, Position spellDest, PacketTypes type)
+            { casterGuid = guid; spellId = id; spellCastTime = castTime; spellCastStartTime = startTime; spellDestination = spellDest; this.type = type; }
 
             public static uint GetSpellIdFromLine(string line)
             {
@@ -211,9 +220,9 @@ namespace WoWDeveloperAssistant.Misc
                 return firstLine.Contains("CasterGUID: TypeName: Player;") || secondLine.Contains("CasterUnit: TypeName: Player;");
             }
 
-            public static SpellStartPacket ParseSpellStartPacket(string[] lines, long index, BuildVersions buildVersion, bool playerPacket = false)
+            public static SpellStartPacket ParseSpellStartPacket(string[] lines, long index, BuildVersions buildVersion, PacketTypes type, bool playerPacket = false)
             {
-                SpellStartPacket spellPacket = new SpellStartPacket("", 0, new TimeSpan(), LineGetters.GetTimeSpanFromLine(lines[index]), new Position());
+                SpellStartPacket spellPacket = new SpellStartPacket("", 0, new TimeSpan(), LineGetters.GetTimeSpanFromLine(lines[index]), new Position(), type);
 
                 if (playerPacket)
                 {
@@ -319,6 +328,10 @@ namespace WoWDeveloperAssistant.Misc
                     while (lines[index] != "");
 
                     chatPacket.creatureEntry = CreatureScriptsCreator.GetCreatureEntryByGuid(chatPacket.creatureGuid);
+                    if (chatPacket.creatureEntry == 0)
+                    {
+                        chatPacket.creatureEntry = ParsedFileAdvisor.GetCreatureEntryByGuid(chatPacket.creatureGuid);
+                    }
                 }
 
                 return chatPacket;
@@ -342,17 +355,31 @@ namespace WoWDeveloperAssistant.Misc
             public uint? sheatheState;
             public uint? standState;
             public bool hasDisableGravity;
+            public bool isCyclic;
             public uint moveTime;
             public uint? unitFlags;
             public MonsterMovePacket.JumpInfo jumpInfo;
+            public ConversationData conversationData;
+            public Dictionary<uint, MonsterMovePacket.FilterKey> filterKeys;
 
-            public UpdateObjectPacket(ObjectTypes objectType, uint entry, string guid, string transportGuid, string name, int curHealth, uint maxHealth, TimeSpan time, Position spawnPos, uint? mapId, List<Waypoint> waypoints, uint? emote, uint? sheatheState, uint? standState, bool hasDisableGravity, uint moveTime, uint? unitFlags, MonsterMovePacket.JumpInfo jumpInfo)
-            { this.objectType = objectType; this.entry = entry; this.guid = guid; this.transportGuid = transportGuid; currentHealth = curHealth; this.maxHealth = maxHealth; packetSendTime = time; spawnPosition = spawnPos; this.mapId = mapId; this.waypoints = waypoints; emoteStateId = emote; this.sheatheState = sheatheState; this.standState = standState; this.hasDisableGravity = hasDisableGravity; this.moveTime = moveTime; this.unitFlags = unitFlags; this.jumpInfo = jumpInfo; }
+            public UpdateObjectPacket(ObjectTypes objectType, uint entry, string guid, string transportGuid, string name, int curHealth, uint maxHealth, TimeSpan time, Position spawnPos, uint? mapId, List<Waypoint> waypoints, uint? emote, uint? sheatheState, uint? standState, bool hasDisableGravity, bool isCyclic, uint moveTime, uint? unitFlags, MonsterMovePacket.JumpInfo jumpInfo, ConversationData conversationData, Dictionary<uint, MonsterMovePacket.FilterKey> filterKeys)
+            { this.objectType = objectType; this.entry = entry; this.guid = guid; this.transportGuid = transportGuid; currentHealth = curHealth; this.maxHealth = maxHealth; packetSendTime = time; spawnPosition = spawnPos; this.mapId = mapId; this.waypoints = waypoints; emoteStateId = emote; this.sheatheState = sheatheState; this.standState = standState; this.hasDisableGravity = hasDisableGravity; this.isCyclic = isCyclic; this.moveTime = moveTime; this.unitFlags = unitFlags; this.jumpInfo = jumpInfo; this.conversationData = conversationData; this.filterKeys = filterKeys; }
 
             public enum ObjectTypes
             {
-                Unit       = 5,
-                GameObject = 8
+                Unit         = 5,
+                GameObject   = 8,
+                Conversation = 13
+            }
+
+            [Serializable]
+            public struct ConversationData
+            {
+                public List<KeyValuePair<string, uint>> conversationActors;
+                public List<KeyValuePair<uint, uint?>> conversationLines;
+
+                public ConversationData(List<KeyValuePair<string, uint>> conversationActors, List<KeyValuePair<uint, uint?>> conversationLines)
+                { this.conversationActors = conversationActors; this.conversationLines = conversationLines; }
             }
 
             public static bool IsLineValidForObjectParse(string line)
@@ -377,9 +404,12 @@ namespace WoWDeveloperAssistant.Misc
 
             public static uint GetEntryFromLine(string line)
             {
-                Regex entryRegexField = new Regex(@"EntryID:{1}\s*\d+");
+                Regex objectType = new Regex(@"ServerId:{1}\s+\d+;{1}\s+Entry:{1}\s+");
+                Regex entryRegexField = new Regex(@"ServerId:{1}\s+\d+;{1}\s+Entry:{1}\s+\d+");
+
                 if (entryRegexField.IsMatch(line))
-                    return Convert.ToUInt32(entryRegexField.Match(line).ToString().Replace("EntryID: ", ""));
+                    return Convert.ToUInt32(entryRegexField.Match(line).ToString().Replace(objectType.Match(line).ToString(), ""));
+
                 return 0;
             }
 
@@ -462,7 +492,7 @@ namespace WoWDeveloperAssistant.Misc
 
             public static bool GetDisableGravityFromLine(string line)
             {
-                if (line.Contains("MovementFlags:") && line.Contains("MOVEMENTFLAG_DISABLE_GRAVITY"))
+                if (line.Contains("MovementFlags:") && line.Contains("DisableGravity"))
                     return true;
 
                 return false;
@@ -566,6 +596,59 @@ namespace WoWDeveloperAssistant.Misc
                 return false;
             }
 
+            public static uint GetConversationLineIdFromLine(string line)
+            {
+                Regex conversationLineIdRegex = new Regex(@"ConversationLineID:{1}\s{1}\w+");
+                if (conversationLineIdRegex.IsMatch(line))
+                    return Convert.ToUInt32(conversationLineIdRegex.Match(line).ToString().Replace("ConversationLineID: ", ""));
+
+                return 0;
+            }
+
+            public static uint? GetActorIndexFromLine(string line)
+            {
+                Regex actorIndexRegex = new Regex(@"ActorIndex:{1}\s{1}\w+");
+                if (actorIndexRegex.IsMatch(line))
+                    return Convert.ToUInt32(actorIndexRegex.Match(line).ToString().Replace("ActorIndex: ", ""));
+
+                return null;
+            }
+
+            public static KeyValuePair<string, uint> GetActorDataFromLine(string line, BuildVersions buildVersion)
+            {
+                string actorGuid = LineGetters.GetGuidFromLine(line, buildVersion, conversationActorGuid: true);
+                uint actorIndex = 0;
+
+                Regex actorIndexRegex = new Regex(@"\(ConversationData\) \(Actors\){1}\s\[{1}\w+\]{1}");
+                if (actorIndexRegex.IsMatch(line))
+                {
+                    actorIndex = Convert.ToUInt32(actorIndexRegex.Match(line).ToString().Replace("(ConversationData) (Actors) [", "").Replace("]", ""));
+                }
+
+                return new KeyValuePair<string, uint>(actorGuid, actorIndex);
+            }
+
+            public static uint? GetFilterKeysCountFromLine(string line)
+            {
+                Regex filterKeysCountRegex = new Regex(@"FilterKeysCount:{1}\s{1}\w+");
+                if (filterKeysCountRegex.IsMatch(line))
+                    return Convert.ToUInt32(filterKeysCountRegex.Match(line).ToString().Replace("FilterKeysCount: ", ""));
+
+                return null;
+            }
+
+            public static float GetFilterKeyFromLine(string line)
+            {
+                Regex inRegex = new Regex(@"In:{1}\s+.+");
+                Regex outRegex = new Regex(@"Out:{1}\s+.+");
+                if (inRegex.IsMatch(line))
+                    return float.Parse(inRegex.Match(line).ToString().Replace("In: ", ""), CultureInfo.InvariantCulture.NumberFormat);
+                else if (outRegex.IsMatch(line))
+                    return float.Parse(outRegex.Match(line).ToString().Replace("Out: ", ""), CultureInfo.InvariantCulture.NumberFormat);
+
+                return 0.0f;
+            }
+
             public static IEnumerable<UpdateObjectPacket> ParseObjectUpdatePacket(string[] lines, long index, BuildVersions buildVersion, long packetNumber)
             {
                 TimeSpan packetSendTime = LineGetters.GetTimeSpanFromLine(lines[index]);
@@ -575,9 +658,10 @@ namespace WoWDeveloperAssistant.Misc
                 {
                     if ((lines[index].Contains("UpdateType: CreateObject1") || lines[index].Contains("UpdateType: CreateObject2")) && ObjectIsValidForParse(lines[index + 1]))
                     {
-                        UpdateObjectPacket updatePacket = new UpdateObjectPacket(0, 0, LineGetters.GetGuidFromLine(lines[index + 1], buildVersion, objectFieldGuid: true), "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, 0, null, new MonsterMovePacket.JumpInfo());
-                        UpdateObjectPacket tempUpdatePacket = new UpdateObjectPacket(0, 0, "", "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, 0, null, new MonsterMovePacket.JumpInfo());
+                        UpdateObjectPacket updatePacket = new UpdateObjectPacket(0, 0, LineGetters.GetGuidFromLine(lines[index + 1], buildVersion, objectFieldGuid: true), "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, false, 0, null, new MonsterMovePacket.JumpInfo(), new ConversationData(), new Dictionary<uint, MonsterMovePacket.FilterKey>());
+                        UpdateObjectPacket tempUpdatePacket = new UpdateObjectPacket(0, 0, "", "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, false, 0, null, new MonsterMovePacket.JumpInfo(), new ConversationData(), new Dictionary<uint, MonsterMovePacket.FilterKey>());
                         Position tempPointPosition = new Position();
+                        uint? filterKeysCount = null;
 
                         do
                         {
@@ -679,6 +763,17 @@ namespace WoWDeveloperAssistant.Misc
                                 }
                             }
 
+                            if (!updatePacket.isCyclic)
+                            {
+                                tempUpdatePacket.isCyclic = MonsterMovePacket.GetCyclicFromLine(lines[index]);
+                                if (tempUpdatePacket.isCyclic)
+                                {
+                                    updatePacket.isCyclic = tempUpdatePacket.isCyclic;
+                                    index++;
+                                    continue;
+                                }
+                            }
+
                             if (updatePacket.moveTime == 0 || updatePacket.jumpInfo.moveTime == 0)
                             {
                                 tempUpdatePacket.moveTime = GetDurationFromLine(lines[index]);
@@ -729,6 +824,45 @@ namespace WoWDeveloperAssistant.Misc
                                 }
                             }
 
+                            if (!updatePacket.isCyclic)
+                            {
+                                tempUpdatePacket.isCyclic = MonsterMovePacket.GetCyclicFromLine(lines[index]);
+                                if (tempUpdatePacket.isCyclic)
+                                {
+                                    updatePacket.isCyclic = tempUpdatePacket.isCyclic;
+                                    index++;
+                                    continue;
+                                }
+                            }
+
+                            if (filterKeysCount == null)
+                            {
+                                filterKeysCount = GetFilterKeysCountFromLine(lines[index]);
+                                if (filterKeysCount != null)
+                                {
+                                    for (uint i = 0; i < filterKeysCount; i++)
+                                    {
+                                        MonsterMovePacket.FilterKey filterKey = new MonsterMovePacket.FilterKey();
+
+                                        for (uint j = 0; j < 2; j++)
+                                        {
+                                            index++;
+
+                                            if (j == 0)
+                                            {
+                                                filterKey.In = GetFilterKeyFromLine(lines[index]);
+                                            }
+                                            else
+                                            {
+                                                filterKey.Out = GetFilterKeyFromLine(lines[index]);
+                                            }
+                                        }
+
+                                        updatePacket.filterKeys.Add(i, filterKey);
+                                    }
+                                }
+                            }
+
                             index++;
                         }
                         while (IsLineValidForObjectParse(lines[index]));
@@ -736,13 +870,13 @@ namespace WoWDeveloperAssistant.Misc
                         if (updatePacket.entry == 0 || updatePacket.guid == "")
                             continue;
 
-                        if (Properties.Settings.Default.CombatMovement && updatePacket.unitFlags != null && ((UnitFlags)updatePacket.unitFlags & UnitFlags.UNIT_FLAG_IN_COMBAT) != 0)
+                        if (Properties.Settings.Default.CombatMovement && updatePacket.unitFlags != null && ((UnitFlags)updatePacket.unitFlags & UnitFlags.AffectingCombat) != 0)
                         {
                             updatePacket.waypoints.Clear();
                         }
-                        else
+                        else if (updatePacket.waypoints.Count != 0)
                         {
-                            float velocity = MonsterMovePacket.GetWaypointsVelocity(updatePacket.waypoints, updatePacket.spawnPosition, updatePacket.moveTime);
+                            float velocity = MonsterMovePacket.GetWaypointsVelocity(updatePacket.waypoints, updatePacket.isCyclic ? updatePacket.waypoints.First().movePosition : updatePacket.spawnPosition, updatePacket.moveTime);
 
                             if (velocity != 0.0f)
                             {
@@ -784,8 +918,8 @@ namespace WoWDeveloperAssistant.Misc
                     }
                     else if (lines[index].Contains("UpdateType: Values") && ObjectIsValidForParse(lines[index + 1]))
                     {
-                        UpdateObjectPacket updatePacket = new UpdateObjectPacket(0, 0, LineGetters.GetGuidFromLine(lines[index + 1], buildVersion), "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, 0, null, new MonsterMovePacket.JumpInfo());
-                        UpdateObjectPacket tempUpdatePacket = new UpdateObjectPacket(0, 0, "", "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, 0, null, new MonsterMovePacket.JumpInfo());
+                        UpdateObjectPacket updatePacket = new UpdateObjectPacket(0, 0, LineGetters.GetGuidFromLine(lines[index + 1], buildVersion), "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, false, 0, null, new MonsterMovePacket.JumpInfo(), new ConversationData(), new Dictionary<uint, MonsterMovePacket.FilterKey>());
+                        UpdateObjectPacket tempUpdatePacket = new UpdateObjectPacket(0, 0, "", "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, false, 0, null, new MonsterMovePacket.JumpInfo(), new ConversationData(), new Dictionary<uint, MonsterMovePacket.FilterKey>());
 
                         do
                         {
@@ -808,6 +942,17 @@ namespace WoWDeveloperAssistant.Misc
                                 if (tempUpdatePacket.hasDisableGravity)
                                 {
                                     updatePacket.hasDisableGravity = tempUpdatePacket.hasDisableGravity;
+                                    index++;
+                                    continue;
+                                }
+                            }
+
+                            if (!updatePacket.isCyclic)
+                            {
+                                tempUpdatePacket.isCyclic = MonsterMovePacket.GetCyclicFromLine(lines[index]);
+                                if (tempUpdatePacket.isCyclic)
+                                {
+                                    updatePacket.isCyclic = tempUpdatePacket.isCyclic;
                                     index++;
                                     continue;
                                 }
@@ -884,6 +1029,70 @@ namespace WoWDeveloperAssistant.Misc
 
                         --index;
                     }
+                    else if ((lines[index].Contains("UpdateType: CreateObject1") || lines[index].Contains("UpdateType: CreateObject2")) && lines[index + 1].IsConversationLine())
+                    {
+                        UpdateObjectPacket updatePacket = new UpdateObjectPacket(0, 0, LineGetters.GetGuidFromLine(lines[index + 1], buildVersion), "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, false, 0, null, new MonsterMovePacket.JumpInfo(), new ConversationData(new List<KeyValuePair<string, uint>>(), new List<KeyValuePair<uint, uint?>>()), new Dictionary<uint, MonsterMovePacket.FilterKey>());
+                        UpdateObjectPacket tempUpdatePacket = new UpdateObjectPacket(0, 0, "", "", "Unknown", -1, 0, packetSendTime, new Position(), null, new List<Waypoint>(), null, null, null, false, false, 0, null, new MonsterMovePacket.JumpInfo(), new ConversationData(), new Dictionary<uint, MonsterMovePacket.FilterKey>());
+
+                        do
+                        {
+                            if (updatePacket.objectType == 0)
+                            {
+                                tempUpdatePacket.objectType = (ObjectTypes)GetObjectTypeFromLine(lines[index]);
+
+                                if (tempUpdatePacket.objectType != 0)
+                                {
+                                    updatePacket.objectType = tempUpdatePacket.objectType;
+                                    index++;
+                                    continue;
+                                }
+                            }
+
+                            if (updatePacket.entry == 0)
+                            {
+                                tempUpdatePacket.entry = GetEntryFromLine(lines[index]);
+
+                                if (tempUpdatePacket.entry != 0)
+                                {
+                                    updatePacket.entry = tempUpdatePacket.entry;
+                                    index++;
+                                    continue;
+                                }
+                            }
+
+                            if (GetConversationLineIdFromLine(lines[index]) != 0)
+                            {
+                                uint conversationLineId = GetConversationLineIdFromLine(lines[index]);
+
+                                do
+                                {
+                                    if (GetActorIndexFromLine(lines[index]) != null)
+                                    {
+                                        updatePacket.conversationData.conversationLines.Add(new KeyValuePair<uint, uint?>(conversationLineId, GetActorIndexFromLine(lines[index])));
+                                    }
+
+                                    index++;
+                                } while (!lines[index].Contains("ConversationLineID") && lines[index].Contains("Lines"));
+
+                                index--;
+                            }
+
+                            if (LineGetters.GetGuidFromLine(lines[index], buildVersion, conversationActorGuid: true) != "")
+                            {
+                                updatePacket.conversationData.conversationActors.Add(GetActorDataFromLine(lines[index], buildVersion));
+                            }
+
+                            index++;
+                        }
+                        while (IsLineValidForObjectParse(lines[index]));
+
+                        if (updatePacket.entry == 0)
+                            continue;
+
+                        updatePacketsList.Add(updatePacket);
+
+                        --index;
+                    }
 
                     index++;
 
@@ -912,6 +1121,7 @@ namespace WoWDeveloperAssistant.Misc
                 MOVE_MAX    = 5
             };
 
+            [Serializable]
             public struct JumpInfo
             {
                 public uint moveTime;
@@ -926,6 +1136,13 @@ namespace WoWDeveloperAssistant.Misc
                     return moveTime != 0 && jumpGravity != 0.0f && jumpPos.IsValid();
                 }
             }
+
+            [Serializable]
+            public struct FilterKey
+            {
+                public float In;
+                public float Out;
+            };
 
             public MonsterMovePacket(string guid, float orientation, TimeSpan time, List<Waypoint> waypoints, uint moveTime, Position pos, JumpInfo jump)
             { creatureGuid = guid; creatureOrientation = orientation; packetSendTime = time; this.waypoints = waypoints; this.moveTime = moveTime; startPos = pos; jumpInfo = jump; }
@@ -1044,6 +1261,19 @@ namespace WoWDeveloperAssistant.Misc
                 return false;
             }
 
+            public static bool GetCyclicFromLine(string line)
+            {
+                if (line.Contains("Flags:"))
+                {
+                    if (line.Contains("Cyclic"))
+                        return true;
+                    else
+                        return false;
+                }
+
+                return false;
+            }
+
             public static float GetWaypointsDistance(List<Waypoint> waypoints, Position startPosition)
             {
                 if (waypoints.Count() == 0)
@@ -1086,7 +1316,7 @@ namespace WoWDeveloperAssistant.Misc
 
                 for (int i = creatureUpdateObjectPackets.Count() - 1; i >= 0; i--)
                 {
-                    if (creatureUpdateObjectPackets[i].unitFlags != null && ((UnitFlags)creatureUpdateObjectPackets[i].unitFlags & UnitFlags.UNIT_FLAG_IN_COMBAT) == 0)
+                    if (creatureUpdateObjectPackets[i].unitFlags != null && ((UnitFlags)creatureUpdateObjectPackets[i].unitFlags & UnitFlags.AffectingCombat) == 0)
                     {
                         firstNonCombatPacketFromDescent = creatureUpdateObjectPackets[i];
                         break;
@@ -1095,7 +1325,7 @@ namespace WoWDeveloperAssistant.Misc
 
                 for (int i = creatureUpdateObjectPackets.Count() - 1; i >= 0; i--)
                 {
-                    if (creatureUpdateObjectPackets[i].unitFlags != null && ((UnitFlags)creatureUpdateObjectPackets[i].unitFlags & UnitFlags.UNIT_FLAG_IN_COMBAT) != 0)
+                    if (creatureUpdateObjectPackets[i].unitFlags != null && ((UnitFlags)creatureUpdateObjectPackets[i].unitFlags & UnitFlags.AffectingCombat) != 0)
                     {
                         firstCombatPacketFromDescent = creatureUpdateObjectPackets[i];
                         break;
@@ -1115,12 +1345,14 @@ namespace WoWDeveloperAssistant.Misc
                 MonsterMovePacket movePacket = new MonsterMovePacket(LineGetters.GetGuidFromLine(lines[index + 1], buildVersion, moverGuid: true), 0.0f, LineGetters.GetTimeSpanFromLine(lines[index]), new List<Waypoint>(), 0, new Position(), new JumpInfo());
                 MonsterMovePacket tempMovePacket = new MonsterMovePacket("", 0.0f, LineGetters.GetTimeSpanFromLine(lines[index]), new List<Waypoint>(), 0, new Position(), new JumpInfo());
                 bool tempFlying = false;
+                bool tempCyclic = false;
                 Position tempPointPosition = new Position();
 
                 if (LineGetters.IsCreatureLine(lines[index + 1]))
                 {
                     Position lastPosition = new Position();
                     bool isFlying = false;
+                    bool isCyclic = false;
 
                     do
                     {
@@ -1167,6 +1399,17 @@ namespace WoWDeveloperAssistant.Misc
                             if (tempFlying)
                             {
                                 isFlying = tempFlying;
+                                index++;
+                                continue;
+                            }
+                        }
+
+                        if (!isCyclic)
+                        {
+                            tempCyclic = GetCyclicFromLine(lines[index]);
+                            if (tempCyclic)
+                            {
+                                isCyclic = tempCyclic;
                                 index++;
                                 continue;
                             }
@@ -1257,7 +1500,7 @@ namespace WoWDeveloperAssistant.Misc
                     if (movePacket.creatureGuid == "")
                         return movePacket;
 
-                    float velocity = GetWaypointsVelocity(movePacket.waypoints, movePacket.startPos, movePacket.moveTime);
+                    float velocity = GetWaypointsVelocity(movePacket.waypoints, isCyclic ? movePacket.waypoints.First().movePosition : movePacket.startPos, movePacket.moveTime);
 
                     if (velocity != 0.0f)
                     {
@@ -1294,6 +1537,7 @@ namespace WoWDeveloperAssistant.Misc
                 MonsterMovePacket movePacket = new MonsterMovePacket(LineGetters.GetGuidFromLine(lines[index + 1], buildVersion, moverGuid: true), 0.0f, LineGetters.GetTimeSpanFromLine(lines[index]), new List<Waypoint>(), 0, new Position(), new JumpInfo());
                 MonsterMovePacket tempMovePacket = new MonsterMovePacket("", 0.0f, LineGetters.GetTimeSpanFromLine(lines[index]), new List<Waypoint>(), 0, new Position(), new JumpInfo());
                 bool tempFlying = false;
+                bool tempCyclic = false;
                 Position tempPointPosition = new Position();
                 bool skipCombatMovement = Properties.Settings.Default.CombatMovement;
 
@@ -1304,6 +1548,7 @@ namespace WoWDeveloperAssistant.Misc
 
                     Position lastPosition = new Position();
                     bool isFlying = false;
+                    bool isCyclic = false;
 
                     do
                     {
@@ -1350,6 +1595,17 @@ namespace WoWDeveloperAssistant.Misc
                             if (tempFlying)
                             {
                                 isFlying = tempFlying;
+                                index++;
+                                continue;
+                            }
+                        }
+
+                        if (!isCyclic)
+                        {
+                            tempCyclic = GetCyclicFromLine(lines[index]);
+                            if (tempCyclic)
+                            {
+                                isCyclic = tempCyclic;
                                 index++;
                                 continue;
                             }
@@ -1445,7 +1701,7 @@ namespace WoWDeveloperAssistant.Misc
                     if (movePacket.creatureGuid == "")
                         return movePacket;
 
-                    float velocity = GetWaypointsVelocity(movePacket.waypoints, movePacket.startPos, movePacket.moveTime);
+                    float velocity = GetWaypointsVelocity(movePacket.waypoints, isCyclic ? movePacket.waypoints.First().movePosition : movePacket.startPos, movePacket.moveTime);
 
                     if (velocity != 0.0f)
                     {
@@ -1476,6 +1732,177 @@ namespace WoWDeveloperAssistant.Misc
                                 }
                             }
                         }
+                    }
+                }
+
+                return movePacket;
+            }
+
+            public static MonsterMovePacket ParseMovementPacket(string[] lines, long index, BuildVersions buildVersion)
+            {
+                MonsterMovePacket movePacket = new MonsterMovePacket(LineGetters.GetGuidFromLine(lines[index + 1], buildVersion, moverGuid: true), 0.0f, LineGetters.GetTimeSpanFromLine(lines[index]), new List<Waypoint>(), 0, new Position(), new JumpInfo());
+                MonsterMovePacket tempMovePacket = new MonsterMovePacket("", 0.0f, LineGetters.GetTimeSpanFromLine(lines[index]), new List<Waypoint>(), 0, new Position(), new JumpInfo());
+                bool tempFlying = false;
+                bool tempCyclic = false;
+                Position tempPointPosition = new Position();
+
+                if (LineGetters.IsCreatureLine(lines[index + 1]))
+                {
+                    Position lastPosition = new Position();
+                    bool isFlying = false;
+                    bool isCyclic = false;
+
+                    do
+                    {
+                        if (!movePacket.startPos.IsValid())
+                        {
+                            tempMovePacket.startPos = GetStartPositionFromLine(lines[index]);
+
+                            if (tempMovePacket.startPos.IsValid())
+                            {
+                                movePacket.startPos = tempMovePacket.startPos;
+                                index++;
+                                continue;
+                            }
+                        }
+
+                        if (movePacket.moveTime == 0)
+                        {
+                            tempMovePacket.moveTime = GetMoveTimeFromLine(lines[index]);
+
+                            if (tempMovePacket.moveTime != 0)
+                            {
+                                movePacket.moveTime = tempMovePacket.moveTime;
+                                index++;
+                                continue;
+                            }
+                        }
+
+                        if (movePacket.creatureOrientation == 0.0f)
+                        {
+                            tempMovePacket.creatureOrientation = GetFaceDirectionFromLine(lines[index]);
+
+                            if (tempMovePacket.creatureOrientation != 0.0f)
+                            {
+                                movePacket.creatureOrientation = tempMovePacket.creatureOrientation;
+                                index++;
+                                continue;
+                            }
+                        }
+
+                        if (!isFlying)
+                        {
+                            tempFlying = GetFlyingFromLine(lines[index]);
+
+                            if (tempFlying)
+                            {
+                                isFlying = tempFlying;
+                                index++;
+                                continue;
+                            }
+                        }
+
+                        if (!isCyclic)
+                        {
+                            tempCyclic = GetCyclicFromLine(lines[index]);
+                            if (tempCyclic)
+                            {
+                                isCyclic = tempCyclic;
+                                index++;
+                                continue;
+                            }
+                        }
+
+                        if (!tempPointPosition.IsValid())
+                        {
+                            tempPointPosition = GetPointPositionFromLine(lines[index]);
+
+                            if (tempPointPosition.IsValid())
+                            {
+                                if (ConsistsOfPoints(lines[index], lines[index + 1]))
+                                {
+                                    uint pointId = 1;
+
+                                    do
+                                    {
+                                        Position point = GetPointPositionFromLine(lines[index]);
+
+                                        if (point.IsValid())
+                                        {
+                                            Waypoint wp = new Waypoint(point, 0.0f, 0, movePacket.startPos, movePacket.moveTime, movePacket.packetSendTime, new TimeSpan(), new List<WaypointScript>(), pointId, isFlying == true ? MoveType.MOVE_FLIGHT : MoveType.MOVE_MAX);
+                                            wp.packetNumber = -1;
+                                            movePacket.waypoints.Add(wp);
+                                            pointId++;
+                                        }
+
+                                        index++;
+                                    }
+                                    while (lines[index] != "");
+                                }
+                                else
+                                {
+                                    lastPosition = tempPointPosition;
+
+                                    uint pointId = 1;
+
+                                    do
+                                    {
+                                        Position waypoint = GetWayPointPositionFromLine(lines[index]);
+
+                                        if (waypoint.IsValid())
+                                        {
+                                            Waypoint wp = new Waypoint(waypoint, 0.0f, 0, movePacket.startPos, movePacket.moveTime, movePacket.packetSendTime, new TimeSpan(), new List<WaypointScript>(), pointId, isFlying == true ? MoveType.MOVE_FLIGHT : MoveType.MOVE_MAX);
+                                            wp.packetNumber = -1;
+                                            movePacket.waypoints.Add(wp);
+                                            pointId++;
+                                        }
+
+                                        if (movePacket.jumpInfo.jumpGravity == 0.0f)
+                                        {
+                                            tempMovePacket.jumpInfo.jumpGravity = GetJumpGravityFromLine(lines[index]);
+
+                                            if (tempMovePacket.jumpInfo.jumpGravity != 0.0f)
+                                            {
+                                                movePacket.jumpInfo.jumpGravity = tempMovePacket.jumpInfo.jumpGravity;
+                                            }
+                                        }
+
+                                        index++;
+                                    }
+                                    while (lines[index] != "");
+
+                                    index--;
+                                }
+
+                                if (lastPosition.IsValid())
+                                {
+                                    if (movePacket.jumpInfo.jumpGravity != 0.0f)
+                                    {
+                                        movePacket.jumpInfo.moveTime = movePacket.moveTime;
+                                        movePacket.jumpInfo.jumpPos = lastPosition;
+                                    }
+                                    else
+                                    {
+                                        Waypoint wp = new Waypoint(lastPosition, 0.0f, 0, movePacket.startPos, movePacket.moveTime, movePacket.packetSendTime, new TimeSpan(), new List<WaypointScript>(), (uint)(movePacket.waypoints.Count + 1), isFlying == true ? MoveType.MOVE_FLIGHT : MoveType.MOVE_MAX);
+                                        wp.packetNumber = -1;
+                                        movePacket.waypoints.Add(wp);
+                                    }
+                                }
+                            }
+                        }
+
+                        index++;
+                    }
+                    while (lines[index] != "");
+
+                    if (movePacket.creatureGuid == "")
+                        return movePacket;
+
+                    if (movePacket.waypoints.Count == 0 && movePacket.HasOrientation())
+                    {
+                        Waypoint wp = new Waypoint(lastPosition, movePacket.creatureOrientation, 0, movePacket.startPos, movePacket.moveTime, movePacket.packetSendTime, new TimeSpan(), new List<WaypointScript>(), (uint)(movePacket.waypoints.Count + 1), isFlying == true ? MoveType.MOVE_FLIGHT : MoveType.MOVE_MAX);
+                        wp.packetNumber = -1;
+                        movePacket.waypoints.Add(wp);
                     }
                 }
 
@@ -1700,7 +2127,7 @@ namespace WoWDeveloperAssistant.Misc
                 return 0;
             }
 
-            public static EmotePacket ParseEmotePacket(string[] lines, long index, BuildVersions buildVersion)
+            public static EmotePacket ParseEmotePacket(string[] lines, long index)
             {
                 EmotePacket emotePacket = new EmotePacket("", 0, LineGetters.GetTimeSpanFromLine(lines[index]));
 
@@ -1748,7 +2175,7 @@ namespace WoWDeveloperAssistant.Misc
                 return null;
             }
 
-            public static SetAiAnimKitPacket ParseSetAiAnimKitPacket(string[] lines, long index, BuildVersions buildVersion)
+            public static SetAiAnimKitPacket ParseSetAiAnimKitPacket(string[] lines, long index)
             {
                 SetAiAnimKitPacket animPacket = new SetAiAnimKitPacket("", 0, LineGetters.GetTimeSpanFromLine(lines[index]));
 
@@ -1765,6 +2192,206 @@ namespace WoWDeveloperAssistant.Misc
                 while (lines[index] != "");
 
                 return animPacket;
+            }
+        }
+
+        [Serializable]
+        public struct QuestGiverAcceptQuestPacket
+        {
+            public uint questId;
+            public TimeSpan packetSendTime;
+
+            public QuestGiverAcceptQuestPacket(uint questId, TimeSpan time)
+            { this.questId = questId; packetSendTime = time; }
+
+            public static QuestGiverAcceptQuestPacket ParseQuestGiverAcceptQuestPacket(string[] lines, long index)
+            {
+                QuestGiverAcceptQuestPacket questAcceptPacket = new QuestGiverAcceptQuestPacket(0, LineGetters.GetTimeSpanFromLine(lines[index]));
+
+                do
+                {
+                    if (GetQuestIdFromLine(lines[index]) != 0)
+                        questAcceptPacket.questId = GetQuestIdFromLine(lines[index]);
+
+                    index++;
+                }
+                while (lines[index] != "");
+
+                return questAcceptPacket;
+            }
+
+            private static uint GetQuestIdFromLine(string line)
+            {
+                Regex questIdRegex = new Regex(@"QuestID:{1}\s{1}\d+");
+                if (questIdRegex.IsMatch(line))
+                    return Convert.ToUInt32(questIdRegex.Match(line).ToString().Replace("QuestID: ", ""));
+
+                return 0;
+            }
+        }
+
+        [Serializable]
+        public struct QuestGiverQuestCompletePacket
+        {
+            public uint questId;
+            public TimeSpan packetSendTime;
+
+            public QuestGiverQuestCompletePacket(uint questId, TimeSpan time)
+            { this.questId = questId; packetSendTime = time; }
+
+            public static QuestGiverQuestCompletePacket ParseQuestGiverQuestCompletePacket(string[] lines, long index)
+            {
+                QuestGiverQuestCompletePacket questCompletePacket = new QuestGiverQuestCompletePacket(0, LineGetters.GetTimeSpanFromLine(lines[index]));
+
+                do
+                {
+                    if (GetQuestIdFromLine(lines[index]) != 0)
+                        questCompletePacket.questId = GetQuestIdFromLine(lines[index]);
+
+                    index++;
+                }
+                while (lines[index] != "");
+
+                return questCompletePacket;
+            }
+
+            private static uint GetQuestIdFromLine(string line)
+            {
+                Regex questIdRegex = new Regex(@"QuestId:{1}\s{1}\d+");
+                if (questIdRegex.IsMatch(line))
+                    return Convert.ToUInt32(questIdRegex.Match(line).ToString().Replace("QuestId: ", ""));
+
+                return 0;
+            }
+        }
+
+        [Serializable]
+        public struct PlayerMovePacket
+        {
+            public string playerGuid;
+            public Position position;
+            public TimeSpan packetSendTime;
+
+            public PlayerMovePacket(string playerGuid, Position position, TimeSpan time)
+            { this.playerGuid = playerGuid; this.position = position; packetSendTime = time; }
+
+            public static PlayerMovePacket ParsePlayerMovePacket(string[] lines, long index, BuildVersions buildVersion)
+            {
+                PlayerMovePacket playerMovePacket = new PlayerMovePacket("", new Position(), LineGetters.GetTimeSpanFromLine(lines[index]));
+
+                do
+                {
+                    if (LineGetters.GetGuidFromLine(lines[index], buildVersion, moverGuid: true) != "")
+                        playerMovePacket.playerGuid = LineGetters.GetGuidFromLine(lines[index], buildVersion, moverGuid: true);
+
+                    if (GetPositionFromLine(lines[index]).IsValid())
+                        playerMovePacket.position = GetPositionFromLine(lines[index]);
+
+                    index++;
+                }
+                while (lines[index] != "");
+
+                return playerMovePacket;
+            }
+
+            public static Position GetPositionFromLine(string line)
+            {
+                Position position = new Position();
+
+                Regex xyzRegex = new Regex(@"Position:{1}\s{1}X:{1}.+");
+                if (xyzRegex.IsMatch(line))
+                {
+                    string[] splittedLine = xyzRegex.Match(line).ToString().Replace("Position: X: ", "").Split(' ');
+
+                    position.x = float.Parse(splittedLine[0], CultureInfo.InvariantCulture.NumberFormat);
+                    position.y = float.Parse(splittedLine[2], CultureInfo.InvariantCulture.NumberFormat);
+                    position.z = float.Parse(splittedLine[4], CultureInfo.InvariantCulture.NumberFormat);
+                }
+
+                return position;
+            }
+        }
+
+        [Serializable]
+        public struct QuestUpdateAddCreditPacket
+        {
+            public uint questId;
+            public uint objectId;
+            public TimeSpan packetSendTime;
+
+            public QuestUpdateAddCreditPacket(uint questId, uint objectId, TimeSpan time)
+            { this.questId = questId; this.objectId = objectId; packetSendTime = time; }
+
+            public static QuestUpdateAddCreditPacket ParseQuestUpdateAddCreditPacket(string[] lines, long index)
+            {
+                QuestUpdateAddCreditPacket addCreditPacket = new QuestUpdateAddCreditPacket(0, 0, LineGetters.GetTimeSpanFromLine(lines[index]));
+
+                do
+                {
+                    if (GetQuestIdFromLine(lines[index]) != 0)
+                        addCreditPacket.questId = GetQuestIdFromLine(lines[index]);
+
+                    if (GetObjectIdFromLine(lines[index]) != 0)
+                        addCreditPacket.objectId = GetObjectIdFromLine(lines[index]);
+
+                    index++;
+                }
+                while (lines[index] != "");
+
+                return addCreditPacket;
+            }
+
+            private static uint GetQuestIdFromLine(string line)
+            {
+                Regex questIdRegex = new Regex(@"QuestID:{1}\s{1}\d+");
+                if (questIdRegex.IsMatch(line))
+                    return Convert.ToUInt32(questIdRegex.Match(line).ToString().Replace("QuestID: ", ""));
+
+                return 0;
+            }
+
+            private static uint GetObjectIdFromLine(string line)
+            {
+                Regex questIdRegex = new Regex(@"ObjectID:{1}\s{1}\d+");
+                if (questIdRegex.IsMatch(line))
+                    return Convert.ToUInt32(questIdRegex.Match(line).ToString().Replace("ObjectID: ", ""));
+
+                return 0;
+            }
+        }
+
+        [Serializable]
+        public struct QuestUpdateCompletePacket
+        {
+            public uint questId;
+            public TimeSpan packetSendTime;
+
+            public QuestUpdateCompletePacket(uint questId, TimeSpan time)
+            { this.questId = questId; packetSendTime = time; }
+
+            public static QuestUpdateCompletePacket ParseQuestUpdateCompletePacket(string[] lines, long index)
+            {
+                QuestUpdateCompletePacket addCreditPacket = new QuestUpdateCompletePacket(0, LineGetters.GetTimeSpanFromLine(lines[index]));
+
+                do
+                {
+                    if (GetQuestIdFromLine(lines[index]) != 0)
+                        addCreditPacket.questId = GetQuestIdFromLine(lines[index]);
+
+                    index++;
+                }
+                while (lines[index] != "");
+
+                return addCreditPacket;
+            }
+
+            private static uint GetQuestIdFromLine(string line)
+            {
+                Regex questIdRegex = new Regex(@"QuestID:{1}\s{1}\d+");
+                if (questIdRegex.IsMatch(line))
+                    return Convert.ToUInt32(questIdRegex.Match(line).ToString().Replace("QuestID: ", ""));
+
+                return 0;
             }
         }
     }

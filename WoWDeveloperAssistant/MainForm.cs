@@ -10,6 +10,7 @@ using WoWDeveloperAssistant.Achievements;
 using WoWDeveloperAssistant.Creature_Scripts_Creator;
 using WoWDeveloperAssistant.Conditions_Creator;
 using WoWDeveloperAssistant.Phasing;
+using WoWDeveloperAssistant.Parsed_File_Advisor;
 
 namespace WoWDeveloperAssistant
 {
@@ -21,8 +22,10 @@ namespace WoWDeveloperAssistant
         private readonly WaypointsCreator waypointsCreator;
         private readonly CoreScriptTemplates coreScriptTemplate;
         private static Dictionary<uint, string> creatureNamesDict;
+        private static Dictionary<uint, string> questNamesDict;
         private readonly ConditionsCreator conditionsCreator;
         private readonly PhasingHandler phasingHandler;
+        private readonly ParsedFileAdvisor parsedFileAdvisor;
 
         public MainForm()
         {
@@ -33,12 +36,15 @@ namespace WoWDeveloperAssistant
             coreScriptTemplate = new CoreScriptTemplates(this);
             conditionsCreator = new ConditionsCreator(this);
             phasingHandler = new PhasingHandler(this);
+            parsedFileAdvisor = new ParsedFileAdvisor(this);
 
             creatureNamesDict = new Dictionary<uint, string>();
+            questNamesDict = new Dictionary<uint, string>();
 
             if (Properties.Settings.Default.UsingDB)
             {
                 creatureNamesDict = Misc.Utils.GetCreatureNamesFromDB();
+                questNamesDict = Misc.Utils.GetQuestNamesFromDB();
             }
         }
 
@@ -46,6 +52,14 @@ namespace WoWDeveloperAssistant
         {
             if (creatureNamesDict.ContainsKey(creatureEntry))
                 return creatureNamesDict[creatureEntry];
+
+            return "Unknown";
+        }
+
+        public static string GetQuestNameById(uint questId)
+        {
+            if (questNamesDict.ContainsKey(questId))
+                return questNamesDict[questId];
 
             return "Unknown";
         }
@@ -79,10 +93,10 @@ namespace WoWDeveloperAssistant
             {
                 creatureScriptsCreator.ImportStarted();
 
-                if (!DBC.DBC.IsLoaded())
+                if (!DB2.Db2.IsLoaded())
                 {
                     SetCurrentStatus("Loading DBC...");
-                    DBC.DBC.Load();
+                    DB2.Db2.Load();
                 }
 
                 if (creatureScriptsCreator.GetDataFromFiles(openFileDialog.FileNames) != 0)
@@ -185,12 +199,7 @@ namespace WoWDeveloperAssistant
         {
             if (e.KeyCode == Keys.Enter)
             {
-                AreatriggerSplineCreator.OpenFileDialog(openFileDialog);
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    AreatriggerSplineCreator.ParseSplinesForAreatrigger(openFileDialog.FileName, textBox_DatabaseAdvisor_AreatriggerSplines.Text);
-                }
             }
         }
 
@@ -202,10 +211,10 @@ namespace WoWDeveloperAssistant
             {
                 waypointsCreator.ImportStarted();
 
-                if (!DBC.DBC.IsLoaded())
+                if (!DB2.Db2.IsLoaded())
                 {
                     SetCurrentStatus("Loading DBC...");
-                    DBC.DBC.Load();
+                    DB2.Db2.Load();
                 }
 
                 if (waypointsCreator.GetDataFromFiles(openFileDialog.FileNames) != 0)
@@ -386,20 +395,12 @@ namespace WoWDeveloperAssistant
             treeView_Achievements_ModifierTreeChildNodes.Nodes.Clear();
         }
 
-        private void textBox_SpellDestinations_KeyUp(object sender, KeyEventArgs e)
+        private void textBox_ParsedFileAdvisor_SpellDestinations_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter)
                 return;
 
-            if (textBox_DatabaseAdvisor_SpellDestinations.Text == "" || textBox_DatabaseAdvisor_SpellDestinations.Text == "0")
-                return;
-
-            SpellDestinationsParser.OpenFileDialog(openFileDialog);
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                SpellDestinationsParser.ParseSpellDestinations(openFileDialog.FileName, textBox_DatabaseAdvisor_SpellDestinations.Text);
-            }
+            parsedFileAdvisor.ParseSpellDestinations();
         }
 
         private void comboBox_ConditionSourceType_DropDown(object sender, EventArgs e)
@@ -474,20 +475,12 @@ namespace WoWDeveloperAssistant
             textBox_DatabaseAdvisor_Output.Text = GossipMenuAdvisor.GetTextForGossipMenu(textBox_DatabaseAdvisor_GossipMenuText.Text);
         }
 
-        private void textBox_PlayerCastedSpells_KeyDown(object sender, KeyEventArgs e)
+        private void textBox_ParsedFileAdvisor_PlayerCastedSpells_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter)
                 return;
 
-            if (textBox_DatabaseAdvisor_PlayerCastedSpells.Text == "")
-                return;
-
-            PlayerCastedSpellsParser.OpenFileDialog(openFileDialog);
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                textBox_DatabaseAdvisor_Output.Text = PlayerCastedSpellsParser.ParsePlayerCastedSpells(openFileDialog.FileName, textBox_DatabaseAdvisor_PlayerCastedSpells.Text);
-            }
+            parsedFileAdvisor.ParsePlayerCastedSpells();
         }
 
         private void removeGuidsBeforeSelectedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -508,11 +501,6 @@ namespace WoWDeveloperAssistant
         private void createRandomMovementsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             waypointsCreator.AddRandomMovement();
-        }
-
-        private void updateInhabitTypeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            waypointsCreator.UpdateInhabitTypeAndSpeed();
         }
 
         private void textBox_DatabaseAdvisor_FindDoublePaths_KeyDown(object sender, KeyEventArgs e)
@@ -598,9 +586,210 @@ namespace WoWDeveloperAssistant
             creatureScriptsCreator.GenerateCombatAISQL();
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void toolStripButton_ParsedFileAdvisor_ImportSniff_Click(object sender, EventArgs e)
         {
+            parsedFileAdvisor.OpenFileDialog();
 
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                parsedFileAdvisor.ImportStarted();
+
+                if (!DB2.Db2.IsLoaded())
+                {
+                    DB2.Db2.Load();
+                }
+
+                if (parsedFileAdvisor.GetDataFromFiles(openFileDialog.FileNames) != 0)
+                {
+                    parsedFileAdvisor.ImportSuccessful();
+                }
+                else
+                {
+                    parsedFileAdvisor.ImportFailed();
+                }
+            }
+        }
+
+        private void textBox_ParsedFileAdvisor_QuestConversations_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+                return;
+
+            parsedFileAdvisor.ParseQuestConversations();
+        }
+
+        private void textBox_ParsedFileAdvisor_LosConversationsOrTexts_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+                return;
+
+            parsedFileAdvisor.ParseLosConversationsOrTexts();
+        }
+
+        private void recalculateTextForGossipMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NpcTextAdvisor.GetNpcTextForGossipMenu(textBox_DatabaseAdvisor_Output);
+        }
+
+        private void getPhaseDataForCreatures_Click(object sender, EventArgs e)
+        {
+            AddonsHelper.OpenFileDialog(openFileDialog);
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                PhaseDataAdvisor.GetPhaseDataForCreatures(textBox_DatabaseAdvisor_Output, openFileDialog.FileName);
+            }
+        }
+
+        private void optimizeCirclePathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            waypointsCreator.OptimizeCirclePath();
+        }
+
+        private void optimizeRegularPathToolStripMenuItem_WC_Click(object sender, EventArgs e)
+        {
+            waypointsCreator.OptimizeRegularPath();
+        }
+
+        private void textBox_DatabaseAdvisor_FindDoublePaths_MouseEnter(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_FindDoublePaths.Text == "")
+            {
+                textBox_DatabaseAdvisor_FindDoublePaths.Text = "Enter Zone Id";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_FindDoublePaths_MouseLeave(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_FindDoublePaths.Text == "Enter Zone Id")
+            {
+                textBox_DatabaseAdvisor_FindDoublePaths.Text = "";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_FindDoublePaths_Click(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_FindDoublePaths.Text == "Enter Zone Id")
+            {
+                textBox_DatabaseAdvisor_FindDoublePaths.Text = "";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_GossipMenuText_MouseEnter(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_GossipMenuText.Text == "")
+            {
+                textBox_DatabaseAdvisor_GossipMenuText.Text = "Enter Gossip Menu Id";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_GossipMenuText_MouseLeave(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_GossipMenuText.Text == "Enter Gossip Menu Id")
+            {
+                textBox_DatabaseAdvisor_GossipMenuText.Text = "";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_GossipMenuText_Click(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_GossipMenuText.Text == "Enter Gossip Menu Id")
+            {
+                textBox_DatabaseAdvisor_GossipMenuText.Text = "";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_QuestFlags_MouseEnter(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_QuestFlags.Text == "")
+            {
+                textBox_DatabaseAdvisor_QuestFlags.Text = "Enter Quest Id";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_QuestFlags_MouseLeave(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_QuestFlags.Text == "Enter Quest Id")
+            {
+                textBox_DatabaseAdvisor_QuestFlags.Text = "";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_QuestFlags_Click(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_QuestFlags.Text == "Enter Quest Id")
+            {
+                textBox_DatabaseAdvisor_QuestFlags.Text = "";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_CreatureFlags_MouseEnter(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_CreatureFlags.Text == "")
+            {
+                textBox_DatabaseAdvisor_CreatureFlags.Text = "Enter Creature Entry";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_CreatureFlags_MouseLeave(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_CreatureFlags.Text == "Enter Creature Entry")
+            {
+                textBox_DatabaseAdvisor_CreatureFlags.Text = "";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_CreatureFlags_Click(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_CreatureFlags.Text == "Enter Creature Entry")
+            {
+                textBox_DatabaseAdvisor_CreatureFlags.Text = "";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_FindPossibleFormations_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+                return;
+
+            if (textBox_DatabaseAdvisor_FindPossibleFormations.Text == "")
+                return;
+
+            PossibleFormationsFinder.FindPossibleFormations(textBox_DatabaseAdvisor_Output, textBox_DatabaseAdvisor_FindPossibleFormations.Text);
+        }
+
+        private void textBox_DatabaseAdvisor_FindPossibleFormations_MouseEnter(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_FindPossibleFormations.Text == "")
+            {
+                textBox_DatabaseAdvisor_FindPossibleFormations.Text = "Enter Zone Id";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_FindPossibleFormations_MouseLeave(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_FindPossibleFormations.Text == "Enter Zone Id")
+            {
+                textBox_DatabaseAdvisor_FindPossibleFormations.Text = "";
+            }
+        }
+
+        private void textBox_DatabaseAdvisor_FindPossibleFormations_Click(object sender, EventArgs e)
+        {
+            if (textBox_DatabaseAdvisor_FindPossibleFormations.Text == "Enter Zone Id")
+            {
+                textBox_DatabaseAdvisor_FindPossibleFormations.Text = "";
+            }
+        }
+
+        private void reversePointsOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            waypointsCreator.ReversePointsOrder();
+        }
+
+        private void setSelectedPointAsFirstToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            waypointsCreator.SetSelectedPointAsFirst();
         }
     }
 }
